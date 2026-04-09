@@ -1,3 +1,7 @@
+# corestack-frontend
+
+CoreStack - A scalable multi-product dashboard platform for interview preparation, notes, and productivity tools built with Angular.
+
 # App1
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.1.

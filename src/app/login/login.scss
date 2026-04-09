@@ -1,0 +1,38 @@
+.signUp-card{
+    display: grid;
+    gap: 1rem;
+    width: 50%;
+    padding: 2rem;
+    position: relative;
+    top: 8rem;
+    left: 21rem;
+
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+}
+
+.grid-col{
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 15px 20px; 
+}
+
+.grid{
+    display: grid;
+}
+
+label{
+    color: #fff;
+}
+
+.errorText{
+    color: #f87171;
+    font-size: 12px;
+    margin-top: 4px;
+}

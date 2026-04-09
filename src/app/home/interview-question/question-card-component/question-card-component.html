@@ -1,0 +1,56 @@
+<div class="question-card">
+  <details>
+    <summary class="question-title">
+      {{ question.question }}
+    </summary>
+
+    <div class="answer-block">
+      @if (question.description) {
+        <p class="answer-text">{{ question.description }}</p>
+      }
+
+      @if (question.content?.text) {
+        <div class="answer-text">
+          <h4>{{ question.content.text }}</h4>
+        </div>
+      }
+
+      @if (question.content?.list?.length) {
+        <ul class="answer-list">
+          @for (item of question.content.list; track item) {
+            <li>{{ item }}</li>
+          }
+        </ul>
+      }
+
+      @if (question.content?.table) {
+        <div class="answer-table">
+          <table>
+            <thead>
+              <tr>
+                @for (column of question.content.table.columns; track column) {
+                  <th>{{ column }}</th>
+                }
+              </tr>
+            </thead>
+            <tbody>
+              @for (row of question.content.table.rows; track row) {
+                <tr>
+                  @for (cell of row; track cell) {
+                    <td>{{ cell }}</td>
+                  }
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+
+      @if (question.content?.code) {
+        <div class="answer-code">
+          <pre><code>{{ question.content.code }}</code></pre>
+        </div>
+      }
+    </div>
+  </details>
+</div>

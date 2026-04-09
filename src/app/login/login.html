@@ -1,0 +1,67 @@
+<div class="signUp-card">
+  <form class="grid" style="gap: 1rem" (ngSubmit)="loginValidation()" [formGroup]="signUpForm">
+    <div class="grid-col">
+      @if (!isRegistered) {
+        <div class="grid">
+          <label for="">First Name</label>
+          <input type="text" formControlName="firstName" />
+          @if (signUpForm.get('firstName')?.touched && signUpForm.get('firstName')?.invalid) {
+            <small class="errorText">Enter First Name</small>
+          }
+        </div>
+
+        <div class="grid">
+          <label for="">Last Name</label>
+          <input type="text" formControlName="lastName" />
+          @if (signUpForm.get('lastName')?.touched && signUpForm.get('lastName')?.invalid) {
+            <small class="errorText">Enter Last Name</small>
+          }
+        </div>
+      }
+
+      <div class="grid">
+        <label for="">Email</label>
+        <input type="email" formControlName="email" />
+        @if (signUpForm.get('email')?.touched && signUpForm.get('email')?.invalid) {
+          <small class="errorText">Enter Email</small>
+        }
+      </div>
+      <div class="grid">
+        <label for="">Contact</label>
+        <input type="tel" formControlName="contact" />
+        @if (signUpForm.get('contact')?.touched && signUpForm.get('contact')?.invalid) {
+          <small class="errorText">Enter Contact</small>
+        }
+      </div>
+
+      <div class="grid">
+        <label for="">password</label>
+        <input type="password" formControlName="password" />
+        @if (signUpForm.get('password')?.touched && signUpForm.get('password')?.invalid) {
+          <small class="errorText">Enter password</small>
+        }
+      </div>
+      @if (!isRegistered) {
+        <div class="grid">
+          <label for="">re-enter password</label>
+          <input type="password" formControlName="reEnterPassword" />
+          @if (
+            signUpForm.get('reEnterPassword')?.touched && signUpForm.get('reEnterPassword')?.invalid
+          ) {
+            <small class="errorText">Enter repassword</small>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="">
+      <button type="submit">
+        {{ isRegistered ? 'sing In' : 'Sign Up' }}
+      </button>
+    </div>
+  </form>
+  <button (click)="toggleMode()">
+    {{ isRegistered ? 'Not Registered?' : 'Alredy Registered?' }}
+  </button>
+  <small class="errorText">{{errorMsg}}</small>
+</div>

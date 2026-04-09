@@ -1,0 +1,552 @@
+1) login page
+2) image carousel
+3) e-commerce website that allows users to browse products and 
+purchase them. (example Amazon )
+4) Design an autocomplete UI component that allows users to enter a 
+search term into a text box, a list of search results appear in a 
+popup and the user can select a result. (example google)
+5) Design a news feed application that contains a list of 
+feed posts users can interact with. (example facebook)
+
+6) QA
+  i) Accordian
+  ii) Cards
+  iii) pagination
+  iv) search
+  v) tabs
+  
+
+<!-- List of task -->
+<section class="angular-card">
+  <span class="angular-header">Bounteous X Accolite</span>
+  <details>
+    <summary>Introduction</summary>
+    <p>
+      I have around 4 years of experience as a Frontend Engineer at Digit Insurance, working
+      primarily with Angular, TypeScript, HTML, and CSS. I have built enterprise applications such
+      as a KYC portal from scratch and a dynamic configuration-driven UI for Group Medical Coverage
+      products. In addition to feature development, I handled responsibilities similar to a team
+      lead for about 1.5 years, including code reviews, task allocation, debugging critical
+      production issues, and collaborating with backend teams for API integration. My focus has been
+      on building scalable, performance-optimized Angular applications using RxJS, modular
+      architecture, and reusable components.
+    </p>
+  </details>
+  <details>
+    <summary>Agile Methodology</summary>
+    <p>
+      Agile is an iterative software development methodology where development is done in short
+      cycles called sprints (usually 2 weeks).
+    </p>
+
+    <h4>Common Agile ceremonies:</h4>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Ceremony</th>
+          <th>Purpose</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Sprint</td>
+          <td>Planning decide tasks for sprint</td>
+        </tr>
+        <tr>
+          <td>Daily Standup</td>
+          <td>daily progress meeting</td>
+        </tr>
+        <tr>
+          <td>Sprint Review</td>
+          <td>demo completed features</td>
+        </tr>
+        <tr>
+          <td>Sprint Retrospective</td>
+          <td>discuss improvements</td>
+        </tr>
+      </tbody>
+    </table>
+  </details>
+  <details>
+    <summary>Component communication (Parent-Child vs Sibling component communication)</summary>
+    <p>
+      There are three main ways: Scenario Method Parent → Child @Input() Child → Parent @Output() Sibling Shared Service Example @Input() userName: string; @Output() notify = new EventEmitter();
+    </p>
+  </details>
+    <details>
+    <summary>Advantage of using Angular over other UI language</summary>
+    <p>
+        Advantages of Angular:
+
+"Component-based architecture",
+"Built-in dependency injection",
+
+"Powerful CLI",
+
+"Two-way data binding",
+
+"RxJS for reactive programming",
+
+"Strong TypeScript support"
+
+Angular is ideal for large enterprise applications.
+    </p>
+  </details>
+  <details>
+    <summary>Lifecyle Hook in Angular</summary>
+    <p>
+        <!-- ngOnChanges(): Runs before ngOnInit() when @Input() properties change.
+        ngOnInit(): Called once after the first ngOnChanges() for initialization.
+        ngDoCheck(): Executes immediately after ngOnChanges()/ngOnInit() to detect custom changes.
+        ngAfterContentInit(): Called once after projected content (<ng-content>) is initialized.
+        ngAfterContentChecked(): Runs after ngAfterContentInit() and every subsequent ngDoCheck().
+        ngAfterViewInit(): Called once after component and child views are initialized.
+        ngAfterViewChecked(): Runs after ngAfterViewInit() and every subsequent ngAfterContentChecked().
+        ngOnDestroy(): Executes just before component destruction for cleanup. -->
+    </p>
+  </details>
+  <details>
+    <summary>Reactive Forms Module</summary>
+    <p>Reactive forms are model-driven forms where form state is managed in the component.</p>
+    <pre><code>{{ myCodeSnippet }}</code></pre>
+<!-- Benefits:
+
+better validation
+
+easier testing
+
+scalable -->
+
+
+  </details>
+  <details>
+    <summary>Common Components reuse in Angular</summary>
+    <p></p>
+  </details>
+    <details>
+    <summary>Authentication and Autherization in Angular</summary>
+    <p></p>
+  </details>
+    <details>
+    <summary>State Mangemnt in Angular</summary>
+    <p></p>
+  </details>
+    <details>
+    <summary>Rxjs Operator and Angular problem statment</summary>
+    <p></p>
+  </details>
+    <details>
+    <summary>Semantic Tags in HTML5</summary>
+    <p></p>
+  </details>
+      <details>
+    <summary>CSS question</summary>
+    <p></p>
+  </details>
+        <details>
+    <summary>ES6 vs ES5</summary>
+    <p></p>
+  </details>
+        <details>
+    <summary>Output Question</summary>
+    <p></p>
+  </details>
+        <details>
+    <summary>Bootstrap/Flexbox</summary>
+    <p></p>
+  </details>
+        <details>
+    <summary>Arrays and collections</summary>
+    <p></p>
+  </details>
+          <details>
+    <summary>Output Question</summary>
+    <p></p>
+  </details>
+          <details>
+    <summary>Flat nested array without filter method</summary>
+    <!-- <p> -->
+          <!-- Coding Question -->
+  <div>Input - a = [4,12,2,[21,55,23,[7,33]],1,9]</div>
+  <div>
+    <button class="btn-primary" (click)="flatarray(data)">Test flaten array</button>
+  </div>
+  <!-- Display Output -->
+  <span>Result = {{ result }}</span>
+    <!-- </p> -->
+  </details>
+
+
+
+
+</section>
+
+<section class="angular-header">
+  <section>
+    <!-- coding Question -->
+    <span>Coding Question</span>
+    <div>Q.1 - write code for API Integration</div>
+    <div>
+      <button (click)="getdummyAPI()">Click to get Dummy Data</button>
+    </div>
+    <span>Result = {{ DummyAPIData() }}</span>
+  </section>
+</section>
+
+<!-- Drimco Germany -->
+<section class="angular-header">
+  <span>Drimco Interview Question</span>
+  <!-- Coding Question of Drimco -->
+  <span>Coding Question</span>
+  <div>
+    Q.1 Requirment to Implment search Input
+    <ol>
+      <li>Cancel previous HTTP requests when a new search term is entered</li>
+      <li>Debounce the input by 300ms</li>
+      <li>Ignore empty search terms</li>
+      <li>Show a loading state while fetching data</li>
+      <li>Handle errors gracefully and show an error message</li>
+    </ol>
+    <label>Type to search Data</label>
+    <input type="text" (input)="search$.next($any($event.target).value)" />
+    <div *ngFor="let pro of productList">
+      <ul>
+        <li>{{ pro.name }}</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+//Angular Dependency Injection (DI) is a core design pattern and 
+//mechanism used to provide components or services with 
+//their dependencies (objects, values, or functions) from an 
+//external source, rather than having the components create them 
+//internally. This approach promotes modularity, reusability, and 
+//easier testing in an application
+-----------------------------
+
+Main list cover kar lete hain jo Angular projects mein real-life mein sabse zyada use hote hain:
+Filtering Operators (The Gatekeepers)
+
+* filter: Yeh sirf unhi values ko aage jane deta hai jo condition meet karein (jaise if condition).
+* take(n): Yeh stream se sirf pehli n values leta hai aur phir stream band (complete) kar deta hai.
+* distinctUntilChanged: Yeh tabhi data bhejta hai jab value change ho; agar purani aur nayi value same hai toh block kar deta hai.
+* debounceTime(ms): Yeh thodi der wait karta hai; agar user ne typing rok di, tabhi aage data bhejega (Search bar optimization).
+
+Combination Operators (The Mixers)
+
+* combineLatest: Jab bhi kisi ek stream mein change hota hai, yeh saari streams ki latest values ko milakar ek array mein bhej deta hai.
+* withLatestFrom: Yeh primary stream ka wait karta hai aur doosri stream se sirf "latest value" utha kar saath chipka deta hai.
+* forkJoin: Yeh sabka khatam hone ka wait karta hai aur aakhri mein ek saath result deta hai (Jaise Promise.all).
+
+Utility & Error Handling
+
+* tap: Yeh sirf "dekhne" ke liye hai (side-effects); data ko change nahi karta, bas logging ya loading spinner off karne ke kaam aata.
+* catchError: Agar stream mein error aaye, toh yeh use catch karke app ko crash hone se bachata hai.
+* of: Yeh kisi bhi simple value (string, number, array) ko Observable mein convert kar deta hai.
+* from: Yeh kisi Array ya Promise ko Observable mein convert kar deta hai.
+
+Special Subject
+
+* AsyncSubject: Yeh tab tak kuch nahi bolta jab tak stream complete na ho jaye; complete hote hi sirf aakhri value bhejta hai.
+
+Kya aapko combineLatest aur withLatestFrom ke beech ka confusion door karne ke liye ek chhota sa example chahiye?
+
+
+
+-----------------------
+RxJS ek aisi library hai jo data ko ek behti hui nadi (Stream) ki tarah handle karti hai. Iska kaam hai asynchronous events (click, API calls) ko line mein laga kar filter ya transform karna.
+Yahan list ki simple definitions hain:
+Mapping Operators (The Traffic Controllers)
+
+* switchMap: Purani request ko cancel kar deta hai aur sirf latest wali pe dhyan deta hai (Best for Search bars).
+* mergeMap: Saari requests ko ek saath parallel chalne deta hai, kisi ka wait nahi karta.
+* concatMap: Ek-ek karke queue mein chalata hai; jab pehli khatam hogi tabhi doosri shuru hogi.
+
+Subjects (The Broadcasters)
+
+* Subject: Ek loudspeaker ki tarah hai; jo sun raha hai usse sirf current awaaz sunayi degi, purani nahi.
+* BehaviorSubject: Iske paas humesha ek value rehti hai; naya banda join karega toh usse turant "last value" mil jayegi.
+* ReplaySubject: Yeh history yaad rakhta hai; naye bande ko purani saari (ya fix number of) values sunata hai.
+
+The Basics
+
+* Promise: Ek hi baar data deta hai aur handle karna mushkil hai (One-shot).
+* Async/Await: Promise ko likhne ka saaf-suthra tareeka hai taaki code synchronous dikhe.
+
+Kya aapko inme se kisi ek ka code example dekhna hai ye samajhne ke liye ki real project mein kaunsa kab use karein?
+
+
+RxJS is a powerful library for reactive programming that uses Observables to handle asynchronous data streams. Think of it as a set of tools to manage and transform events (like clicks, timers, or API responses) as they happen over time. 
+
+The Core Mechanism
+Observable: A blueprint for a stream of data that emits values over time.
+Pipe: A method used to chain operators together, creating a step-by-step processing pipeline for your data.
+Subscription: The act of "listening" to an Observable. Data only starts flowing once you subscribe. 
+
+Essential RxJS Operators
+Operators are categorized by how they handle the data stream. 
+1. Creation Operators (Starting the Stream)
+These functions create new Observables from scratch. 
+
+of(): Emits a simple sequence of values (like numbers or an array) and then completes.
+from(): Converts an existing array, promise, or iterable into a stream of individual values.
+interval(ms): Emits a sequential number every set number of milliseconds. 
+
+2. Transformation Operators (Changing the Data)
+These modify the values as they pass through the pipe. 
+
+map(): Transforms each value (e.g., doubling a number or extracting a property from an object).
+switchMap(): Cancels any previous pending request and switches to the newest one. Ideal for search bars to avoid "race conditions".
+
+-------------------------------------------------
+import { FormControl } from '@angular/forms';
+import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
+
+// 1. Input control banaya
+searchControl = new FormControl();
+loading = false;
+
+ngOnInit() {
+  this.searchControl.valueChanges.pipe(
+    // A. Thoda ruko! (Wait for 300ms taaki har ek key-press pe API na jaye)
+    debounceTime(300),
+
+    // B. Same cheez dubara mat bhejo! (Agar user ne 'A' likha fir delete karke 'A' likha)
+    distinctUntilChanged(),
+
+    // C. Side effect! (Sirf loading spinner dikhane ke liye)
+    tap(() => this.loading = true),
+
+    // D. MAGIC! Purani API call cancel karo aur sirf latest wali ka data lo
+    switchMap(searchterm => this.myService.searchAPI(searchterm))
+
+  ).subscribe(results => {
+    this.results = results;
+    this.loading = false;
+    console.log('Final Results:', results);
+  });
+}
+
+-------------------------------------------------
+
+mergeMap(): Processes multiple requests concurrently (at the same time) without waiting or canceling.
+
+--------------------------
+// Saari photos ek saath upload hongi (Parallel)
+uploadFiles$.pipe(
+  mergeMap(file => this.api.upload(file))
+).subscribe();
+
+--------------------------
+
+concatMap(): Queues requests to process them sequentially. It waits for the current one to finish before starting the next. 
+------------------
+
+// Ek-ek karke save karega (Sequential)
+saveData$.pipe(
+  concatMap(data => this.api.save(data))
+).subscribe();
+
+
+------------------
+3. Filtering Operators (Selecting What Matters)
+These decide which values are allowed to continue down the pipe. 
+
+filter(): Only lets values pass that satisfy a specific condition.
+debounceTime(ms): Ignores values that come too fast; it only emits if a certain time passes without a new value.
+distinctUntilChanged(): Prevents duplicate consecutive values from being emitted.
+take(n): Only takes the first n values and then automatically unsubscribes. 
+
+4. Combination & Error Handling
+combineLatest(): Joins multiple streams and emits a value whenever any of them changes, using the latest from all.
+forkJoin(): Waits for all streams to complete and then emits their final values as an array (like Promise.all).
+-----------------------------------
+
+// Profile aur Settings dono aa jayengi tabhi screen dikhegi
+forkJoin({
+  profile: this.api.getProfile(),
+  settings: this.api.getSettings()
+}).subscribe(res => console.log(res.profile, res.settings));
+
+
+-----------------------------------
+catchError(): Catches errors in the stream and allows you to return a fallback value so the app doesn't crash.
+tap(): Used for "side effects" like logging or showing a spinner; it doesn't change the data itself.
+
+
+ Observable
+It is a stream of data that emits values over time. It doesn't do anything until someone starts listening to it.
+
+Observer 
+
+It is a collection of callbacks that tells Angular what to do with the data it receives from the Observable.
+
+
+
+Feature	Observable	Observer
+Role	Producer (Sends data)	Consumer (Receives data)
+Action	Defines the stream	Defines the reaction
+Methods	subscribe(), pipe()	next(), error(), complete()
+
+
+async pipe
+Async Pipe Angular ka ek built-in "magic tool" hai jo automatically Observable ya Promise ko subscribe karta hai aur uska data seedha HTML (UI) mein dikha deta hai.
+Simple bhasha mein: Yeh aapka Automatic Delivery Boy hai.
+Iska Faayda Kya Hai? (Easy Points)
+No subscribe() needed: Aapko TypeScript file mein .subscribe() likhne ki zaroorat nahi padti.
+No Memory Leaks: Jab component band (destroy) hota hai, toh yeh pipe apne aap unsubscribe kar deta hai. Aapko manual tension lene ki zaroorat nahi.
+Clean Code: TypeScript file ekdum saaf rehti hai, saara kaam HTML mein hi ho jata hai.
+
+-->
+
+BehaviorSubject: User login info ya theme (dark/light mode) ke liye, kyunki humein hamesha current state chahiye hoti hai.
+Subject: Button clicks ya events ke liye jahan purana data bekar hai.
+ReplaySubject: Chat application mein, taaki naya banda aaye toh use purane kuch messages dikh jayein.
+
+-->
+
+BehaviorSubject
+BehaviorSubject ek aisa "smart broadcaster" hai jo hamesha latest value ko yaad rakhta hai.
+Iska sabse bada fayda ye hai ki agar koi naya subscriber (listener) baad mein join kare, toh usse purana wait nahi karna padta—usse turant current value mil jati hai.
+BehaviorSubject ki 3 Khaas Baatein:
+Initial Value: Isko shuru karne ke liye ek value deni padti hai (Jaise: 0 ya null).
+Current Value Yaad Rakhta Hai: Ye hamesha apne paas "last emitted value" store karta hai.
+Instant Delivery: Naye subscriber ko subscribe karte hi turant latest data milta hai.
+
+Real-Life Example: Radio vs. Recording
+Normal Subject: Ek Live Radio ki tarah hai. Agar aapne 10 baje radio on kiya, toh 9 baje wala gaana aap miss kar chuke ho.
+BehaviorSubject: Ek WhatsApp Status ki tarah hai. Status 2 ghante pehle dala ho, par jab bhi aap dekhoge (subscribe karoge), aapko latest status dikhayi dega.
+
+import { BehaviorSubject } from 'rxjs';
+
+// Initial value 'Default' ke saath start kiya
+const myBS = new BehaviorSubject<string>("Default");
+
+myBS.subscribe(val => console.log("Sub A:", val));
+// Output: Sub A: Default (Turant mil gayi!)
+
+myBS.next("New Value");
+// Output: Sub A: New Value
+
+myBS.subscribe(val => console.log("Sub B:", val));
+// Output: Sub B: New Value (Naye wale ko bhi latest value mil gayi)
+
+
+subject (The Live Stream)
+Yeh ek basic loudspeaker hai. Jo late aayega, woh purana sab miss kar dega.
+import { Subject } from 'rxjs';
+
+const mySubject = new Subject<string>();
+
+mySubject.next("Hello 1"); // Yeh miss ho jayega (koi listener nahi hai)
+
+mySubject.subscribe(val => console.log("Sub A:", val));
+
+mySubject.next("Hello 2"); 
+// Output: Sub A: Hello 2
+
+
+For an interview, you can define Angular’s architecture as a Component-Based Modular Framework. It follows a tree-like structure where everything is organized into blocks.
+Here are the 5 Core Pillars of Angular Architecture:
+1. Modules (NgModule)
+The container for your app. It groups related components, directives, and services together.
+Root Module: Every app has at least one (AppModule).
+Feature Modules: Used to split the app into smaller, manageable chunks (e.g., UserModule, AdminModule).
+2. Components (The UI Logic)
+The basic building block of the UI. Every component consists of:
+Template: The HTML (What the user sees).
+Styles: The CSS (How it looks).
+Class: The TypeScript logic (How it behaves).
+Metadata: Defined via the @Component decorator.
+3. Templates & Data Binding
+How the UI and Logic talk to each other:
+Interpolation {{ }}: Logic to UI.
+Property Binding [ ]: Passing values to elements.
+Event Binding ( ): User actions (clicks) to Logic.
+Two-way Binding [( )]: Syncing both (using ngModel).
+4. Services & Dependency Injection (DI)
+Services: Classes that hold reusable business logic (like API calls) that shouldn't live in components.
+DI: The system that "injects" these services into components whenever they are needed.
+5. Directives & Pipes
+Directives: Transform the DOM (e.g., *ngIf for logic, *ngFor for loops).
+Pipes: Transform data in the UI (e.g., | date, | uppercase, | async).
+Interview "Pro Tip" Summary:
+"Angular architecture is a hierarchy of Components organized into Modules. It uses Services to share logic via Dependency Injection, and uses Templates with Data Binding to create a dynamic user experience."
+
+
+angular architecture is compnent based modular frame work designed to build SPA, it has few core buidling blocks
+1) components
+2) Template & data binding
+3) service & DI
+4) Async and directives
+5) Module : Containers used to group related components, directives, and services into functional sets. While modern Angular (v17+) emphasizes standalone components that don't strictly require modules, NgModules are still widely used for organizing larger apps
+
+Anagular 21 feature
+
+Signal Forms (Experimental): A new, streamlined approach to forms using signals for reactivity instead of RxJS observables, reducing boilerplate and providing better type safety.
+Zoneless by Default: Production-ready Zoneless change detection is now default, improving performance, reducing bundle size, and offering better core web vitals by removing zone.js.
+Zero-Config HTTP: HttpClient is provided by default, removing the need for manual setup in app.config.ts.
+AI-Powered Tools (MCP Server): New Model Context Protocol (MCP) server tools to assist LLMs in providing tailored, high-quality Angular code, including an AI-powered tutor.
+Improved Build & Performance: Faster incremental builds, better caching, and optimized bundling strategies leading to 25-40% smaller bundles.
+Template Syntax Enhancement: Introduction of the spread operator (...) in templates, allowing for easier object/array handling (e.g., [...items]).
+Updated Tooling: Vitest is now the default test runner, providing faster testing.
+Angular Aria: A new package focused on enhancing accessibility, details are included in this release
+
+
+
+json strucuter
+
+{
+  "Bounteous X Accolite": [
+    {
+      "question": "Explain Agile and sprint ceremonies.",
+      "description": "Agile is an iterative software development methodology...",
+      "contentType": "mixed",
+      "content": {
+        "text": "Advantages of Angular:",
+        "list": null,
+        "table": {
+          "columns": ["Ceremony", "Purpose"],
+          "rows": [
+            ["Sprint Planning", "Decide tasks for sprint"],
+            ["Daily Standup", "Daily progress meeting"]
+          ]
+        },
+        "code": null
+      },
+      "tags": ["agile"],
+      "difficulty": "beginner"
+    },
+    {
+      "question": "Advantage of using Angular over other UI language",
+      "description": null,
+      "contentType": "mixed",
+      "content": {
+        "text": "Advantages of Angular:",
+        "list": [
+          "Component-based architecture",
+          "Built-in dependency injection",
+          "Powerful CLI"
+        ],
+        "table": null,
+        "code": null
+      },
+      "tags": ["agile"],
+      "difficulty": "beginner"
+    },
+    {
+      "question": "Explain Reactive Forms.",
+      "description": "Reactive forms are model-driven forms where form state is managed in the component.",
+      "contentType": "mixed",
+      "content": {
+        "text": null,
+        "list": null,
+        "table": null,
+        "code": "form = new FormGroup({\n  name: new FormControl('', Validators.required)\n});"
+      },
+      "tags": ["agile"],
+      "difficulty": "beginner"
+    }
+  ]
+}

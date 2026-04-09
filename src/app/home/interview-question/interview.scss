@@ -1,0 +1,29 @@
+.angular-card{
+    background-color: #222222;
+    padding: 1rem;
+    .angular-header{
+        font-size: 18px;
+        font-weight: 700;
+        color: #eee;
+    }
+
+}
+
+pre code {
+  font-family: Consolas, "courier new", monospace;
+  background-color: #f1f1f1;
+  padding: 15px;
+  display: block; /* Ensures it takes up a block of space */
+  white-space: pre-wrap; /* Ensures text wraps if too long */
+}
+
+summary{
+        font-size: 16px;
+        font-weight: 500;
+        color: #eee;
+        }
+p{
+    font-size: 14px;
+    font-weight: 400;
+    color: #eee;
+}

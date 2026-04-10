@@ -13,6 +13,10 @@ export class Header {
 
   }
 
+  goHome() {
+    this.routes.navigate(['home']); // or [''] if your home route is the root path
+  }
+
   logout(){
     this.routes.navigate([''])
   }

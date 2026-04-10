@@ -1,12 +1,32 @@
-
-
-<div class="container mt-4">
-    <div class="row gap-3">
-        <div class="col-4 product-card" (click)="routeTo('interview')">
-            Angular QA
-        </div>
-        <div class="col-4 product-card" (click)="routeTo('interview')">
-            Angular QA
-        </div>
+<div class="home-grid">
+  <div class="product-card" (click)="routeTo('interview')">
+    <div class="card-top">
+      <span class="chip">Angular</span>
+      <span class="badge">Frontend</span>
     </div>
+
+    <h3>Angular QA</h3>
+    <p>Practice interview questions with company-specific cards and code/table support.</p>
+
+    <div class="card-footer">
+      <span>Start now</span>
+      <span class="arrow">→</span>
+    </div>
+  </div>
+
+  <!-- <div class="product-card" (click)="routeTo('interview')"> -->
+    <div title="Work In Progress sorry for inconvenience :(" class="product-card" style="cursor: not-allowed;">
+    <div class="card-top">
+      <span class="chip">Fullstack</span>
+      <span class="badge">React + Java</span>
+    </div>
+
+    <h3>Fullstack QA</h3>
+    <p>Build confidence for backend and frontend interview rounds.</p>
+
+    <div class="card-footer">
+      <span>Start now</span>
+      <span class="arrow">→</span>
+    </div>
+  </div>
 </div>

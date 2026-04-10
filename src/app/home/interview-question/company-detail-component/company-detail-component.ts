@@ -25,9 +25,9 @@ export class CompanyDetailComponent {
     this.selectedQuestions.set(this.interviewService.getQuestionsByCompany(companyName));
   }
 
-  // clearSelection() {
-  //   this.selectedCompany.set(null);
-  //   this.selectedQuestions.set([]);
-  // }
+  clearSelection() {
+    this.selectedCompany.set(null);
+    this.selectedQuestions.set([]);
+  }
 
 }

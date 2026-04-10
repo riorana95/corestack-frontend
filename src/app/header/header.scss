@@ -1,0 +1,78 @@
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 24px;
+  height: 64px;
+
+  background: rgba(15, 18, 25, 0.8);
+  backdrop-filter: blur(12px);
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* LEFT */
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-box {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 700;
+  font-size: 13px;
+
+  background: linear-gradient(135deg, #4F46E5, #0ea5e9);
+
+  cursor: pointer;
+}
+
+.brand-title {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* RIGHT */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* AVATAR */
+.avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(255,255,255,0.1);
+  font-weight: 600;
+}
+
+/* BUTTON */
+.logout-button {
+  padding: 6px 14px;
+  font-size: 13px;
+  border-radius: 20px;
+
+  background: linear-gradient(135deg, #4F46E5, #7C3AED);
+
+  width: auto; /* FORCE override */
+}
+
+.logout-button:hover {
+  transform: translateY(-1px);
+}

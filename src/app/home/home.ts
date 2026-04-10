@@ -13,6 +13,6 @@ export class Home {
   constructor(private routes : Router){}
 
   routeTo(path:string){
-    this.routes.navigate(['/angular'])
+    this.routes.navigate([path])
   }
 }

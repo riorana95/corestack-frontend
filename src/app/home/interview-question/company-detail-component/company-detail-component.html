@@ -1,27 +1,46 @@
 <div class="container">
-  <!-- Company List -->
-    @if (!selectedCompany()) {
-  <div class="row gy-4">
-    <h2>Companies</h2>
-    @for (company of companies(); track company) {
-      <div class="col-3">
-      <div class="card" (click)="selectCompany(company)">
-       {{ company }}
-      </div>
+
+  <!-- COMPANY LIST -->
+  @if (!selectedCompany()) {
+
+    <div class="companies-section">
+
+      <h2 class="section-title">Companies</h2>
+      <p class="section-subtitle">
+        Select a company to start practicing interview questions
+      </p>
+
+      <div class="companies-grid">
+        @for (company of companies(); track company) {
+          <div class="company-card" (click)="selectCompany(company)">
+            <div class="company-name">{{ company }}</div>
+            <div class="company-arrow">→</div>
+          </div>
+        }
       </div>
 
-    }
-  </div>
-}
-
-  <!-- Questions for Selected Company -->
-  @if (selectedCompany()) {
-    <div class="questions-section">
-      <!-- <button class="back-btn" (click)="clearSelection()">Back to Companies</button> -->
-      <h2>{{ selectedCompany() }}</h2>
-      @for (question of selectedQuestions(); track question.question) {
-        <app-question-card-component [question]="question" [companyName]="selectedCompany()"></app-question-card-component>
-      }
     </div>
   }
+
+  <!-- QUESTIONS SECTION -->
+  @if (selectedCompany()) {
+
+    <div class="questions-section">
+
+      <div class="section-header">
+        <button class="back-btn" (click)="clearSelection()">←</button>
+        <h2>{{ selectedCompany() }}</h2>
+      </div>
+
+      @for (question of selectedQuestions(); track question.question) {
+        <app-question-card-component
+          [question]="question"
+          [companyName]="selectedCompany()">
+        </app-question-card-component>
+      }
+
+    </div>
+
+  }
+
 </div>

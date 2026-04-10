@@ -1,10 +1,12 @@
 <div class="question-card">
   <details>
     <summary class="question-title">
-      {{ question.question }}
+      <span>{{ question.question }}</span>
+      <span class="icon">+</span>
     </summary>
 
     <div class="answer-block">
+
       @if (question.description) {
         <p class="answer-text">{{ question.description }}</p>
       }
@@ -51,6 +53,7 @@
           <pre><code>{{ question.content.code }}</code></pre>
         </div>
       }
+
     </div>
   </details>
 </div>

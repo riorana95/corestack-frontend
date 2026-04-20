@@ -30,12 +30,14 @@
       <div class="section-header">
         <button class="back-btn" (click)="clearSelection()">←</button>
         <h2>{{ selectedCompany() }}</h2>
+        <button class="add-btn" (click)="addQuestionPopup()">+ Add Question</button>
       </div>
 
       @for (question of selectedQuestions(); track question.question) {
         <app-question-card-component
           [question]="question"
-          [companyName]="selectedCompany()">
+          [companyName]="selectedCompany()"
+        >
         </app-question-card-component>
       }
 

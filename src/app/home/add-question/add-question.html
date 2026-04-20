@@ -1,0 +1,59 @@
+<div class="dialog-container">
+
+  <div class="card-header">
+    <h3>{{ receivedData.isEditMode ? 'Edit Question' : 'Add Question' }}</h3>
+    <button (click)="close()">✖</button>
+  </div>
+
+  <div class="form-grid">
+
+    <div class="form-group form-full">
+      <label>Question *</label>
+      <input [(ngModel)]="newQuestion.question" />
+    </div>
+
+    <div class="form-group form-full">
+      <label>Answer</label>
+      <quill-editor
+        [(ngModel)]="newQuestion.description"
+        [modules]="editorConfig"
+        placeholder="Write answer..."
+      >
+      </quill-editor>
+    </div>
+
+    <!-- <div class="form-group form-full">
+      <label>Text</label>
+      <textarea [(ngModel)]="newQuestion.content.text"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>List</label>
+      <input [(ngModel)]="newQuestion.content.list" />
+    </div>
+
+    <div class="form-group">
+      <label>Code</label>
+      <textarea [(ngModel)]="newQuestion.content.code"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Table Columns</label>
+      <input [(ngModel)]="tableColumns" />
+    </div>
+
+    <div class="form-group">
+      <label>Table Rows</label>
+      <textarea [(ngModel)]="tableRows"></textarea>
+    </div> -->
+
+  </div>
+
+  <div class="action-buttons">
+    <button class="save-btn" (click)="save()">
+      save{{ receivedData.isEditMode ? 'Update' : 'Save' }}
+    </button>
+    <button class="cancel-btn" (click)="close()">Cancel</button>
+  </div>
+
+</div>

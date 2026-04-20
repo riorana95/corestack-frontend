@@ -1,3 +1,41 @@
+
+// Include theming for Angular Material with `mat.theme()`.
+// This Sass mixin will define CSS variables that are used for styling Angular Material
+// components according to the Material 3 design spec.
+// Learn more about theming and how to use it for your application's
+// custom components at https://material.angular.dev/guide/theming
+@use '@angular/material' as mat;
+@import "highlight.js/styles/atom-one-dark.css";
+
+html {
+  height: 100%;
+  @include mat.theme((
+    color: (
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+    ),
+    typography: Roboto,
+    density: 0,
+  ));
+}
+
+body {
+  // Default the application to a light color theme. This can be changed to
+  // `dark` to enable the dark color theme, or to `light dark` to defer to the
+  // user's system settings.
+  color-scheme: light;
+
+  // Set a default background, font and text colors for the application using
+  // Angular Material's system-level CSS variables. Learn more about these
+  // variables at https://material.angular.dev/guide/system-variables
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
+
+  // Reset the user agent margin.
+  margin: 0;
+  height: 100%;
+}
 /* You can add global styles to this file, and also import other style files */
 body {
     font-family: sans-serif;
@@ -9,7 +47,7 @@ body {
   -ms-user-select: none;
 }
 
-input {
+body input {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 8px;
@@ -87,4 +125,125 @@ button:disabled{
     justify-content: center;
     cursor: pointer;
     color: #fff;
+}
+
+/* 🔥 GLOBAL MAT DIALOG FIX */
+
+.custom-dialog .mat-mdc-dialog-container {
+  background: #0f1720 !important;
+  border-radius: 16px !important;
+  padding: 2rem !important;
+  color: white;
+}
+
+/* remove default white background */
+.mat-mdc-dialog-surface {
+  background: transparent !important;
+}
+
+/* backdrop (dark overlay) */
+.cdk-overlay-backdrop {
+  background: rgba(0, 0, 0, 0.7) !important;
+}
+
+/* QUILL DARK THEME FIX */
+.ql-toolbar {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px 10px 0 0;
+}
+
+.ql-container {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-top: none;
+  border-radius: 0 0 10px 10px;
+  color: #e5e7eb;
+  min-height: 150px;
+}
+
+/* toolbar icons color */
+.ql-toolbar .ql-stroke {
+  stroke: #cbd5e1;
+}
+.ql-toolbar .ql-fill {
+  fill: #cbd5e1;
+}
+
+/* hover */
+.ql-toolbar button:hover {
+  background: rgba(99,102,241,0.2);
+  border-radius: 6px;
+}
+
+/* active */
+.ql-toolbar button.ql-active {
+  background: rgba(99,102,241,0.3);
+}
+
+/* editor text */
+.ql-editor {
+  color: #e5e7eb;
+  font-size: 14px;
+}
+
+/* placeholder */
+.ql-editor.ql-blank::before {
+  color: #6b7280;
+}
+
+.ql-container {
+  box-shadow: 0 0 0 1px rgba(99,102,241,0.2),
+              0 10px 30px rgba(0,0,0,0.5);
+}
+
+.rich-content {
+  line-height: 1.6;
+  font-size: 14px;
+  color: #e5e7eb;
+
+  h1, h2, h3 {
+    margin: 10px 0;
+    font-weight: 600;
+  }
+
+  p {
+    margin: 8px 0;
+  }
+
+  ul, ol {
+    margin: 8px 0 8px 20px;
+  }
+
+  li {
+    margin-bottom: 4px;
+  }
+
+  pre {
+    background: #0d1117;
+    padding: 12px;
+    border-radius: 10px;
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: monospace;
+    font-size: 13px;
+  }
+}
+
+.rich-content pre {
+  background: #0d1117;
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 12px;
+  overflow-x: auto;
+
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.rich-content code {
+  font-family: 'Fira Code', monospace;
+  font-size: 13px;
+  line-height: 1.5;
 }

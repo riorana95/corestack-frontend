@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { AnySoaRecord } from 'node:dns';
 import { Subject, of } from 'rxjs';
 import { debounce, switchMap, filter, debounceTime, catchError } from 'rxjs/operators';
@@ -13,7 +13,7 @@ import { CompanyDetailComponent } from './company-detail-component/company-detai
   templateUrl: './interview.html',
   styleUrl: './interview.scss',
 })
-export class Interview {
+export class Interview implements OnInit {
   count = signal(0);
   result : any[]=[];
   DummyAPIData = signal<any>(null);
@@ -28,6 +28,10 @@ export class Interview {
   ){
     this.switchMap();
     this.loadJsonDate();
+  }
+
+  ngOnInit(){
+
   }
 
   loadJsonDate(){

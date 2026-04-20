@@ -1,14 +1,17 @@
 <div class="question-card">
   <details>
     <summary class="question-title">
-      <span>{{ question.question }}</span>
-      <span class="icon">+</span>
+      <span class="question-text">{{ question.question }}</span>
+
+      <div class="actions">
+        <button class="edit-btn" (click)="editPopup(question)">✏️</button>
+        <span class="icon">+</span>
+      </div>
     </summary>
 
     <div class="answer-block">
-
       @if (question.description) {
-        <p class="answer-text">{{ question.description }}</p>
+        <div class="rich-content" [innerHTML]="sanitize(question.description)"></div>
       }
 
       @if (question.content?.text) {
@@ -53,7 +56,6 @@
           <pre><code>{{ question.content.code }}</code></pre>
         </div>
       }
-
     </div>
   </details>
 </div>

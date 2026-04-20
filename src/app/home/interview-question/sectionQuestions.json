@@ -1,0 +1,205 @@
+{
+  "frontend": [
+    {
+      "question": "What is the DOM and how does it relate to the browser?",
+      "description": "The DOM is the Document Object Model, a tree representation of HTML elements. The browser uses it to render the page and JavaScript manipulates it to update the UI dynamically.",
+      "contentType": "mixed",
+      "content": null,
+      "tags": ["web", "frontend"],
+      "difficulty": "beginner"
+    },
+    {
+      "question": "Explain responsive design and how you implement it.",
+      "description": "Responsive design ensures layouts adapt to different screen sizes using flexible grids, media queries, and relative units like %, rem, and vw.",
+      "contentType": "mixed",
+      "content": {
+        "list": [
+          "Use fluid grid layouts",
+          "Apply CSS media queries",
+          "Prefer relative units like em/rem",
+          "Make images and components flexible"
+        ]
+      },
+      "tags": ["css", "frontend"],
+      "difficulty": "beginner"
+    },
+    {
+      "question": "How does lazy loading improve performance in Angular?",
+      "description": "Lazy loading loads feature modules only when the user navigates to them. This reduces initial bundle size and speeds up first render.",
+      "contentType": "mixed",
+      "content": null,
+      "tags": ["angular", "performance"],
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "What are the main differences between CSS Grid and Flexbox?",
+      "description": "Grid is best for two-dimensional layouts, while Flexbox is optimized for one-dimensional row or column layouts.",
+      "contentType": "mixed",
+      "content": {
+        "table": {
+          "columns": ["Feature", "Flexbox", "Grid"],
+          "rows": [
+            ["Layout Direction", "One dimension", "Two dimensions"],
+            ["Best Use", "Alignment in a row/column", "Page-level layout"],
+            ["Complexity", "Simple layouts", "Complex layouts"]
+          ]
+        }
+      },
+      "tags": ["css"],
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "How do you handle form validation in Angular?",
+      "description": "Angular offers template-driven and reactive forms. Reactive forms use FormGroup and FormControl for programmatic validation and better scalability.",
+      "contentType": "mixed",
+      "content": {
+        "code": "const form = new FormGroup({\n  name: new FormControl('', Validators.required),\n  email: new FormControl('', [Validators.required, Validators.email])\n});"
+      },
+      "tags": ["angular", "forms"],
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "What is event delegation and why is it useful?",
+      "description": "Event delegation attaches a single listener to a parent element and uses event bubbling to handle events from child elements. It reduces listeners and improves performance.",
+      "contentType": "mixed",
+      "content": null,
+      "tags": ["javascript", "frontend"],
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "What are common methods to optimize frontend performance?",
+      "description": "Use techniques like code splitting, image optimization, caching, minimizing render-blocking resources, and using efficient change detection.",
+      "contentType": "mixed",
+      "content": {
+        "list": [
+          "Enable gzip compression",
+          "Use lazy loading for images and modules",
+          "Minify CSS and JavaScript",
+          "Use browser caching and service workers"
+        ]
+      },
+      "tags": ["performance"],
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "How does CORS work and why might a frontend app see a CORS error?",
+      "description": "CORS is a browser security mechanism that restricts cross-origin requests unless the server explicitly allows them via response headers.",
+      "contentType": "mixed",
+      "content": null,
+      "tags": ["security", "frontend"],
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "Describe the difference between client-side and server-side rendering.",
+      "description": "Client-side rendering builds the page in the browser after downloading JavaScript. Server-side rendering generates the HTML on the server before sending it to the browser.",
+      "contentType": "mixed",
+      "content": null,
+      "tags": ["frontend", "rendering"],
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "What is accessibility (a11y) and what practices help improve it?",
+      "description": "Accessibility means making web apps usable by people with disabilities. Use semantic HTML, ARIA labels, keyboard navigation, meaningful alt text, and sufficient contrast.",
+      "contentType": "mixed",
+      "content": null,
+      "tags": ["accessibility"],
+      "difficulty": "beginner"
+    }
+  ],
+  "backend": [
+    {
+      "question": "What is REST and what are the common HTTP methods used?",
+      "description": "REST is an architectural style for APIs using HTTP. Common methods are GET for fetch, POST for create, PUT/PATCH for update, and DELETE for removal.",
+      "contentType": "mixed",
+      "content": null,
+      "tags": ["api", "backend"],
+      "difficulty": "beginner"
+    },
+    {
+      "question": "Explain the purpose of database indexing.",
+      "description": "Indexes improve read query performance by allowing the database to locate rows faster. They can slow writes and consume extra storage, so they should be used selectively.",
+      "contentType": "mixed",
+      "content": null,
+      "tags": ["database"],
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "What is the difference between authentication and authorization?",
+      "description": "Authentication verifies user identity. Authorization determines whether the authenticated user has permission to perform an action or access a resource.",
+      "contentType": "mixed",
+      "content": null,
+      "tags": ["security"],
+      "difficulty": "beginner"
+    },
+    {
+      "question": "Describe ACID properties in a database.",
+      "description": "ACID stands for Atomicity, Consistency, Isolation, and Durability. These properties ensure reliable transactions and data integrity.",
+      "contentType": "mixed",
+      "content": {
+        "list": [
+          "Atomicity: all-or-nothing transactions",
+          "Consistency: valid data states after transactions",
+          "Isolation: transactions do not interfere",
+          "Durability: committed changes persist"
+        ]
+      },
+      "tags": ["database"],
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "How does JWT authentication work?",
+      "description": "The server issues a signed JWT after login. The frontend stores the token and includes it in headers for subsequent requests, and the server validates the token on each request.",
+      "contentType": "mixed",
+      "content": null,
+      "tags": ["security", "auth"],
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "What is the purpose of a middleware layer in a backend application?",
+      "description": "Middleware processes requests before they reach route handlers. It can perform tasks like authentication, logging, request parsing, and error handling.",
+      "contentType": "mixed",
+      "content": null,
+      "tags": ["backend"],
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "What is the difference between horizontal and vertical scaling?",
+      "description": "Vertical scaling adds resources to a single server. Horizontal scaling adds more servers to distribute load.",
+      "contentType": "mixed",
+      "content": null,
+      "tags": ["architecture"],
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "Explain the role of a message queue in backend systems.",
+      "description": "A message queue decouples producers from consumers. It allows asynchronous processing, retries, and reliable delivery of tasks.",
+      "contentType": "mixed",
+      "content": null,
+      "tags": ["architecture"],
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "What is normalization in relational databases?",
+      "description": "Normalization organizes data into tables to reduce redundancy and improve integrity. Normal forms define rules for dividing data into related tables.",
+      "contentType": "mixed",
+      "content": null,
+      "tags": ["database"],
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "How do caching and CDN improve backend performance?",
+      "description": "Caching stores frequently requested data closer to the client or application, reducing latency and backend load. A CDN delivers static assets from edge servers near users.",
+      "contentType": "mixed",
+      "content": {
+        "list": [
+          "Cache database query results",
+          "Use in-memory caches like Redis",
+          "Serve static files via CDN",
+          "Set appropriate cache headers"
+        ]
+      },
+      "tags": ["performance"],
+      "difficulty": "intermediate"
+    }
+  ]
+}

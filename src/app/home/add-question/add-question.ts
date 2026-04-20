@@ -34,7 +34,7 @@ export class AddQuestion {
         this.newQuestion.companyId = this.receivedData.data.companyEntity.id
         this.edit(this.receivedData.data)
     }else{
-      this.newQuestion.companyId = this.receivedData.data.id
+      this.newQuestion.companyId = this.receivedData.data
     }
   }
 
@@ -71,11 +71,11 @@ save() {
       this.close();
     });
   }else{
-    const reqBody = { 
-      ...this.newQuestion, 
-      companyEntity: this.receivedData.data 
-    };
-    this.addService.addQuestion(reqBody).subscribe((res:any) => {
+    // const reqBody = { 
+    //   ...this.newQuestion, 
+    //   companyEntity: this.receivedData.data 
+    // };
+    this.addService.addQuestion(this.newQuestion).subscribe((res:any) => {
       this.questionAdded.emit(res);
       this.close();
     });

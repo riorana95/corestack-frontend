@@ -17,6 +17,7 @@ export class CompanyDetailComponent {
   selectedCompany = signal<string | null>(null);
   selectedQuestions = signal<any[]>([]);
   private dialog = inject(MatDialog);
+  selectedCompanyId: any;
 
   constructor(
     private interviewService: InterviewService,
@@ -46,9 +47,9 @@ export class CompanyDetailComponent {
   // When user clicks a company
   selectCompany(companyName: string) {
     this.selectedCompany.set(companyName);
-    const selectedId = this.companyDetails().find((x:any)=>x.name === companyName).id
+    this.selectedCompanyId = this.companyDetails().find((x:any)=>x.name === companyName).id
     const loader = true;
-    this.interviewService.getQuestionByCompanyId(selectedId).subscribe({
+    this.interviewService.getQuestionByCompanyId(this.selectedCompanyId).subscribe({
       next:(res:any)=>{
         console.log("resQ",res)
         this.selectedQuestions.set(res);
@@ -72,7 +73,7 @@ export class CompanyDetailComponent {
   }
 
   addQuestionPopup() {
-    const entity = this.selectedQuestions()[0].companyEntity
+    const entity = this.selectedCompanyId;
     this.dialog.open(AddQuestion, {
       panelClass: 'custom-dialog',
       data: { data: entity, isEditMode : false },

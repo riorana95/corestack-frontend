@@ -198,52 +198,66 @@ button:disabled{
 }
 
 .rich-content {
+  width: 100%;
+  max-width: 100%;
+  overflow-wrap: break-word;   // ✅ break long words
+  word-wrap: break-word;
+  word-break: break-word;
+
   line-height: 1.6;
   font-size: 14px;
-  color: #e5e7eb;
-
-  h1, h2, h3 {
-    margin: 10px 0;
-    font-weight: 600;
-  }
-
-  p {
-    margin: 8px 0;
-  }
-
-  ul, ol {
-    margin: 8px 0 8px 20px;
-  }
-
-  li {
-    margin-bottom: 4px;
-  }
-
-  pre {
-    background: #0d1117;
-    padding: 12px;
-    border-radius: 10px;
-    overflow-x: auto;
-  }
-
-  code {
-    font-family: monospace;
-    font-size: 13px;
-  }
 }
 
+/* paragraphs */
+.rich-content p {
+  margin: 0 0 10px;
+}
+
+/* lists */
+.rich-content ul,
+.rich-content ol {
+  padding-left: 20px;
+  margin-bottom: 10px;
+}
+
+/* list items */
+.rich-content li {
+  margin-bottom: 6px;
+}
+
+/* fix nested list overflow */
+.rich-content li p {
+  display: inline;
+}
+
+/* headings */
+.rich-content h1,
+.rich-content h2,
+.rich-content h3 {
+  margin: 10px 0;
+}
+
+/* 🔥 MOST IMPORTANT — fix horizontal overflow */
 .rich-content pre {
-  background: #0d1117;
-  border-radius: 12px;
-  padding: 16px;
-  margin-top: 12px;
   overflow-x: auto;
-
-  border: 1px solid rgba(255,255,255,0.08);
+  white-space: pre;   // keep formatting
+  max-width: 100%;
 }
 
+/* code block */
 .rich-content code {
-  font-family: 'Fira Code', monospace;
-  font-size: 13px;
-  line-height: 1.5;
+  word-break: break-word;
+}
+
+/* prevent anything from breaking layout */
+.rich-content * {
+  max-width: 100%;
+}
+
+.rich-content {
+  padding: 16px;
+}
+
+.rich-content * {
+  box-sizing: border-box;
 }

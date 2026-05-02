@@ -8,11 +8,4 @@ import { Component, Input } from '@angular/core';
 })
 export class SectionTable {
   @Input() tableList : any;
-  
-  ngOnInit(){
-    console.log("test213",this.tableList)
-  }
-  test12233(){
-    console.log("test213",this.tableList)
-  }
 }

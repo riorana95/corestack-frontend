@@ -73,7 +73,7 @@ export class Interview implements OnInit {
     )
    }
 
-  // Rxjs SwitchMap
+ // Rxjs SwitchMap
   switchMap(){
     this.loading = true;
     this.search$.pipe(
@@ -96,7 +96,7 @@ export class Interview implements OnInit {
     const data = [{ name: 'iPhone' }, { name: 'Samsung' }, { name: 'MacBook' }];
 
     return of (data.filter(x=>x.name.toLowerCase().includes(terms.toLowerCase())))
-  }
+  } 
 
   myCodeSnippet = `form = new FormGroup({
  name: new FormControl('', Validators.required)

@@ -1,0 +1,18 @@
+    <div class="mt-4 container-fluid">
+        <table style="width: 100%;">
+            <tr>
+                <th>Company</th>
+                <th>Role</th>
+                <th>Question</th>
+            </tr>
+            <tbody>
+                @for(questionSet of tableList;track questionSet){
+                <tr>
+                    <td>{{questionSet.companyName}}</td>
+                    <td>{{questionSet.companyRole}}</td>
+                    <td>{{questionSet.question}}</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>

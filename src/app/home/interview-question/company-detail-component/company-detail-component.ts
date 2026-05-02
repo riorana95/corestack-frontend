@@ -72,13 +72,22 @@ export class CompanyDetailComponent {
     this.selectedQuestions.update(q => [...q, newQuestion]); // add at bottom
   }
 
+  onQuestionUpdated(updateQuestion:any){
+    this.selectedQuestions.update(question=>
+      question.map(x=>x.id === updateQuestion.id ? {...x,...updateQuestion}:x)
+    )
+  }
+
   addQuestionPopup() {
     const entity = this.selectedCompanyId;
-    this.dialog.open(AddQuestion, {
+    const dailogRef = this.dialog.open(AddQuestion, {
       panelClass: 'custom-dialog',
       data: { data: entity, isEditMode : false },
       width: '650px',
       maxHeight: '90vh'
     });
+    dailogRef.afterClosed().subscribe(res =>{
+      this.onQuestionAdded(res);
+    })
   }
 }

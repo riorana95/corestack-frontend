@@ -37,6 +37,7 @@
         <app-question-card-component
           [question]="question"
           [companyName]="selectedCompany()"
+          (updatedData)="onQuestionUpdated($event)"
         >
         </app-question-card-component>
       }

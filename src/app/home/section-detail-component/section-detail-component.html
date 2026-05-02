@@ -1,51 +1,6 @@
-<div class="container">
+<div class="container-fluid">
 
-  <!-- SECTION LIST -->
-  @if (!selectedSection()) {
-
-    <div class="sections-list">
-
-      <h2 class="section-title">Interview Questions by Section</h2>
-      <p class="section-subtitle">
-        Select a section to practice interview questions
-      </p>
-
-      <div class="sections-grid">
-        @for (section of sections(); track section) {
-          <div class="section-card" (click)="selectSection(section)">
-            <div class="section-name">{{ section }}</div>
-            <div class="section-arrow">→</div>
-          </div>
-        }
-      </div>
-
-    </div>
-  }
-
-  <!-- QUESTIONS SECTION -->
-  @if (selectedSection()) {
-
-    <div class="questions-section">
-
-      <div class="section-header">
-        <button class="back-btn" (click)="clearSelection()">←</button>
-        <h2>{{ selectedSection() }} Questions</h2>
-      </div>
-
-      @if (loading()) {
-        <div class="loading-spinner">
-          <p>Loading questions...</p>
-        </div>
-      } @else {
-        @for (question of selectedQuestions(); track question.question) {
-          <app-question-card-component
-            [question]="question">
-          </app-question-card-component>
-        }
-      }
-
-    </div>
-
-  }
+  <app-section-filter (questionSet)="questionList($event)"></app-section-filter>
+  <app-section-table [tableList]="filteredQuestionList"></app-section-table>
 
 </div>

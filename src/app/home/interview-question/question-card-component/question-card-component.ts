@@ -14,6 +14,7 @@ export class QuestionCardComponent implements OnInit  {
 
   @Input() question: any;
   @Input() companyName?: string | null;
+  @Output() updatedData = new EventEmitter<any>();
   private dialog = inject(MatDialog)
   ngOnInit() {
 
@@ -42,40 +43,43 @@ export class QuestionCardComponent implements OnInit  {
     });
   }
 
-sanitize(html: string) {
-  const clean = DOMPurify.sanitize(html);
+  sanitize(html: string) {
+    const clean = DOMPurify.sanitize(html);
 
-  return clean.replace(
-    /<pre([^>]*)>([\s\S]*?)<\/pre>/g,
-    (match, attrs, content) => {
-      return `<pre${attrs}><code>${content}</code></pre>`;
-    }
-  );
-}
+    return clean.replace(
+      /<pre([^>]*)>([\s\S]*?)<\/pre>/g,
+      (match, attrs, content) => {
+        return `<pre${attrs}><code>${content}</code></pre>`;
+      }
+    );
+  }
 
   editPopup(question?:any) {
-      this.dialog.open(AddQuestion, {
+      const dailogRef = this.dialog.open(AddQuestion, {
         panelClass: 'custom-dialog',
         data: { data: question,  isEditMode : true},
         width: '650px',
         maxHeight: '90vh'
       });
+      dailogRef.afterClosed().subscribe( res=>{
+        this.updatedData.emit(res)
+      })
     }
 
-    copyCode(event: Event) {
-  const container = (event.target as HTMLElement).closest('.code-container');
+  copyCode(event: Event) {
+    const container = (event.target as HTMLElement).closest('.code-container');
 
-  const codeBlock = container?.querySelector('pre code');
+    const codeBlock = container?.querySelector('pre code');
 
-  if (!codeBlock) return;
+    if (!codeBlock) return;
 
-  const text = codeBlock.textContent || '';
+    const text = codeBlock.textContent || '';
 
-  navigator.clipboard.writeText(text);
+    navigator.clipboard.writeText(text);
 
-  // simple feedback
-  const btn = event.target as HTMLElement;
-  btn.innerText = 'Copied!';
-  setTimeout(() => btn.innerText = 'Copy', 1500);
-}
+    // simple feedback
+    const btn = event.target as HTMLElement;
+    btn.innerText = 'Copied!';
+    setTimeout(() => btn.innerText = 'Copy', 1500);
+  }
 }

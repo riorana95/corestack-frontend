@@ -61,7 +61,7 @@ export class AddQuestion {
 
 close() {
   this.receivedData.isEditMode = false;
-  this.dialogRef.close();
+  this.dialogRef.close(this.newQuestion);
 }
 
 save() {

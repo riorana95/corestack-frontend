@@ -8,11 +8,15 @@ import { HttpClient } from '@angular/common/http';
 export class Section {
   private apiUrl = environment.apiUrl;
   constructor(private https : HttpClient){
-
   }
 
-  getFilteredQA(){
-    const url = "http://localhost:8080"
-    return this.https.get(url+"/allQuestion")
+  getFilteredQA(reqBody:any){
+    const url = "http://localhost:8080";
+    return this.https.get(`${this.apiUrl}/questions?companyName=${reqBody.companyName}&tag=${reqBody.tag}&page=${reqBody.currentPage}&size=${reqBody.pageSize}`);
+  }
+
+  getAllCompany() {
+    const url = this.apiUrl + "/company";
+    return this.https.get(url)
   }
 }

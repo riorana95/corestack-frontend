@@ -1,0 +1,93 @@
+.filter-card {
+  display: flex;
+  align-items: end;
+  gap: 20px;
+
+  padding: 20px;
+  border-radius: 16px;
+
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(255,255,255,0.08);
+
+  margin-top: 20px;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.filter-group label {
+  font-size: 12px;
+  color: rgba(255,255,255,0.6);
+}
+
+.filter-group select {
+  min-width: 140px;
+  padding: 8px 10px;
+
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.1);
+
+  background: rgba(255,255,255,0.05);
+  color: white;
+}
+
+.filter-action button {
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: none;
+
+  background: linear-gradient(135deg, #6366f1, #9333ea);
+  color: white;
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.filter-action button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(147,51,234,0.5);
+}
+
+/* 🔥 SELECT FIX (DARK THEME) */
+select {
+  background: rgba(255, 255, 255, 0.08);
+  color: #e5e7eb;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  padding: 8px 10px;
+  outline: none;
+  cursor: pointer;
+
+  /* remove default OS styles */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+/* OPTION FIX (important) */
+select option {
+  background: #0f172a;   /* dark dropdown */
+  color: #e5e7eb;
+}
+
+/* custom dropdown arrow */
+select {
+  background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='20' viewBox='0 0 20 20' width='20'><path d='M5 7l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 14px;
+}
+
+/* hover + focus */
+select:hover {
+  border-color: #6366f1;
+}
+
+select:focus {
+  box-shadow: 0 0 0 2px rgba(99,102,241,0.3);
+}

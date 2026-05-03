@@ -1,17 +1,26 @@
-<div class="card row mt-4">
-  <div class="col-2">
-    <label for="">Company</label>
-    <select>
-        <option value="">All</option>
+<div class="filter-card">
+  <div class="filter-group">
+    <label>Company</label>
+    <select [(ngModel)]="selectedCompany">
+      <option>All</option>
+      @for(companyName of companyList; track companyName){
+        <option [value]="companyName">{{companyName}}</option>
+      }
+      
     </select>
   </div>
-  <div class="col-2">
-    <label for="">Skill</label>
-    <select>
-        <option value="">All</option>
+
+  <div class="filter-group">
+    <label>Skill</label>
+    <select [(ngModel)]="selectedTag">
+      <option>All</option>
+       @for(skill of skillList; track skill){
+        <option [value]="skill">{{skill}}</option>
+      }
     </select>
   </div>
-  <div class="col-2">
+
+  <div class="filter-action">
     <button (click)="filterQuestions()">Search</button>
   </div>
 </div>

@@ -1,0 +1,57 @@
+.table-wrapper {
+  margin-top: 20px;
+  border-radius: 16px;
+  overflow: hidden;
+
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* TABLE */
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* HEADER */
+.custom-table thead {
+  background: rgba(255,255,255,0.06);
+}
+
+.custom-table th {
+  text-align: left;
+  padding: 14px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.7);
+}
+
+/* ROWS */
+.custom-table td {
+  padding: 14px 16px;
+  font-size: 14px;
+  color: rgba(255,255,255,0.85);
+}
+
+/* ROW BORDER */
+.custom-table tr {
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+/* HOVER EFFECT */
+.custom-table tbody tr:hover {
+  background: rgba(99,102,241,0.08);
+}
+
+/* QUESTION COLUMN */
+.question-cell {
+  max-width: 500px;
+  word-wrap: break-word;
+  line-height: 1.5;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px;
+  color: rgba(255,255,255,0.5);
+}

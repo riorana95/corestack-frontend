@@ -21,8 +21,8 @@ export class InterviewService{
     }
 
     getQuestionByCompanyId(selectedId: any) {
-      const base = "http://localhost:8080";
-      const url = base + "/question?companyId="+selectedId;
+      // const base = "http://localhost:8080";
+      const url = this.baseUrl + "/question?companyId="+selectedId;
       return this.https.get(url);
     }
 

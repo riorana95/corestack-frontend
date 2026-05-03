@@ -1,6 +1,16 @@
-<div class="container-fluid">
+<div class="container-fluid page">
 
-  <app-section-filter (questionSet)="questionList($event)"></app-section-filter>
+  <app-section-filter (questionSet)="questionList($event)" #myChildFilterRef></app-section-filter>
   <app-section-table [tableList]="filteredQuestionList"></app-section-table>
+<div class="pagination">
+  <button (click)="prevPage()" [disabled]="currentPage === 0">
+    ← Prev
+  </button>
 
+  <span>Page {{ currentPage + 1 }} of {{ totalPages }}</span>
+
+  <button (click)="nextPage()" [disabled]="currentPage === totalPages - 1">
+    Next →
+  </button>
+</div>
 </div>

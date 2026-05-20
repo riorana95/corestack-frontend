@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-interview-dashboard',
   imports: [],
-  templateUrl: './home.html',
-  styleUrl: './home.scss',
+  templateUrl: './interview-dashboard.html',
+  styleUrl: './interview-dashboard.scss',
 })
-export class Home {
+export class InterviewDashboard {
 
   constructor(private routes : Router){}
 
@@ -15,3 +15,4 @@ export class Home {
     this.routes.navigate([path])
   }
 }
+

@@ -7,13 +7,15 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { Router } from  '@angular/router';
-import { json } from 'stream/consumers';
+
+declare const google: any;
 
 @Component({
   selector: 'app-login',
   imports: [ReactiveFormsModule],
   templateUrl: './login.html',
   styleUrl: './login.scss',
+  standalone: true
 })
 export class Login implements OnInit {
   signUpForm!: FormGroup;
@@ -27,9 +29,39 @@ export class Login implements OnInit {
     private routes : Router
   ) {}
 
-  ngOnInit(){
-    this.createForm();
-  }
+ngOnInit() {
+
+  this.createForm();
+
+  google.accounts.id.initialize({
+    client_id: '436536053559-90t6u2huarc4s0ffuipo79mca9c2u9l5.apps.googleusercontent.com',
+    callback: (response: any) => {
+      this.handleGoogleLogin(response);
+    }
+  });
+
+  google.accounts.id.renderButton(
+    document.getElementById('google-button'),
+    {
+      theme: 'outline',
+      size: 'large',
+      width: 250
+    }
+  );
+
+}
+
+handleGoogleLogin(response: any) {
+
+  console.log('Google Response');
+
+  console.log(response);
+
+  console.log('JWT TOKEN');
+
+  console.log(response.credential);
+
+}
 
   toggleMode(){
     this.isRegistered = !this.isRegistered;

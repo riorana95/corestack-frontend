@@ -291,3 +291,189 @@ Improved Build & Performance: Faster incremental builds, better caching, and opt
 Template Syntax Enhancement: Introduction of the spread operator (...) in templates, allowing for easier object/array handling (e.g., [...items]).
 Updated Tooling: Vitest is now the default test runner, providing faster testing.
 Angular Aria: A new package focused on enhancing accessibility, details are included in this release
+
+
+------------
+--search IMPL
+
+import { Component, OnInit, signal  } from '@angular/core';
+import { CommonModule } from '@angular/common'; 
+import { bootstrapApplication } from '@angular/platform-browser';
+import { HttpClient } from '@angular/common/http';
+import { debounceTime, distinctUntilChanged, Observable, Subject,tap, switchMap, of, catchError, delay, shareReplay } from 'rxjs';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports:[CommonModule],
+  template: `
+    <!-- <h1>Hello from {{ name }}!</h1>
+    <a target="_blank" href="https://angular.dev/overview">
+      Learn more about Angular
+    </a> -->
+    <!-- <button (click)="counter.set(counter() - 1)">--</button>
+    <span> Counter: {{ counter() }} </span>
+    <button (click)="counter.set(counter() + 1)">++</button> -->
+    <!-- <button (click)="getData()">Get List</button>
+    <ul>
+      @for(l of filterList; track l){
+        <li>{{l}}</li>
+      }
+    </ul>
+    <button (click)="prev()">prev</button>
+    <button (click)="next()">next</button> -->
+    <input (input)="getData($event)">
+    @if(loader === true){
+      loading..
+    }@else{
+      <ul>
+      @for(product of (filterProduct$ | async); track product){
+        <li>{{product}}</li>
+      }
+    </ul>
+    }
+
+
+  `,
+})
+export class App implements OnInit{
+  // name = 'Angular';
+  // counter = signal(0);
+  // list :any;
+  // size = 5;
+  // filterList : any;
+
+  // constructor(private http: HttpClient){}
+
+  // next(){
+  //   this.counter.update(x=>x+1)
+  //   this.loadData();
+  // }
+  // prev(){
+  //   this.counter.update(x=>x-1)
+  //   this.loadData();
+  // }
+
+  // loadData(){
+  //   const startIndex = this.counter() * this.size;
+  //   const endIndex = startIndex + this.size;
+  //   this.filterList = this.list.slice(startIndex,endIndex);
+  // }
+  // getData(){
+  //   const url = 'https://fakestoreapi.com/products'
+  //   this.http.get(url).subscribe({
+  //     next : ((res:any)=>{
+  //       this.list = res.map((x:any)=>x.description);
+  //       this.loadData();
+  //     }
+  //     )
+  //   })
+  // }
+  dataList = ["apple","samsung","moto"]
+
+  searchData$ = new Subject<string>();
+  filterProduct$! : Observable<string[]>;
+  loader = false;
+
+  ngOnInit(){
+    this.filterProduct$ = this.searchData$.pipe(
+      distinctUntilChanged(),
+      debounceTime(300),
+      tap(()=>this.loader = true),
+      switchMap((terms:any)=>
+        this.performSearch(terms).pipe(
+          tap(()=>this.loader=false)
+          )
+      ),shareReplay(1)
+    )
+    this.searchData$.next('');
+  }
+
+  performSearch(terms:any){
+    if(!terms.trim()){
+      return of(this.dataList)
+    }
+
+    const filtered = this.dataList.filter((x:any)=>x.toLowerCase().includes(terms.toLowerCase()))
+
+    return of(filtered).pipe(
+      delay(1500),
+      catchError((err:any)=>of([]))
+    )
+  }
+
+  getData(event:any){
+    this.searchData$.next(event.target.value)
+  }
+
+
+}
+
+bootstrapApplication(App);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------
+1) What is Angular and its core features?
+2) Explain Angular architecture.
+3) What are components in Angular?
+4) What is a module (NgModule)?
+5) What are standalone components?
+6) What are directives? Types of directives?
+7) Difference between component and directive.
+8) Explain data binding and its types.
+9) What is interpolation?
+10) Property binding vs event binding?
+11) What is two-way data binding?
+12) What is dependency injection?
+13) What are services in Angular?
+14) How do you create and use services?
+15) How do components communicate?
+16) Parent to child communication?
+17) Child to parent communication?
+18) Communication between unrelated components?
+19) What is routing in Angular?
+20) What is router-outlet?
+21) What is lazy loading?
+22) What are route guards?
+23) Difference between template-driven and reactive forms?
+24) How to validate forms?
+25) Custom validators in Angular?
+26) What are pipes?
+27) Difference between pure and impure pipes?
+28) What is Change Detection?
+29) What is OnPush change detection?
+30) What is trackBy in *ngFor?
+31) What is RxJS?
+32) Difference between Observable and 33) Promise?
+34) What is Subject in RxJS?
+35) BehaviorSubject vs Subject?
+36) ReplaySubject vs BehaviorSubject?
+37) How to make HTTP calls in Angular?
+38) How do you handle API errors?
+39) What is HttpInterceptor?
+40) How do you secure routes?
+41) How do you optimize Angular app performance?
+42) What is Ahead-of-Time (AOT) compilation?
+43) What is Just-in-Time (JIT) compilation?
+44) What are lifecycle hooks?
+Explain ngOnInit and ngOnDestroy.
+45) What is ViewChild?
+46) What is ContentChild?
+47) What are Angular signals?
+48) How to handle multiple API calls sequentially?
+49) How to split large components?
+50) Best practices for scalable Angular applications?

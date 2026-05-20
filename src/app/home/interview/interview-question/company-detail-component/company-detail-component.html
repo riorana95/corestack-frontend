@@ -33,10 +33,11 @@
         <!-- <button class="add-btn" (click)="addQuestionPopup()">+ Add Question</button> -->
       </div>
 
-      @for (question of selectedQuestions(); track question.question) {
+      @for (question of selectedQuestions(); track question.question; let i = $index) {
         <app-question-card-component
           [question]="question"
           [companyName]="selectedCompany()"
+          [index]="$index"
           (updatedData)="onQuestionUpdated($event)"
         >
         </app-question-card-component>

@@ -4,7 +4,7 @@ import { Observable, of } from "rxjs";
 import interviewConfig  from "./interviewQA.json"
 import sectionQuestionConfig from "./sectionQuestions.json"
 import { signal } from '@angular/core';
-import { environment } from "../../environments/environment";
+import { environment } from "../../../environments/environment";
 
 @Injectable({
     providedIn: 'root',

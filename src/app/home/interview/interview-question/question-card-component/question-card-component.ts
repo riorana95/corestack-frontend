@@ -15,7 +15,9 @@ export class QuestionCardComponent implements OnInit  {
   @Input() question: any;
   @Input() companyName?: string | null;
   @Output() updatedData = new EventEmitter<any>();
+  @Input() index!: number; // Receives the index from the parent
   private dialog = inject(MatDialog)
+  count = 0;
   ngOnInit() {
 
   }

@@ -4,6 +4,7 @@ import { Login } from './login/login';
 import { Interview } from './home/interview/interview-question/interview';
 import { SectionDetailComponent } from './home/interview/section-detail-component/section-detail-component';
 import { InterviewDashboard } from './home/interview/interview-dashboard';
+import { Splitwise } from './home/splitwise/splitwise';
 
 export const routes: Routes = [
     {
@@ -25,5 +26,9 @@ export const routes: Routes = [
     {
         path: 'question-set',
         component: SectionDetailComponent
+    },
+    {
+        path: 'splitwise',
+        component: Splitwise
     }
 ];

@@ -477,3 +477,228 @@ Explain ngOnInit and ngOnDestroy.
 48) How to handle multiple API calls sequentially?
 49) How to split large components?
 50) Best practices for scalable Angular applications?
+
+
+----------------------Wissen
+// input = "thisIsATest" 
+// output = "This_Is_A_Test"
+
+// function snakecase(input){
+//      const snakecase = input.replace(/([a-z0-9])([A-Z])/g,'$1_$2')
+//      return snakecase
+// }
+
+// console.log(snakecase(input))
+// Input - [1, [2]]
+// Output - [1,2]
+ 
+//  Input = [1,[2],[3,[4]]]
+// Output - [1,[2],3,4]
+// function flatarray(arr){
+//     let result = [];
+//     arr.forEach((item)=>{
+//         if(Array.isArray(item)){
+//             result = result.concat(flatarray(item));
+//         }else{
+//             result.push(item);
+//         }
+//     });
+//     return result;
+// }
+
+// console.log(flatarray(Input))
+
+// (function immediateA(a) {
+//   return (function immediateB(b) {
+//     console.log(a); 
+//   })(1);
+// })(0);
+
+// const object = {
+//   who: 'World',
+//   greet() {
+//     return `Hello, ${this.who}!`;
+//   },
+// farewell: () => {
+//     return `Goodbye, ${this.who}!`;                                                                         }
+// };
+// console.log(object.greet());    
+// console.log(object.farewell()); 
+
+// for (var i = 0; i < 3; i++) {
+
+//   setTimeout(function log() {
+
+//     console.log(i); // What is logged?
+
+//   }, 1000);
+
+// }
+
+
+------------------------------------------------------------cyient
+
+import { Component, OnInit, signal } from '@angular/core';
+import { bootstrapApplication } from '@angular/platform-browser';
+
+@Component({
+  selector: 'app-root',
+  template: `
+  @for(employee of data;track employee){
+    <div class="card">
+      <ul>
+      <li>{{employee.name}}</li>
+      <li>{{employee.email}}</li>
+      <li>{{employee.salary}}</li>
+      <li>{{employee.role}}</li>
+    </ul>
+    </div>
+  }
+  `,
+})
+export class App implements OnInit {
+  name = 'Angular';
+
+
+  // @Component({
+  //   selector: 'app-user',
+  //   template: `{{ user.name }}`,
+  //   changeDetection: ChangeDetectionStrategy.OnPush
+  // })
+  // export class UserComponent {
+  // @Input() user!: any;
+  // @Input() location! : any;
+  // }
+  // this.user.name ='Updated';
+  // this.location = 'bangalore';
+
+  data =[
+    {
+    name: 'John Doe',
+    email: 'john.doe@gmail.com',
+    salary: 50000,
+    role: 'admin'
+    },
+    {
+    name: 'David',
+    email: 'david@flipkart.com',
+    salary: 40000,
+    role: 'manager'
+    }
+  ]
+
+  ngOnInit(){
+    this.data = this.data.map(x=>({
+        ...x,
+        email: this.maskEmail(x)
+    }))
+  }
+
+  maskEmail(mail:any){
+    let [user, domain] = mail.split("@");
+    let [domain1, co] = domain.split(".");
+    user = user.substring(0,2) + "*".repeat(user.length-2);
+    domain1 = domain1.substring(0,0) + "*".repeat(user.length)
+    return `${user}+@+${domain1}.${co}`
+  }
+     
+  //   // Display as a card:
+  //   // Employee Name
+  //   // Email
+  //   // Salary
+  //   // Role
+  //   // john.doe@gmail.com
+  //   // jo*****@*****.com
+  //   // display first 2 characters, rest of the characters as "*"
+  //   // john.doe@gmail.com
+  //   // jo*****@gmail.com
+}
+
+
+// console.log(a);
+// function a() {}
+// let a = 5;
+ 
+// sayHello();
+
+// var sayHello=function() {
+
+// console.log("Hello");
+
+// };
+ 
+// I dropping this call. Ping me if any support required. Thanks
+ 
+// [
+
+// {
+
+// name: 'John Doe',
+
+// email: 'john.doe@gmail.com',
+
+// salary: 50000,
+
+// role: 'admin'
+
+// },
+
+// {
+
+// name: 'David',
+
+// email: 'david@flipkart.com',
+
+// salary: 40000,
+
+// role: 'manager'
+
+// }]
+ 
+// Display as a card:
+// Employee Name
+// Email
+// Salary
+// Role
+ 
+// display first 2 characters, rest of the characters as "*"
+// john.doe@gmail.com
+// jo*****@gmail.com
+ 
+ 
+ 
+// john.doe@gmail.com
+// jo*****@*****.com
+ 
+ 
+// 9876543210
+// 987****210
+ 
+// @Component({
+
+//   selector: 'app-user',
+
+//   template: `{{ user.name }}`,
+
+//   changeDetection: ChangeDetectionStrategy.OnPush
+
+// })
+
+// export class UserComponent {
+
+// @Input() user!: any;
+// @Input() location! : any;
+
+// }
+// this.user.name ='Updated';
+// this.location = 'bangalore';
+ 
+sayHello();
+var sayHello=function() {
+console.log("Hello");
+};
+
+bootstrapApplication(App);
+
+
+

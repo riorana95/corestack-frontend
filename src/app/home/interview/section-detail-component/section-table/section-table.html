@@ -1,5 +1,7 @@
 <div class="table-wrapper">
+
   <table class="custom-table">
+
     <thead>
       <tr>
         <th>Company</th>
@@ -9,18 +11,82 @@
     </thead>
 
     <tbody>
-      @for (questionSet of tableList; track questionSet) {
-        <tr>
-          <td>{{questionSet.companyName}}</td>
-          <td>{{questionSet.companyRole}}</td>
-          <td class="question-cell">{{questionSet.question}}</td>
+
+      @for (questionSet of tableList; track questionSet; let i = $index) {
+
+        <!-- MAIN ROW -->
+        <tr (click)="toggleRow(i)">
+
+          <td>
+            {{ questionSet.companyName }}
+          </td>
+
+          <td>
+            {{ questionSet.companyRole }}
+          </td>
+
+          <td class="question-cell">
+
+            <div class="question-wrapper">
+
+              <span>
+                {{ questionSet.question }}
+              </span>
+
+              <span class="expand-icon">
+                {{ expandedRow === i ? '−' : '+' }}
+              </span>
+
+            </div>
+
+          </td>
+
         </tr>
+
+        <!-- EXPANDED ROW -->
+        @if (expandedRow === i) {
+
+          <tr class="expanded-row">
+
+            <td colspan="3">
+
+              <div class="expanded-content">
+
+                @if (questionSet.description) {
+
+                  <div
+                    class="rich-content"
+                    [innerHTML]="questionSet.description">
+                  </div>
+
+                } @else {
+
+                  <div class="empty-answer">
+                    Answer not added yet.
+                  </div>
+
+                }
+
+              </div>
+
+            </td>
+
+          </tr>
+
+        }
+
       }
+
     </tbody>
-    <!-- @if (!tableList || tableList.length === 0) {
-  <div class="empty-state">
-    No data found. Try searching.
-  </div>
-} -->
+
   </table>
+
+  @if (!tableList || tableList.length === 0) {
+
+    <div class="empty-state">
+      No data found. Try searching.
+    </div>
+
+  }
+
 </div>

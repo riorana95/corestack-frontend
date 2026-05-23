@@ -1,0 +1,71 @@
+<!-- create Group Expnse -->
+<div>
+    <span>Group Name</span>
+    <input type="text" [(ngModel)]="groupName">
+</div> 
+<!-- Group Name -->
+<!-- Group Category -->
+ <div>
+    <span>Group Category</span>
+    <input type="text" [(ngModel)]="groupCategory">
+</div> 
+
+<!-- add Group Member -->
+    <!-- display chips -->
+    @for(item of selectedGroupMemberName | keyvalue; track item.key){
+        <span class="chip">{{item.key}}</span>
+    }
+     
+<div>
+    <span>Group Member</span>
+    <input type="text" (input)="getFilteredGroupMemberName($event)">
+</div> 
+
+<ul>
+    @for(name of (filteredGroupName$ | async); track name){
+        <li (click)="selectMember(name)">{{name}}</li>
+    }
+</ul>
+
+<!-- Add Expenses -->
+
+<div>
+    <span>Enter Description:</span>
+    <input type="text">
+</div>
+<div>
+    <span>Enter Amount:</span>
+    <input type="number" [(ngModel)]="totalAmount">
+</div>
+<span>paid by you and split equally</span>
+<button (click)="splitAmount()">Done</button>
+
+<div>
+    <ul>
+        @for(data of selectedGroupMemberName| keyvalue; track data.key){
+            <li>{{data.key}}:{{data.value}}</li>
+        }
+    </ul>
+</div>
+
+
+
+--------------------------------
+<!-- DashBoard -->
+
+<!-- List of Group Visible -->
+<div class="container">
+    <div class="card" style="align-items: baseline;">
+        <div style="display: flex; flex-wrap: nowrap;">
+            <img src="" alt="image">
+            <ul>
+                <li>Group Name</li>
+                <li>Amount owned</li>
+                <li></li>
+            </ul>
+
+        </div>
+        
+    </div>
+</div>
+<!-- Create New Group -->

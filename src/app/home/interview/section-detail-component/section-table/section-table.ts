@@ -8,4 +8,10 @@ import { Component, Input } from '@angular/core';
 })
 export class SectionTable {
   @Input() tableList : any;
+  expandedRow: number | null = null;
+
+  toggleRow(index: number) {
+  this.expandedRow =
+    this.expandedRow === index ? null : index;
+}
 }

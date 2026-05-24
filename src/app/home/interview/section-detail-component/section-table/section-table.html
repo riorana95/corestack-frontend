@@ -18,24 +18,71 @@
         <tr (click)="toggleRow(i)">
 
           <td>
-            {{ questionSet.companyName }}
+            <div class="company-cell">
+              @if (getPrimaryCompany(questionSet.companies)) {
+                <span class="primary-company">
+                  {{ getPrimaryCompany(questionSet.companies)?.name }}
+                </span>
+                @if (hasMultipleCompanies(questionSet.companies)) {
+                  <span class="frequency-icon" 
+                        [title]="'Asked by ' + questionSet.companies.length + ' companies'">
+                    <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <text x="50%" y="50%" text-anchor="middle" dy="0.3em" class="frequency-number">
+                        {{ getFrequencyBadge(questionSet.companies) }}
+                      </text>
+                    </svg>
+                    <div class="tooltip">
+                      <div class="tooltip-title">Asked by {{ questionSet.companies.length }} companies:</div>
+                      @for (company of questionSet.companies; track company.id) {
+                        <div class="tooltip-item">
+                          <strong>{{ company.name }}</strong> - {{ company.role }}
+                        </div>
+                      }
+                    </div>
+                  </span>
+                }
+              }
+            </div>
           </td>
 
           <td>
-            {{ questionSet.companyRole }}
+            <div class="role-cell">
+              @if (getPrimaryCompany(questionSet.companies)) {
+                <span class="primary-role">
+                  {{ getPrimaryCompany(questionSet.companies)?.role }}
+                </span>
+              }
+            </div>
           </td>
 
           <td class="question-cell">
 
             <div class="question-wrapper">
+              
+              <div class="question-content">
+                <span>{{ questionSet.question }}</span>
+              </div>
 
-              <span>
-                {{ questionSet.question }}
-              </span>
+              <div class="right-icons">
+                @if (hasMultipleCompanies(questionSet.companies)) {
+                  <span class="fire-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 2.35 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.12 0-1.72 1.44-3.12 3.22-3.12 1.78 0 3.22 1.4 3.22 3.12 0 1.72-1.44 3.12-3.22 3.12z"/>
+                    </svg>
+                    <div class="tooltip">
+                      <div class="tooltip-title">Most Asked Question</div>
+                      <div class="tooltip-item">
+                        Asked by {{ questionSet.companies.length }} companies
+                      </div>
+                    </div>
+                  </span>
+                }
 
-              <span class="expand-icon">
-                {{ expandedRow === i ? '−' : '+' }}
-              </span>
+                <span class="expand-icon">
+                  {{ expandedRow === i ? '−' : '+' }}
+                </span>
+              </div>
 
             </div>
 
@@ -51,6 +98,21 @@
             <td colspan="3">
 
               <div class="expanded-content">
+
+                <!-- Show all companies if expanded -->
+                @if (hasMultipleCompanies(questionSet.companies)) {
+                  <div class="companies-section">
+                    <h4>Asked by {{ questionSet.companies.length }} companies:</h4>
+                    <div class="companies-list">
+                      @for (company of questionSet.companies; track company.id) {
+                        <div class="company-item">
+                          <span class="company-badge">{{ company.name }}</span>
+                          <span class="role-badge">{{ company.role }}</span>
+                        </div>
+                      }
+                    </div>
+                  </div>
+                }
 
                 @if (questionSet.description) {
 

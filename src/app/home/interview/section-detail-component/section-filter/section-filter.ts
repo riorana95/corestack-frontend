@@ -12,16 +12,19 @@ export class SectionFilter implements OnInit {
   @Output() questionSet = new EventEmitter<any>();
   selectedCompany = '';
   selectedTag = '';
+  sortBy = 'most-asked'; // 'most-asked' or 'all'
   companyList : any;
   skillList = [
+  "frontend",
+  "backend",
+  "coding",
   "angular",
-  "react",
   "javascript",
   "typescript",
   "css",
   "html",
+  "react",
   "java",
-  "backend",
   "sql",
   "rxjs",
   "hooks",
@@ -33,7 +36,6 @@ export class SectionFilter implements OnInit {
   "system-design",
   "project",
   "behavioral",
-  "coding",
   "dsa",
   "git",
   "ui",
@@ -53,15 +55,27 @@ export class SectionFilter implements OnInit {
     let reqBody = {
       companyName : this.selectedCompany === "All"?"":this.selectedCompany,
       tag : this.selectedTag === "All"?"":this.selectedTag,
+      sortBy: this.sortBy,
       currentPage : currentPage || 0,
       pageSize : pageSize || 10
     }
     this.sectionService.getFilteredQA(reqBody)
       .subscribe((res:any) => {
+        // Sort by frequency if "most-asked" is selected
+        if (this.sortBy === 'most-asked' && res.content) {
+          res.content = this.sortByFrequency(res.content);
+        }
         this.questionSet.emit(res);
         console.log(res);
-        // this.tableList = res.content;
-        // this.totalPages = res.totalPages;
+    });
+  }
+
+  // Sort questions by number of companies (frequency)
+  private sortByFrequency(questions: any[]): any[] {
+    return questions.sort((a, b) => {
+      const aCount = a.companies?.length || 1;
+      const bCount = b.companies?.length || 1;
+      return bCount - aCount; // Descending order (most asked first)
     });
   }
 }

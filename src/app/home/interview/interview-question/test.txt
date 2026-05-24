@@ -609,9 +609,7 @@ export class App implements OnInit {
   //   // Role
   //   // john.doe@gmail.com
   //   // jo*****@*****.com
-  //   // display first 2 characters, rest of the characters as "*"
-  //   // john.doe@gmail.com
-  //   // jo*****@gmail.com
+  //   // display first 2 characters, rest of the characters as "*" display @ rest * and last show .com or .in what ever is there
 }
 
 
@@ -702,3 +700,17 @@ bootstrapApplication(App);
 
 
 
+Hosting Tricy Question
+myFunc(); // two
+
+var myFunc = () => {
+  console.log('one');
+}
+
+myFunc(); // one
+
+fuction myFunc() {
+  console.log("two")
+};
+
+myFunc(); //one

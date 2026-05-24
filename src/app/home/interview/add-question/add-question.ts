@@ -31,7 +31,7 @@ export class AddQuestion {
 
   constructor(private addService: AddQuestionService) {
     if(this.receivedData.isEditMode){
-        this.newQuestion.companyId = this.receivedData.data.companyEntity.id
+        this.newQuestion.companyId = this.receivedData.data.id
         this.edit(this.receivedData.data)
     }else{
       this.newQuestion.companyId = this.receivedData.data

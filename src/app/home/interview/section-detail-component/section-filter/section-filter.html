@@ -20,6 +20,14 @@
     </select>
   </div>
 
+  <div class="filter-group">
+    <label>Sort By</label>
+    <select [(ngModel)]="sortBy">
+      <option value="most-asked">Most Asked Questions</option>
+      <option value="all">All Questions</option>
+    </select>
+  </div>
+
   <div class="filter-action">
     <button (click)="filterQuestions()">Search</button>
   </div>

@@ -1,0 +1,64 @@
+@if (loaderService.loading$ | async) {
+
+<div class="loader-overlay">
+
+  <!-- NEURAL BG -->
+  <div class="neural-bg">
+
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+
+  </div>
+
+  <!-- HUD -->
+  <div class="hud-loader">
+
+    <div class="radar"></div>
+
+    <div class="outer-ring"></div>
+
+    <div class="middle-ring"></div>
+
+    <div class="inner-ring"></div>
+
+    <div class="core"></div>
+
+  </div>
+
+  <!-- TEXT -->
+  <div class="loader-text">
+
+    <h2>CORESTACK AI</h2>
+
+    <p>Initializing Interview Engine...</p>
+
+    <div class="terminal">
+
+      <span>Loading Angular modules...</span>
+
+      <span>Fetching interview database...</span>
+
+      <span>Optimizing question graph...</span>
+
+    </div>
+
+  </div>
+
+  <!-- QUESTION NODES -->
+  <div class="question-nodes">
+
+    <span>Angular</span>
+    <span>RxJS</span>
+    <span>Signals</span>
+    <span>JavaScript</span>
+    <span>Performance</span>
+
+  </div>
+
+</div>
+
+}

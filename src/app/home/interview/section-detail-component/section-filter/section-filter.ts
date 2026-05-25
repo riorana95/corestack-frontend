@@ -55,7 +55,7 @@ export class SectionFilter implements OnInit {
   }
 
   filterQuestions(currentPage? : Number, pageSize?: Number) {
-    this.loaderService.display(true);    
+    // this.loaderService.display(true);    
     let reqBody = {
       companyName : this.selectedCompany === "All"?"":this.selectedCompany,
       tag : this.selectedTag === "All"?"":this.selectedTag,
@@ -74,12 +74,12 @@ export class SectionFilter implements OnInit {
             const sortedQuestions = this.sortByFrequency(questions);
             res.content = sortedQuestions;
           }
-          this.loaderService.display(false);
+          // this.loaderService.display(false);
           this.questionSet.emit(res);
           console.log('Filtered Questions:', res);
         },
         (error:any) => {
-          this.loaderService.display(false);
+          // this.loaderService.display(false);
           console.error('Error fetching questions:', error);
         }
       );

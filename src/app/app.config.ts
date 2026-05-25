@@ -5,13 +5,16 @@ import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { importProvidersFrom } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideHttpClient, withInterceptors, withFetch } from '@angular/common/http';
+import { loadingInterceptor } from './interceptor/loading-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     importProvidersFrom(MatDialogModule),
-    provideHttpClient(withFetch()),
+    provideHttpClient(withFetch(),  withInterceptors([
+    loadingInterceptor
+  ])),
     provideRouter(routes), provideClientHydration(withEventReplay())
   ]
 };

@@ -1,7 +1,10 @@
 .filter-card {
   display: flex;
-  align-items: end;
   gap: 20px;
+
+  align-items: stretch; // change this
+
+  flex-wrap: wrap; // add this
 
   padding: 20px;
   border-radius: 16px;
@@ -90,4 +93,57 @@ select:hover {
 
 select:focus {
   box-shadow: 0 0 0 2px rgba(99,102,241,0.3);
+}
+
+@media (max-width: 768px) {
+
+  .filter-card {
+
+    flex-direction: column;
+
+    align-items: stretch;
+
+    gap: 16px;
+
+    padding: 16px;
+  }
+
+  .filter-group {
+    width: 100%;
+  }
+
+  .filter-group select {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .filter-action {
+    width: 100%;
+  }
+
+  .filter-action button {
+    width: 100%;
+  }
+
+  .filter-card {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .filter-group,
+  .filter-action {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .filter-group select,
+  .filter-action button {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* IMPORTANT */
+  .filter-group {
+    overflow: hidden;
+  }
 }

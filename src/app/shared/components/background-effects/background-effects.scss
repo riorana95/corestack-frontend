@@ -1,0 +1,84 @@
+.background {
+  position: fixed;
+  inset: 0;
+
+  overflow: hidden;
+
+  z-index: 0;
+
+  pointer-events: none;
+}
+
+.glow {
+
+  position: absolute;
+
+  border-radius: 50%;
+
+  filter: blur(100px);
+
+  opacity: 0.18;
+}
+
+.glow-1 {
+
+  width: 500px;
+  height: 500px;
+
+  background: #6366f1;
+
+  top: -120px;
+  left: -120px;
+
+  animation: floatOne 8s ease-in-out infinite;
+}
+
+.glow-2 {
+
+  width: 450px;
+  height: 450px;
+
+  background: #9333ea;
+
+  bottom: -100px;
+  right: -100px;
+
+  animation: floatTwo 10s ease-in-out infinite;
+}
+
+.grid {
+
+  position: absolute;
+  inset: 0;
+
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+
+  background-size: 40px 40px;
+
+  mask-image:
+    radial-gradient(circle at center, black, transparent 90%);
+}
+
+@keyframes floatOne {
+
+  0%,100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(30px);
+  }
+}
+
+@keyframes floatTwo {
+
+  0%,100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-40px);
+  }
+}

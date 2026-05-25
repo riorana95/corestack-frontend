@@ -1,12 +1,12 @@
 import { Component, signal } from '@angular/core';
 import { Login } from './login/login';
 import { RouterOutlet } from "@angular/router";
-import { Header } from './header/header';
 import { GlobalLoader } from './shared/components/global-loader/global-loader';
+import { AppShell } from "./shared/layout/app-shell/app-shell";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Header, GlobalLoader],
+  imports: [RouterOutlet, GlobalLoader, AppShell],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })

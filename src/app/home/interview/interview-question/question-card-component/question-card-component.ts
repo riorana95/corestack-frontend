@@ -26,24 +26,37 @@ export class QuestionCardComponent implements OnInit  {
 
   }
 
-  ngAfterViewInit() {
-    setTimeout(() => {
-      const blocks = this.el.nativeElement.querySelectorAll('pre code');
+ngAfterViewInit() {
+  setTimeout(() => {
 
-      blocks.forEach((block: HTMLElement) => {
+    const blocks =
+      this.el.nativeElement.querySelectorAll('pre');
 
-        if (block.classList.contains('processed')) return;
+    blocks.forEach((pre: HTMLElement) => {
 
-        // detect language
-        block.classList.add('language-html');
+      const code =
+        pre.querySelector('code');
 
-        // highlight
-        hljs.highlightElement(block);
+      if (!code) return;
 
-        block.classList.add('processed');
-      });
+      if (code.classList.contains('processed')) return;
+
+      // get language from DB attribute
+      const language =
+        pre.getAttribute('data-language');
+
+      if (language && language !== 'plain') {
+        code.classList.add(`language-${language}`);
+      }
+
+      hljs.highlightElement(code as HTMLElement);
+
+      code.classList.add('processed');
+
     });
-  }
+
+  });
+}
 
   sanitize(html: string) {
     const clean = DOMPurify.sanitize(html);

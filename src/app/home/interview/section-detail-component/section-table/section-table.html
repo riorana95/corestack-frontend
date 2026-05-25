@@ -119,10 +119,10 @@
 
                 @if (questionSet.description) {
 
-                  <div
-                    class="rich-content"
-                    [innerHTML]="questionSet.description">
-                  </div>
+              <div
+                class="rich-content"
+                [innerHTML]="sanitize(questionSet.description || '')">
+              </div>
 
                 } @else {
 

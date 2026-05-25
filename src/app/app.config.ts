@@ -7,14 +7,16 @@ import { importProvidersFrom } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { provideHttpClient, withInterceptors, withFetch } from '@angular/common/http';
 import { loadingInterceptor } from './interceptor/loading-interceptor';
+import { authInterceptor } from './core/auth/interceptors/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     importProvidersFrom(MatDialogModule),
-    provideHttpClient(withFetch(),  withInterceptors([
-    loadingInterceptor
-  ])),
+    provideHttpClient(withFetch(), withInterceptors([
+      authInterceptor,
+      loadingInterceptor,
+    ])),
     provideRouter(routes), provideClientHydration(withEventReplay())
   ]
 };

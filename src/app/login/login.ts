@@ -1,172 +1,133 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {
   Validators,
   FormBuilder,
-  FormControl,
   FormGroup,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { Router } from  '@angular/router';
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { AuthService } from '../core/auth/services/auth.service';
+import { ApiErrorResponse } from '../core/auth/models/auth.model';
+import { HttpErrorResponse } from '@angular/common/http';
 
-declare const google: any;
+declare const google: { accounts: { id: unknown } } | undefined;
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './login.html',
   styleUrl: './login.scss',
-  standalone: true
+  standalone: true,
 })
 export class Login implements OnInit {
+  private readonly fb = inject(FormBuilder);
+  private readonly router = inject(Router);
+  private readonly authService = inject(AuthService);
+
   signUpForm!: FormGroup;
-  isRegistered = false;
+  isRegistered = true;
   errorMsg = '';
-  validMailOtp = '';
-  validContactOtp = '';
+  isSubmitting = false;
 
-  constructor(
-    private fb: FormBuilder,
-    private routes : Router
-  ) {}
-
-ngOnInit() {
-
-  this.createForm();
-
-  google.accounts.id.initialize({
-    client_id: '436536053559-90t6u2huarc4s0ffuipo79mca9c2u9l5.apps.googleusercontent.com',
-    callback: (response: any) => {
-      this.handleGoogleLogin(response);
+  ngOnInit(): void {
+    if (this.authService.isAuthenticated()) {
+      this.router.navigate(['/home']);
+      return;
     }
-  });
+    this.createForm();
+    this.initGoogleButton();
+  }
 
-  google.accounts.id.renderButton(
-    document.getElementById('google-button'),
-    {
-      theme: 'outline',
-      size: 'large',
-      width: 250
+  private initGoogleButton(): void {
+    if (typeof google === 'undefined') {
+      return;
     }
-  );
+    // Google OAuth wiring comes in a later phase; backend provider table is ready.
+  }
 
-}
-
-handleGoogleLogin(response: any) {
-
-  console.log('Google Response');
-
-  console.log(response);
-
-  console.log('JWT TOKEN');
-
-  console.log(response.credential);
-
-}
-
-  toggleMode(){
+  toggleMode(): void {
     this.isRegistered = !this.isRegistered;
+    this.errorMsg = '';
     this.createForm();
   }
 
-  createForm() {
+  createForm(): void {
     if (this.isRegistered) {
       this.signUpForm = this.fb.group({
-        email : ['',Validators.required],
-        password : ['',Validators.required]
-      })
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(8)]],
+      });
     } else {
       this.signUpForm = this.fb.group({
         firstName: ['', Validators.required],
         lastName: ['', Validators.required],
-        email: ['', Validators.required],
-        contact: ['', Validators.required],
-        password: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(8)]],
         reEnterPassword: ['', Validators.required],
       });
     }
   }
 
-  loginValidation() {
+  loginValidation(): void {
     this.errorMsg = '';
-    if(this.signUpForm.invalid){
+    if (this.signUpForm.invalid) {
       this.signUpForm.markAllAsTouched();
-      return
+      return;
     }
+
+    this.isSubmitting = true;
+
     if (this.isRegistered) {
-      if(this.isUserValid()){
-        this.routes.navigate(['/home'])
-      }else {
-        return
-      }
-    } else {
-      if(this.validateSignUp()){
-        const existingData = localStorage.getItem('userData')
-        const userDataList = existingData ? JSON.parse(existingData) : [];
-        userDataList.push(this.signUpForm.value);
-        localStorage.setItem("userData",JSON.stringify(userDataList));
-      }else{
-        return console.log(this.errorMsg);
-      }
-      console.log('Sign Up', this.signUpForm.value);
+      this.authService
+        .login({
+          email: this.signUpForm.get('email')?.value,
+          password: this.signUpForm.get('password')?.value,
+        })
+        .subscribe({
+          next: () => {
+            this.isSubmitting = false;
+            this.router.navigate(['/home']);
+          },
+          error: (err) => this.handleAuthError(err),
+        });
+      return;
     }
-    return [];
-  }
 
-  validateSignUp(){
-    if(!this.matchPassword()){
-      this.errorMsg = "Password Not matched";
-      return false;
-    } else if(this.duplicateUser()){
-      this.errorMsg = "User Already Present";
-      console.log(this.errorMsg);
-      return false;
+    if (!this.matchPassword()) {
+      this.errorMsg = 'Passwords do not match';
+      this.isSubmitting = false;
+      return;
     }
-    return true;
-  }
 
-  matchPassword(){
-    if(this.signUpForm.get('password')?.value === this.signUpForm.get('reEnterPassword')?.value)
-      return true
-    return false
-  }
+    const firstName = this.signUpForm.get('firstName')?.value?.trim();
+    const lastName = this.signUpForm.get('lastName')?.value?.trim();
 
-  duplicateUser(){
-    const userData = localStorage.getItem('userData');
-    if(userData && JSON.parse(userData).find((x:any)=>(x.contact === this.signUpForm.get('contact')?.value || x.email === this.signUpForm.get('email')?.value))){
-      return true;
-    }
-    return false;
-  }
-
-  getMailOtp(){
-    this.validMailOtp = Math.random().toFixed(6)
-    console.log(this.validMailOtp)
-  }
-
-  getContactOtp(){
-    this.validContactOtp = Math.random().toFixed(6)
-    console.log(this.validContactOtp)
-  }
-
-  isUserValid(){
-    const userData = localStorage.getItem('userData');
-    const parseData = userData ? JSON.parse(userData) : '';
-    if(parseData){
-      const loggedEmail = parseData.find((x:any)=>{
-        return x.email === this.signUpForm.get('email')?.value
+    this.authService
+      .register({
+        email: this.signUpForm.get('email')?.value,
+        password: this.signUpForm.get('password')?.value,
+        displayName: `${firstName} ${lastName}`.trim(),
+      })
+      .subscribe({
+        next: () => {
+          this.isSubmitting = false;
+          this.router.navigate(['/home']);
+        },
+        error: (err) => this.handleAuthError(err),
       });
+  }
 
-      if(!loggedEmail){
-         this.errorMsg = "Enter Valid Email"
-        return false
-      }
-      
-      if(loggedEmail.password === this.signUpForm.get('password')?.value){
-        return true
-      }
-    }
-    this.errorMsg = "Enter Valid Email"
-    return false
-    // call stored user
+  private matchPassword(): boolean {
+    return (
+      this.signUpForm.get('password')?.value ===
+      this.signUpForm.get('reEnterPassword')?.value
+    );
+  }
+
+  private handleAuthError(err: HttpErrorResponse): void {
+    this.isSubmitting = false;
+    const apiError = err.error as ApiErrorResponse | undefined;
+    this.errorMsg = apiError?.message ?? 'Authentication failed. Please try again.';
   }
 }

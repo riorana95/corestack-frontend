@@ -5,6 +5,7 @@ import { Interview } from './home/interview/interview-question/interview';
 import { SectionDetailComponent } from './home/interview/section-detail-component/section-detail-component';
 import { InterviewDashboard } from './home/interview/interview-dashboard';
 import { Splitwise } from './home/splitwise/splitwise';
+import { authGuard } from './core/auth/guards/auth.guard';
 
 export const routes: Routes = [
     {
@@ -13,22 +14,27 @@ export const routes: Routes = [
     },
     {
         path: 'home',
-        component: Home
+        component: Home,
+        canActivate: [authGuard]
     },
     {
         path: 'interview-dashboard',
-        component: InterviewDashboard
+        component: InterviewDashboard,
+        canActivate: [authGuard]
     },
     {
         path: 'interview',
-        component: Interview
+        component: Interview,
+        canActivate: [authGuard]
     },
     {
         path: 'question-set',
-        component: SectionDetailComponent
+        component: SectionDetailComponent,
+        canActivate: [authGuard]
     },
     {
         path: 'splitwise',
-        component: Splitwise
+        component: Splitwise,
+        canActivate: [authGuard]
     }
 ];

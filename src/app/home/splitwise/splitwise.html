@@ -1,71 +1,338 @@
-<!-- create Group Expnse -->
-<div>
-    <span>Group Name</span>
-    <input type="text" [(ngModel)]="groupName">
-</div> 
-<!-- Group Name -->
-<!-- Group Category -->
- <div>
-    <span>Group Category</span>
-    <input type="text" [(ngModel)]="groupCategory">
-</div> 
-
-<!-- add Group Member -->
-    <!-- display chips -->
-    @for(item of selectedGroupMemberName | keyvalue; track item.key){
-        <span class="chip">{{item.key}}</span>
-    }
-     
-<div>
-    <span>Group Member</span>
-    <input type="text" (input)="getFilteredGroupMemberName($event)">
-</div> 
-
-<ul>
-    @for(name of (filteredGroupName$ | async); track name){
-        <li (click)="selectMember(name)">{{name}}</li>
-    }
-</ul>
-
-<!-- Add Expenses -->
-
-<div>
-    <span>Enter Description:</span>
-    <input type="text">
-</div>
-<div>
-    <span>Enter Amount:</span>
-    <input type="number" [(ngModel)]="totalAmount">
-</div>
-<span>paid by you and split equally</span>
-<button (click)="splitAmount()">Done</button>
-
-<div>
-    <ul>
-        @for(data of selectedGroupMemberName| keyvalue; track data.key){
-            <li>{{data.key}}:{{data.value}}</li>
-        }
-    </ul>
-</div>
-
-
-
---------------------------------
-<!-- DashBoard -->
-
-<!-- List of Group Visible -->
-<div class="container">
-    <div class="card" style="align-items: baseline;">
-        <div style="display: flex; flex-wrap: nowrap;">
-            <img src="" alt="image">
-            <ul>
-                <li>Group Name</li>
-                <li>Amount owned</li>
-                <li></li>
-            </ul>
-
-        </div>
-        
+<div class="splitwise-page">
+  <header class="sw-header">
+    <div class="sw-header__text">
+      <h1 class="sw-title">Splitwise</h1>
+      <p class="sw-subtitle">Share expenses, track balances, settle up</p>
     </div>
+    <button type="button" class="sw-btn sw-btn--primary" (click)="openCreateForm()">
+      + New group
+    </button>
+  </header>
+
+  @if (errorMsg) {
+    <div class="sw-alert sw-alert--error" role="alert">{{ errorMsg }}</div>
+  }
+
+  @if (showCreateForm) {
+    <section class="sw-panel sw-panel--highlight sw-create-form">
+      <h2 class="sw-section-title">Create group</h2>
+      <div class="sw-field">
+        <label class="sw-label" for="groupName">Group name</label>
+        <input id="groupName" class="sw-input" type="text" [(ngModel)]="groupName" placeholder="Trip to Bali" />
+      </div>
+      <div class="sw-field">
+        <label class="sw-label" for="groupDesc">Description (optional)</label>
+        <input id="groupDesc" class="sw-input" type="text" [(ngModel)]="groupDescription" placeholder="Shared expenses" />
+      </div>
+      <div class="sw-btn-row">
+        <button type="button" class="sw-btn sw-btn--primary" (click)="createGroup()" [disabled]="loading">
+          Create
+        </button>
+        <button type="button" class="sw-btn sw-btn--ghost" (click)="showCreateForm = false">Cancel</button>
+      </div>
+    </section>
+  }
+
+  <div class="sw-layout">
+    <aside class="sw-panel sw-sidebar" [class.sw-sidebar--loading]="loading && !groups.length">
+      <div class="sw-sidebar__head">
+        <h2 class="sw-section-title">Your groups</h2>
+        <span class="sw-badge">{{ groups.length }}</span>
+      </div>
+
+      @if (loading && !groups.length) {
+        <p class="sw-empty">Loading groups…</p>
+      }
+      @if (!groups.length && !loading) {
+        <p class="sw-empty">No groups yet. Tap <strong>+ New group</strong> to start.</p>
+      }
+
+      <ul class="sw-group-list">
+        @for (group of groups; track group.id) {
+          <li>
+            <button
+              type="button"
+              class="sw-group-item"
+              [class.sw-group-item--active]="selectedGroup?.id === group.id"
+              (click)="selectGroup(group.id)"
+            >
+              <span class="sw-group-item__name">{{ group.name }}</span>
+              <span class="sw-group-item__meta">{{ group.memberCount }} members · {{ group.currencyCode }}</span>
+            </button>
+          </li>
+        }
+      </ul>
+    </aside>
+
+    <main class="sw-panel sw-main">
+      @if (!selectedGroup) {
+        <div class="sw-placeholder">
+          <div class="sw-placeholder__icon" aria-hidden="true">◎</div>
+          <h2 class="sw-section-title">Select a group</h2>
+          <p class="sw-muted">Choose a group from the list to add expenses, view balances, and settle up.</p>
+        </div>
+      } @else {
+        <div class="sw-main__header">
+          <div class="sw-main__title-block">
+            <h2 class="sw-section-title sw-section-title--lg">{{ selectedGroup.name }}</h2>
+            @if (selectedGroup.description) {
+              <p class="sw-muted">{{ selectedGroup.description }}</p>
+            }
+          </div>
+          <button type="button" class="sw-btn sw-btn--ghost sw-btn--sm" (click)="clearSelection()">Close</button>
+        </div>
+
+        @if (loading) {
+          <p class="sw-empty sw-empty--inline">Refreshing…</p>
+        }
+
+        @if (balances) {
+          <section class="sw-section">
+            <h3 class="sw-section-title">Balances <span class="sw-muted">({{ balances.currencyCode }})</span></h3>
+            <ul class="sw-balance-list">
+              @for (b of balances.balances; track b.userId) {
+                <li class="sw-balance-row" [ngClass]="'sw-balance-row--' + balanceClass(b)">
+                  <span class="sw-balance-row__name">{{ b.displayName }}</span>
+                  <span class="sw-balance-row__amount">{{ balanceLabel(b) }}</span>
+                </li>
+              }
+            </ul>
+          </section>
+        }
+
+        <section class="sw-section">
+          <h3 class="sw-section-title">Settle up</h3>
+          @if (!simplifiedDebts.length) {
+            <p class="sw-muted">Everyone is square — no simplified debts.</p>
+          } @else {
+            <ul class="sw-debt-list">
+              @for (debt of simplifiedDebts; track debt.fromUserId + debt.toUserId) {
+                <li class="sw-debt-row">
+                  <p class="sw-debt-row__text">
+                    <strong>{{ debt.fromUserDisplayName }}</strong>
+                    owes
+                    <strong>{{ debt.toUserDisplayName }}</strong>
+                    <span class="sw-debt-row__amount">{{ debt.amount }} {{ balances?.currencyCode }}</span>
+                  </p>
+                  @if (canSettleDebt(debt)) {
+                    <button type="button" class="sw-btn sw-btn--text" (click)="prefillSettlement(debt)">
+                      Record payment
+                    </button>
+                  }
+                </li>
+              }
+            </ul>
+          }
+
+          <div class="sw-subpanel">
+            <h4 class="sw-subtitle-heading">Record a payment</h4>
+            <div class="sw-field-row">
+              <div class="sw-field">
+                <label class="sw-label" for="settleTo">Pay to</label>
+                <select id="settleTo" class="sw-select" [(ngModel)]="settlementToUserId">
+                  <option value="">Select member</option>
+                  @for (member of activeMembers; track member.userId) {
+                    @if (member.userId !== currentUserId) {
+                      <option [value]="member.userId">{{ member.displayName }}</option>
+                    }
+                  }
+                </select>
+              </div>
+              <div class="sw-field">
+                <label class="sw-label" for="settleAmt">Amount</label>
+                <input id="settleAmt" class="sw-input" type="number" min="0.01" step="0.01" [(ngModel)]="settlementAmount" />
+              </div>
+            </div>
+            <div class="sw-field">
+              <label class="sw-label" for="settleNote">Note (optional)</label>
+              <input id="settleNote" class="sw-input" type="text" [(ngModel)]="settlementNote" placeholder="Cash, UPI, bank transfer…" />
+            </div>
+            <button type="button" class="sw-btn sw-btn--primary" (click)="createSettlement()" [disabled]="settlementSaving">
+              {{ settlementSaving ? 'Saving…' : 'Create settlement' }}
+            </button>
+            <p class="sw-hint">Pending until you confirm payment.</p>
+          </div>
+
+          @if (settlements.length) {
+            <h4 class="sw-subtitle-heading">Settlement history</h4>
+            <ul class="sw-settlement-list">
+              @for (s of settlements; track s.id) {
+                <li class="sw-settlement-item">
+                  <div class="sw-settlement-item__head">
+                    <span>{{ s.fromUserDisplayName }} → {{ s.toUserDisplayName }}</span>
+                    <span class="sw-settlement-item__amount">{{ s.amount }} {{ balances?.currencyCode }}</span>
+                    <span class="sw-status" [class]="'sw-status--' + s.status">{{ settlementStatusLabel(s.status) }}</span>
+                  </div>
+                  @if (s.note) {
+                    <p class="sw-muted sw-settlement-item__note">{{ s.note }}</p>
+                  }
+                  @if (canActOnSettlement(s)) {
+                    <div class="sw-btn-row sw-btn-row--tight">
+                      <button type="button" class="sw-btn sw-btn--text" (click)="completeSettlement(s.id)">
+                        Confirm paid
+                      </button>
+                      <button type="button" class="sw-btn sw-btn--danger-text" (click)="cancelSettlement(s.id)">
+                        Cancel
+                      </button>
+                    </div>
+                  }
+                </li>
+              }
+            </ul>
+          }
+        </section>
+
+        <section class="sw-section">
+          <h3 class="sw-section-title">Add expense</h3>
+          <div class="sw-field">
+            <label class="sw-label" for="expDesc">Description</label>
+            <input id="expDesc" class="sw-input" type="text" [(ngModel)]="expenseDescription" placeholder="Dinner, groceries…" />
+          </div>
+          <div class="sw-field-row">
+            <div class="sw-field">
+              <label class="sw-label" for="expAmt">Amount</label>
+              <input id="expAmt" class="sw-input" type="number" min="0.01" step="0.01" [(ngModel)]="expenseAmount" />
+            </div>
+            <div class="sw-field">
+              <label class="sw-label" for="expPayer">Paid by</label>
+              <select id="expPayer" class="sw-select" [(ngModel)]="paidByUserId">
+                @for (member of activeMembers; track member.userId) {
+                  <option [value]="member.userId">{{ member.displayName }}</option>
+                }
+              </select>
+            </div>
+          </div>
+          <div class="sw-field">
+            <label class="sw-label" for="splitType">Split type</label>
+            <select id="splitType" class="sw-select" [(ngModel)]="splitType">
+              @for (type of splitTypes; track type) {
+                <option [value]="type">{{ type }}</option>
+              }
+            </select>
+          </div>
+
+          @if (splitType === 'EQUAL') {
+            <div class="sw-field">
+              <span class="sw-label">Split equally between</span>
+              <div class="sw-chip-group">
+                @for (member of activeMembers; track member.userId) {
+                  <label class="sw-chip-check">
+                    <input
+                      type="checkbox"
+                      [checked]="isParticipant(member.userId)"
+                      (change)="toggleParticipant(member.userId, $any($event.target).checked)"
+                    />
+                    <span>{{ member.displayName }}</span>
+                  </label>
+                }
+              </div>
+            </div>
+          }
+
+          @if (splitType === 'EXACT') {
+            <div class="sw-split-grid">
+              @for (member of activeMembers; track member.userId) {
+                <label class="sw-split-grid__item">
+                  <span class="sw-label">{{ member.displayName }}</span>
+                  <input class="sw-input" type="number" min="0" step="0.01" [(ngModel)]="exactShares[member.userId]" />
+                </label>
+              }
+            </div>
+          }
+
+          @if (splitType === 'PERCENTAGE') {
+            <div class="sw-split-grid">
+              @for (member of activeMembers; track member.userId) {
+                <label class="sw-split-grid__item">
+                  <span class="sw-label">{{ member.displayName }} (%)</span>
+                  <input class="sw-input" type="number" min="0" max="100" step="0.01" [(ngModel)]="percentShares[member.userId]" />
+                </label>
+              }
+            </div>
+          }
+
+          <button type="button" class="sw-btn sw-btn--primary" (click)="createExpense()" [disabled]="expenseSaving">
+            {{ expenseSaving ? 'Saving…' : 'Add expense' }}
+          </button>
+        </section>
+
+        <section class="sw-section">
+          <h3 class="sw-section-title">Recent expenses</h3>
+          @if (!expenses.length) {
+            <p class="sw-muted">No expenses yet.</p>
+          } @else {
+            <ul class="sw-expense-list">
+              @for (expense of expenses; track expense.id) {
+                <li class="sw-expense-card">
+                  <div class="sw-expense-card__head">
+                    <strong class="sw-expense-card__title">{{ expense.description }}</strong>
+                    <span class="sw-expense-card__amount">{{ expense.amount }} {{ expense.currencyCode }}</span>
+                  </div>
+                  <p class="sw-muted sw-expense-card__meta">
+                    Paid by {{ expense.paidByDisplayName }} · {{ expense.splitType }} · {{ expense.expenseDate }}
+                  </p>
+                  <ul class="sw-expense-card__splits">
+                    @for (split of expense.splits; track split.id) {
+                      <li>{{ split.displayName }}: {{ split.shareAmount }}</li>
+                    }
+                  </ul>
+                </li>
+              }
+            </ul>
+          }
+        </section>
+
+        <section class="sw-section">
+          <h3 class="sw-section-title">Members ({{ selectedGroup.members.length }})</h3>
+          <ul class="sw-member-list">
+            @for (member of selectedGroup.members; track member.id) {
+              <li class="sw-member-row">
+                <div class="sw-member-row__info">
+                  <span class="sw-avatar-chip">{{ member.displayName }}</span>
+                  <div class="sw-member-row__text">
+                    <span class="sw-member-row__email">{{ member.email }}</span>
+                    <span class="sw-role">{{ member.role }}</span>
+                  </div>
+                </div>
+                @if (member.userId === currentUserId || isAdmin) {
+                  <button type="button" class="sw-btn sw-btn--text sw-btn--sm" (click)="removeMember(member.userId)">
+                    {{ member.userId === currentUserId ? 'Leave' : 'Remove' }}
+                  </button>
+                }
+              </li>
+            }
+          </ul>
+        </section>
+
+        @if (isAdmin) {
+          <section class="sw-section">
+            <h3 class="sw-section-title">Add member</h3>
+            <div class="sw-field">
+              <label class="sw-label" for="memberSearch">Search by name or email</label>
+              <input
+                id="memberSearch"
+                class="sw-input"
+                type="search"
+                placeholder="Type at least 2 characters…"
+                (input)="onMemberSearchInput($event)"
+              />
+            </div>
+            @if (memberSearchLoading) {
+              <p class="sw-muted">Searching…</p>
+            }
+            <ul class="sw-search-list">
+              @for (user of (filteredUsers$ | async); track user.id) {
+                <li>
+                  <button type="button" class="sw-search-item" (click)="addMember(user)">
+                    <span class="sw-search-item__name">{{ user.displayName }}</span>
+                    <span class="sw-search-item__email">{{ user.email }}</span>
+                  </button>
+                </li>
+              }
+            </ul>
+          </section>
+        }
+      }
+    </main>
+  </div>
 </div>
-<!-- Create New Group -->

@@ -29,14 +29,6 @@
         }
       </div>
       <div class="grid">
-        <label for="">Contact</label>
-        <input type="tel" formControlName="contact" />
-        @if (signUpForm.get('contact')?.touched && signUpForm.get('contact')?.invalid) {
-          <small class="errorText">Enter Contact</small>
-        }
-      </div>
-
-      <div class="grid">
         <label for="">password</label>
         <input type="password" formControlName="password" />
         @if (signUpForm.get('password')?.touched && signUpForm.get('password')?.invalid) {
@@ -57,8 +49,8 @@
     </div>
 
     <div class="button-group">
-      <button type="submit" style="width:50%">
-        {{ isRegistered ? 'sing In' : 'Sign Up' }}
+      <button type="submit" style="width:50%" [disabled]="isSubmitting">
+        {{ isRegistered ? (isSubmitting ? 'Signing in...' : 'Sign In') : (isSubmitting ? 'Signing up...' : 'Sign Up') }}
       </button>
       <button style="width:50%">
         Sign in with Google
@@ -67,7 +59,7 @@
     </div>
   </form>
   <button (click)="toggleMode()">
-    {{ isRegistered ? 'Not Registered?' : 'Alredy Registered?' }}
+    {{ isRegistered ? 'Not registered?' : 'Already registered?' }}
   </button>
   <small class="errorText">{{errorMsg}}</small>
 </div>

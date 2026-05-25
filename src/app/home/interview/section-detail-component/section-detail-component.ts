@@ -20,8 +20,8 @@ export class SectionDetailComponent implements OnInit {
   }
 
   questionList(event:any){       
-    this.filteredQuestionList = event.data;
-    this.totalPages = event.totalPages;
+    this.filteredQuestionList = event.content || event.data || event;
+    this.totalPages = event.totalPages || 0;
   }
 
   currentPage = 0;

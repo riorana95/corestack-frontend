@@ -1,7 +1,7 @@
 <div class="filter-card">
   <div class="filter-group">
     <label>Company</label>
-    <select [(ngModel)]="selectedCompany">
+    <select [(ngModel)]="selectedCompany" (change)="onFilterChange()">
       <option>All</option>
       @for(companyName of companyList; track companyName){
         <option [value]="companyName">{{companyName}}</option>
@@ -12,7 +12,7 @@
 
   <div class="filter-group">
     <label>Skill</label>
-    <select [(ngModel)]="selectedTag">
+    <select [(ngModel)]="selectedTag" (change)="onFilterChange()">
       <option>All</option>
        @for(skill of skillList; track skill){
         <option [value]="skill">{{skill}}</option>
@@ -22,7 +22,7 @@
 
   <div class="filter-group">
     <label>Sort By</label>
-    <select [(ngModel)]="sortBy">
+    <select [(ngModel)]="sortBy" (change)="onSortChange()">
       <option value="most-asked">Most Asked Questions</option>
       <option value="all">All Questions</option>
     </select>

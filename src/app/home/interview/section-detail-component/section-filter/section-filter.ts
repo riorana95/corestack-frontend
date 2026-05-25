@@ -1,6 +1,7 @@
 import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { Section } from '../section';
 import { FormsModule } from '@angular/forms';
+import { LoaderService } from '../../../../service/loader.service';
 
 @Component({
   selector: 'app-section-filter',
@@ -42,7 +43,9 @@ export class SectionFilter implements OnInit {
   "ai"
 ];
 
-  constructor(private sectionService : Section){}
+  constructor(
+    private loaderService : LoaderService,
+    private sectionService : Section){}
 
   ngOnInit(){
     this.filterQuestions();
@@ -52,6 +55,7 @@ export class SectionFilter implements OnInit {
   }
 
   filterQuestions(currentPage? : Number, pageSize?: Number) {
+    this.loaderService.display(true);    
     let reqBody = {
       companyName : this.selectedCompany === "All"?"":this.selectedCompany,
       tag : this.selectedTag === "All"?"":this.selectedTag,
@@ -60,14 +64,25 @@ export class SectionFilter implements OnInit {
       pageSize : pageSize || 10
     }
     this.sectionService.getFilteredQA(reqBody)
-      .subscribe((res:any) => {
-        // Sort by frequency if "most-asked" is selected
-        if (this.sortBy === 'most-asked' && res.content) {
-          res.content = this.sortByFrequency(res.content);
+      .subscribe(
+        (res:any) => {
+          // Ensure we have content array
+          const questions = res.content || res.data || res;
+          
+          // Sort by frequency if "most-asked" is selected
+          if (this.sortBy === 'most-asked' && Array.isArray(questions)) {
+            const sortedQuestions = this.sortByFrequency(questions);
+            res.content = sortedQuestions;
+          }
+          this.loaderService.display(false);
+          this.questionSet.emit(res);
+          console.log('Filtered Questions:', res);
+        },
+        (error:any) => {
+          this.loaderService.display(false);
+          console.error('Error fetching questions:', error);
         }
-        this.questionSet.emit(res);
-        console.log(res);
-    });
+      );
   }
 
   // Sort questions by number of companies (frequency)
@@ -77,5 +92,15 @@ export class SectionFilter implements OnInit {
       const bCount = b.companies?.length || 1;
       return bCount - aCount; // Descending order (most asked first)
     });
+  }
+
+  // Handle sort change - trigger immediate filtering
+  onSortChange() {
+    this.filterQuestions(0, 10);
+  }
+
+  // Handle company/skill filter change - trigger immediate filtering
+  onFilterChange() {
+    this.filterQuestions(0, 10);
   }
 }

@@ -24,6 +24,12 @@ export class SectionTable {
   @Input() tableList: Question[] = [];
   expandedRow: number | null = null;
 
+  // Tooltip Position Configuration - CUSTOMIZE HERE
+  tooltipPositions = {
+    frequency: 'bottom', // 'top' | 'bottom' | 'left' | 'right'
+    fire: 'left'         // 'top' | 'bottom' | 'left' | 'right'
+  };
+
   toggleRow(index: number) {
     this.expandedRow = this.expandedRow === index ? null : index;
   }
@@ -41,5 +47,10 @@ export class SectionTable {
   // Get frequency badge text
   getFrequencyBadge(companies: Company[]): string {
     return `${companies?.length || 1}`;
+  }
+
+  // Get tooltip position for specific icon type
+  getTooltipPosition(iconType: 'frequency' | 'fire'): string {
+    return this.tooltipPositions[iconType] || 'bottom';
   }
 }

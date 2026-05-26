@@ -1,0 +1,176 @@
+<section class="topic-page">
+  <header class="topic-header">
+    <div>
+      <p class="eyebrow">Interview prep roadmap</p>
+      <h1>Topic Wise Study</h1>
+      <p class="header-copy">
+        Pick a track, open a topic, and revise with short answers, deeper explanations, and code examples.
+      </p>
+    </div>
+
+    <div class="header-stats">
+      <span>{{ totalQuestionCount() }}</span>
+      <small>ready Q&A cards</small>
+    </div>
+  </header>
+
+  <nav class="area-tabs" aria-label="Study areas">
+    @for (area of areas; track area.id) {
+      <button
+        type="button"
+        [class.active]="selectedAreaId() === area.id"
+        [style.--accent]="area.accent"
+        (click)="selectArea(area)"
+      >
+        <span>{{ area.title }}</span>
+        <small>{{ area.summary }}</small>
+      </button>
+    }
+  </nav>
+
+  <div class="study-layout">
+    <aside class="topic-nav">
+      <div class="panel-title">
+        <span>{{ selectedArea().title }}</span>
+        <small>{{ selectedArea().nodes.length }} sections</small>
+      </div>
+
+      <div class="topic-list">
+        @for (topic of selectedArea().nodes; track topic.id) {
+          <button
+            type="button"
+            class="topic-button"
+            [class.active]="selectedTopicId() === topic.id"
+            (click)="selectTopic(topic)"
+          >
+            <span>{{ topic.title }}</span>
+            <small>{{ getTopicQuestionCount(topic) }} questions</small>
+          </button>
+        }
+      </div>
+    </aside>
+
+    <main class="topic-main">
+      <section class="topic-overview">
+        <div>
+          <p class="eyebrow">{{ selectedArea().title }}</p>
+          <h2>{{ selectedTopic().title }}</h2>
+          <p>{{ selectedTopic().summary }}</p>
+        </div>
+      </section>
+
+      @if (selectedTopic().children?.length) {
+        <section class="subtopic-grid" aria-label="Subtopics">
+          @for (child of selectedTopic().children; track child.id) {
+            <article class="subtopic-card">
+              <span>{{ child.title }}</span>
+              <p>{{ child.summary }}</p>
+            </article>
+          }
+        </section>
+      }
+
+      <section class="question-workspace">
+        <div class="question-list-panel">
+          <div class="filters">
+            <label>
+              <span>Search</span>
+              <input
+                type="search"
+                [ngModel]="searchTerm()"
+                (ngModelChange)="setSearchTerm($event)"
+                placeholder="Search question or tag"
+              />
+            </label>
+
+            <div class="difficulty-tabs" aria-label="Difficulty filter">
+              @for (item of ['all', 'beginner', 'intermediate', 'advanced']; track item) {
+                <button
+                  type="button"
+                  [class.active]="difficulty() === item"
+                  (click)="setDifficulty($any(item))"
+                >
+                  {{ item }}
+                </button>
+              }
+            </div>
+          </div>
+
+          <div class="question-list">
+            @if (visibleQuestions().length) {
+              @for (question of visibleQuestions(); track question.id) {
+                <button
+                  type="button"
+                  class="question-row"
+                  [class.active]="activeQuestionId() === question.id"
+                  (click)="selectQuestion(question)"
+                >
+                  <span>{{ question.title }}</span>
+                  <small>{{ question.difficulty }} · {{ question.tags.slice(0, 3).join(', ') }}</small>
+                </button>
+              }
+            } @else {
+              <div class="empty-state">
+                <span>No question cards yet</span>
+                <p>This topic is mapped in the roadmap and can be filled next.</p>
+              </div>
+            }
+          </div>
+        </div>
+
+        <article class="answer-panel">
+          @if (activeQuestion(); as question) {
+            <div class="answer-heading">
+              <div>
+                <p class="eyebrow">{{ question.difficulty }}</p>
+                <h3>{{ question.title }}</h3>
+              </div>
+            </div>
+
+            <div class="answer-tabs">
+              <button type="button" [class.active]="activeAnswerTab() === 'short'" (click)="setAnswerTab('short')">
+                Short
+              </button>
+              <button type="button" [class.active]="activeAnswerTab() === 'detailed'" (click)="setAnswerTab('detailed')">
+                Detailed
+              </button>
+              <button
+                type="button"
+                [disabled]="!question.codeExample"
+                [class.active]="activeAnswerTab() === 'code'"
+                (click)="setAnswerTab('code')"
+              >
+                Code
+              </button>
+            </div>
+
+            <div class="answer-body">
+              @if (activeAnswerTab() === 'short') {
+                <p>{{ question.shortAnswer }}</p>
+              }
+
+              @if (activeAnswerTab() === 'detailed') {
+                <p>{{ question.detailedAnswer }}</p>
+              }
+
+              @if (activeAnswerTab() === 'code') {
+                <pre><code>{{ question.codeExample }}</code></pre>
+              }
+            </div>
+
+            <div class="tag-list">
+              @for (tag of question.tags; track tag) {
+                <span>{{ tag }}</span>
+              }
+            </div>
+          } @else {
+            <div class="empty-state large">
+              <span>Select a topic</span>
+              <p>Roadmap topics are ready. Add question cards gradually as your content grows.</p>
+            </div>
+          }
+        </article>
+      </section>
+    </main>
+  </div>
+</section>

@@ -52,10 +52,7 @@
       <button type="submit" style="width:50%" [disabled]="isSubmitting">
         {{ isRegistered ? (isSubmitting ? 'Signing in...' : 'Sign In') : (isSubmitting ? 'Signing up...' : 'Sign Up') }}
       </button>
-      <button style="width:50%">
-        Sign in with Google
-    </button>
-    <div id="google-button"></div>
+      <div id="google-button"></div>
     </div>
   </form>
   <button (click)="toggleMode()">

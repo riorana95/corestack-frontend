@@ -1,4 +1,5 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { AfterViewInit, Component, OnInit, PLATFORM_ID, inject } from '@angular/core';
 import {
   Validators,
   FormBuilder,
@@ -10,8 +11,24 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../core/auth/services/auth.service';
 import { ApiErrorResponse } from '../core/auth/models/auth.model';
 import { HttpErrorResponse } from '@angular/common/http';
+import { environment } from '../environments/environment';
 
-declare const google: { accounts: { id: unknown } } | undefined;
+declare const google:
+  | {
+      accounts: {
+        id: {
+          initialize: (config: {
+            client_id: string;
+            callback: (response: { credential?: string }) => void;
+          }) => void;
+          renderButton: (
+            parent: HTMLElement,
+            options: { theme: string; size: string; width: number }
+          ) => void;
+        };
+      };
+    }
+  | undefined;
 
 @Component({
   selector: 'app-login',
@@ -20,10 +37,11 @@ declare const google: { accounts: { id: unknown } } | undefined;
   styleUrl: './login.scss',
   standalone: true,
 })
-export class Login implements OnInit {
+export class Login implements OnInit, AfterViewInit {
   private readonly fb = inject(FormBuilder);
   private readonly router = inject(Router);
   private readonly authService = inject(AuthService);
+  private readonly platformId = inject(PLATFORM_ID);
 
   signUpForm!: FormGroup;
   isRegistered = true;
@@ -36,14 +54,39 @@ export class Login implements OnInit {
       return;
     }
     this.createForm();
+  }
+
+  ngAfterViewInit(): void {
     this.initGoogleButton();
   }
 
-  private initGoogleButton(): void {
-    if (typeof google === 'undefined') {
+  private initGoogleButton(retryCount = 0): void {
+    if (!isPlatformBrowser(this.platformId)) {
       return;
     }
-    // Google OAuth wiring comes in a later phase; backend provider table is ready.
+
+    if (typeof google === 'undefined') {
+      if (retryCount < 10) {
+        window.setTimeout(() => this.initGoogleButton(retryCount + 1), 300);
+      }
+      return;
+    }
+
+    const googleButton = document.getElementById('google-button');
+    if (!googleButton) {
+      return;
+    }
+
+    google.accounts.id.initialize({
+      client_id: environment.googleClientId,
+      callback: (response) => this.handleGoogleLogin(response),
+    });
+
+    google.accounts.id.renderButton(googleButton, {
+      theme: 'outline',
+      size: 'large',
+      width: 250,
+    });
   }
 
   toggleMode(): void {
@@ -123,6 +166,23 @@ export class Login implements OnInit {
       this.signUpForm.get('password')?.value ===
       this.signUpForm.get('reEnterPassword')?.value
     );
+  }
+
+  private handleGoogleLogin(response: { credential?: string }): void {
+    this.errorMsg = '';
+    if (!response.credential) {
+      this.errorMsg = 'Google sign-in failed. Please try again.';
+      return;
+    }
+
+    this.isSubmitting = true;
+    this.authService.googleLogin({ credential: response.credential }).subscribe({
+      next: () => {
+        this.isSubmitting = false;
+        this.router.navigate(['/home']);
+      },
+      error: (err) => this.handleAuthError(err),
+    });
   }
 
   private handleAuthError(err: HttpErrorResponse): void {

@@ -1,63 +1,134 @@
-# corestack-frontend
+# CoreStack Frontend
 
-CoreStack - A scalable multi-product dashboard platform for interview preparation, notes, and productivity tools built with Angular.
+Angular frontend for CoreStack. This app provides the user interface for authentication, the Interview preparation product, and the Splitwise-style expense sharing product.
 
-# App1
+## Frontend Products
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.1.
+| Product | Main Folder | Documentation |
+| --- | --- | --- |
+| Interview | `src/app/home/interview` | [docs/INTERVIEW.md](docs/INTERVIEW.md) |
+| Splitwise | `src/app/home/splitwise` and `src/app/core/*` | [docs/SPLITWISE.md](docs/SPLITWISE.md) |
 
-## Development server
+## Tech Stack
 
-To start a local development server, run:
+- Angular 21
+- Angular Material
+- Bootstrap 5
+- RxJS
+- TypeScript
+- Vitest
+- Angular SSR support
+- ngx-quill / Quill
 
-```bash
-ng serve
+## Project Structure
+
+```text
+src/app/
++-- core/
+|   +-- auth/           # Auth services, token storage, auth guard, interceptor
+|   +-- expenses/       # Splitwise expense models and API service
+|   +-- groups/         # Splitwise group models and API service
+|   +-- settlements/    # Splitwise settlement models and API service
++-- home/
+|   +-- interview/      # Interview dashboard, sections, companies, questions
+|   +-- splitwise/      # Main Splitwise UI
++-- login/              # Login and registration screen
++-- shared/             # Shared layout and UI components
++-- environments/       # API URL configuration
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Prerequisites
 
-## Code scaffolding
+- Node.js compatible with Angular 21
+- npm 11 or newer
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Install Dependencies
 
-```bash
-ng generate component component-name
+```powershell
+npm install
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Configure API URL
 
-```bash
-ng generate --help
+Update:
+
+```text
+src/app/environments/environment.ts
 ```
 
-## Building
+Local backend:
 
-To build the project run:
-
-```bash
-ng build
+```typescript
+export const environment = {
+  production: false,
+  apiUrl: 'http://localhost:8080',
+};
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Deployed backend:
 
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
+```typescript
+export const environment = {
+  production: true,
+  apiUrl: 'https://your-backend-domain.com',
+};
 ```
 
-## Running end-to-end tests
+## Run Frontend
 
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
+```powershell
+npm start
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Open:
 
-## Additional Resources
+```text
+http://localhost:4200
+```
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Build
+
+```powershell
+npm run build
+```
+
+Build output:
+
+```text
+dist/
+```
+
+## Test
+
+```powershell
+npm test
+```
+
+## Run SSR Server
+
+After building:
+
+```powershell
+npm run serve:ssr:app1
+```
+
+## Main Routes
+
+| Route | Description |
+| --- | --- |
+| `/` | Login and registration |
+| `/home` | Main dashboard |
+| `/interview-dashboard` | Interview product dashboard |
+| `/interview` | Interview question view |
+| `/question-set` | Section-based question view |
+| `/splitwise` | Splitwise expense sharing product |
+
+Protected routes use `authGuard` and require a valid login.
+
+## Deployment Notes
+
+- `vercel.json` is included for Vercel deployment.
+- Confirm the production `apiUrl` before building.
+- Confirm backend CORS includes the deployed frontend URL.
+- Run `npm run build` before deployment.
+- Do not commit environment files with secrets.

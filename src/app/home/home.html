@@ -1,11 +1,63 @@
 <div class="container">
-    <div class="card" (click)="routeTo('interview-dashboard')">
-        Interview QA
+
+  <!-- INTERVIEW -->
+  <div class="card active-card"
+       (click)="routeTo('interview-dashboard')">
+
+    <div class="card-top">
+      <span class="status live">LIVE</span>
     </div>
-    <div class="card" (click)="routeTo('splitwise')">
-        Splitwise
+
+    <div class="card-icon">🎯</div>
+
+    <h2>Interview QA</h2>
+
+    <p>
+        Past Interview Questions Explored
+      <!-- AI-powered interview preparation platform -->
+    </p>
+
+  </div>
+
+  <!-- SPLITWISE -->
+  <div class="card active-card"
+       (click)="routeTo('splitwise')">
+
+    <div class="card-top">
+      <span class="status beta">BETA</span>
     </div>
-    <div class="card" (click)="routeTo('ecommerce')">
-        E-commerce
+
+    <div class="card-icon">💸</div>
+
+    <h2>Splitwise</h2>
+
+    <p>
+      Smart expense sharing & tracking
+    </p>
+
+  </div>
+
+  <!-- ECOMMERCE -->
+  <div class="card disabled-card">
+
+    <div class="card-top">
+      <span class="status progress1">
+        Coming Soon
+      </span>
     </div>
+
+    <div class="card-icon">🛒</div>
+
+    <h2>E-Commerce</h2>
+
+    <p>
+      Modern AI commerce platform
+    </p>
+<!-- 
+    <div class="coming-soon">
+      Coming Soon
+    </div> -->
+
+  </div>
+
 </div>

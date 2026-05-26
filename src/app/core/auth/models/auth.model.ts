@@ -26,6 +26,10 @@ export interface LoginRequest {
   password: string;
 }
 
+export interface GoogleLoginRequest {
+  credential: string;
+}
+
 export interface ApiErrorResponse {
   timestamp: string;
   status: number;

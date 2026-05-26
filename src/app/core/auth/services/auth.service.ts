@@ -4,15 +4,18 @@ import { Observable, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import {
   AuthResponse,
+  GoogleLoginRequest,
   LoginRequest,
   RegisterRequest,
   User,
 } from '../models/auth.model';
 import { TokenStorageService } from './token-storage.service';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly http = inject(HttpClient);
+  private routes = inject(Router);
   private readonly tokenStorage = inject(TokenStorageService);
   private readonly baseUrl = `${environment.apiUrl}/api/v1/auth`;
 
@@ -25,6 +28,12 @@ export class AuthService {
   login(request: LoginRequest): Observable<AuthResponse> {
     return this.http
       .post<AuthResponse>(`${this.baseUrl}/login`, request)
+      .pipe(tap((response) => this.persistSession(response)));
+  }
+
+  googleLogin(request: GoogleLoginRequest): Observable<AuthResponse> {
+    return this.http
+      .post<AuthResponse>(`${this.baseUrl}/google`, request)
       .pipe(tap((response) => this.persistSession(response)));
   }
 
@@ -41,6 +50,7 @@ export class AuthService {
 
   logout(): void {
     this.tokenStorage.clearSession();
+    this.routes.navigate([''])
   }
 
   isAuthenticated(): boolean {

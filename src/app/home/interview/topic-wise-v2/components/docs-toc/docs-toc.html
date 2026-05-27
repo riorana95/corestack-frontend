@@ -1,0 +1,15 @@
+<aside class="toc">
+
+  <div class="toc-title">
+    On this page
+  </div>
+
+  @for (article of articles; track article.id) {
+
+    <button>
+      {{ article.title }}
+    </button>
+
+  }
+
+</aside>

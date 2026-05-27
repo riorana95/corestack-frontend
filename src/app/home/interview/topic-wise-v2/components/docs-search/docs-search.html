@@ -1,0 +1,48 @@
+@if (open()) {
+
+  <div class="overlay">
+
+    <div class="search-modal">
+
+      <input
+        type="text"
+        placeholder="Search documentation..."
+        [ngModel]="search()"
+        (ngModelChange)="search.set($event)"
+      />
+
+      <div class="results">
+
+        @for (
+          item of results();
+          track item.id
+        ) {
+
+          <button
+            class="result-item"
+            (click)="navigate(item.route)"
+          >
+
+            <div class="title">
+              {{ item.title }}
+            </div>
+
+            <div class="meta">
+
+              {{ item.category }}
+              ·
+              {{ item.section }}
+
+            </div>
+
+          </button>
+
+        }
+
+      </div>
+
+    </div>
+
+  </div>
+
+}

@@ -1,0 +1,66 @@
+<app-reading-progress />
+
+<app-docs-search />
+
+<div class="layout">
+
+  <app-docs-sidebar
+    [sections]="sidebarSections"
+    [activeSectionId]="activeSectionId()"
+    (navigate)="onNavigate($event)"
+  />
+
+  <main class="content">
+
+    @for (
+      section of loadedSections();
+      track section.id
+    ) {
+
+      <section
+        class="docs-section"
+        [id]="section.id"
+      >
+
+        <div class="section-header">
+
+          <h1>
+            {{ section.title }}
+          </h1>
+
+          <p>
+            {{ section.summary }}
+          </p>
+
+        </div>
+
+        @for (
+          article of section.articles;
+          track article.id
+        ) {
+
+          <app-docs-article
+            [article]="article"
+          />
+
+        }
+
+      </section>
+
+    }
+
+    @if (loading()) {
+
+      <div class="loading">
+        Loading section...
+      </div>
+
+    }
+
+    <app-docs-pagination
+      [currentSectionId]="activeSectionId()"
+    />
+
+  </main>
+
+</div>

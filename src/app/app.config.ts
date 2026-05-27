@@ -8,9 +8,12 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { provideHttpClient, withInterceptors, withFetch } from '@angular/common/http';
 import { loadingInterceptor } from './interceptor/loading-interceptor';
 import { authInterceptor } from './core/auth/interceptors/auth.interceptor';
+import { provideMarkdown } from 'ngx-markdown';
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideMarkdown(),
     provideBrowserGlobalErrorListeners(),
     importProvidersFrom(MatDialogModule),
     provideHttpClient(withFetch(), withInterceptors([

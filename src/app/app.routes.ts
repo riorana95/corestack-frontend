@@ -39,6 +39,18 @@ export const routes: Routes = [
         canActivate: [authGuard]
     },
     {
+        path: 'docs',
+
+        loadChildren: () =>
+        import(
+            './home/interview/topic-wise-v2/topic-wise-v2.routes'
+        ).then(
+            m => m.TOPIC_WISE_V2_ROUTES
+        ),
+
+        canActivate: [authGuard]
+    },
+    {
         path: 'splitwise',
         component: Splitwise,
         canActivate: [authGuard]

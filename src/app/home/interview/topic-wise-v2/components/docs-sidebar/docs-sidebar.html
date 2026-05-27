@@ -1,0 +1,45 @@
+<aside class="sidebar">
+
+  <div class="sidebar-header">
+    <h2>Backend</h2>
+  </div>
+
+  <div class="sidebar-content">
+
+    @for (
+      section of sections;
+      track section.id
+    ) {
+
+      <div class="sidebar-group">
+
+        <div class="group-title">
+          {{ section.title }}
+        </div>
+
+        @for (
+          child of section.children;
+          track child.id
+        ) {
+
+          <button
+            class="nav-item"
+            [class.active]="
+              activeSectionId === child.id
+            "
+            (click)="onNavigate(child.id)"
+          >
+
+            {{ child.title }}
+
+          </button>
+
+        }
+
+      </div>
+
+    }
+
+  </div>
+
+</aside>

@@ -1,0 +1,48 @@
+<article class="article-card">
+
+  <div class="article-top">
+
+    <span class="level">
+      {{ article.level }}
+    </span>
+
+    <div class="tags">
+
+      @for (tag of article.tags; track tag) {
+        <span>{{ tag }}</span>
+      }
+
+    </div>
+
+  </div>
+
+  <h2>
+    {{ article.title }}
+  </h2>
+
+  <div class="article-content markdown-body">
+
+  <markdown
+    [data]="article.content"
+  />
+
+</div>
+
+  @if (article.codeBlocks?.length) {
+
+    <div class="code-list">
+
+      @for (code of article.codeBlocks; track code.title) {
+
+        <app-docs-code
+          [code]="code.code"
+          [title]="code.title ?? ''"
+        />
+
+      }
+
+    </div>
+
+  }
+
+</article>

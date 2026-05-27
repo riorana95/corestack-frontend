@@ -1,0 +1,55 @@
+.article-card {
+  padding: 28px;
+  margin-bottom: 32px;
+  border-radius: 20px;
+  background: rgba(15, 23, 42, 0.82);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.article-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.level {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(59, 130, 246, 0.2);
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  span {
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba(30, 41, 59, 0.9);
+    color: #93c5fd;
+    font-size: 12px;
+  }
+}
+
+h2 {
+  margin: 0 0 18px;
+  color: white;
+  font-size: 30px;
+}
+
+.article-content {
+  color: #cbd5e1;
+  line-height: 1.8;
+
+  pre {
+    margin: 0;
+    white-space: pre-wrap;
+    font-family: inherit;
+  }
+}

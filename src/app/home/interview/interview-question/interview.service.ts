@@ -1,8 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
-import interviewConfig  from "./interviewQA.json"
-import sectionQuestionConfig from "./sectionQuestions.json"
 import { signal } from '@angular/core';
 import { environment } from "../../../environments/environment";
 
@@ -31,34 +29,34 @@ export class InterviewService{
       return this.https.get(url)
     }
 
-    getQuestionsBySection(section: string) {
-      const normalizedSection = section.toLowerCase();
-      const questions = (sectionQuestionConfig as any)[normalizedSection] || [];
-      return of(questions);
-    }
+    // getQuestionsBySection(section: string) {
+    //   const normalizedSection = section.toLowerCase();
+    //   const questions = (sectionQuestionConfig as any)[normalizedSection] || [];
+    //   return of(questions);
+    // }
 
-    loadConfiguration() : Observable<any> {
-        return of(interviewConfig)
+    // loadConfiguration() : Observable<any> {
+    //     return of(interviewConfig)
         // const path = "assets/Angular/angularQuestion.json"
         // return this.https.get(path)
-    }
+    // }
 
      // Get all company names
-  getCompanies(): string[] {
-    return Object.keys(interviewConfig);
-  }
+  // getCompanies(): string[] {
+  //   return Object.keys(interviewConfig);
+  // }
 
   // Get questions for a specific company
-  getQuestionsByCompany(companyName: string): any[] {
-    const companyData = interviewConfig[companyName as keyof typeof interviewConfig];
-    return companyData ? companyData.questions : [];
-  }
+  // getQuestionsByCompany(companyName: string): any[] {
+  //   const companyData = interviewConfig[companyName as keyof typeof interviewConfig];
+  //   return companyData ? companyData.questions : [];
+  // }
 
   // Get all companies as array with their data
-  getAllCompaniesWithQuestions(): { name: string; questions: any[] }[] {
-    return this.getCompanies().map(company => ({
-      name: company,
-      questions: this.getQuestionsByCompany(company)
-    }));
-  }
+  // getAllCompaniesWithQuestions(): { name: string; questions: any[] }[] {
+  //   return this.getCompanies().map(company => ({
+  //     name: company,
+  //     questions: this.getQuestionsByCompany(company)
+  //   }));
+  // }
 }

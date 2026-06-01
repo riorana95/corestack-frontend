@@ -27,24 +27,24 @@ export class Interview implements OnInit {
     private interviewService : InterviewService
   ){
     this.switchMap();
-    this.loadJsonDate();
+    // this.loadJsonDate();
   }
 
   ngOnInit(){
 
   }
 
-  loadJsonDate(){
-    this.interviewService.loadConfiguration().subscribe({
-      next: (res : any) => {
-        this.interviewService.question.set(res);
-      },error: (err:any) => {
-        console.log("Error=>",err);
-      },complete: () => {
-        console.log();
-      }
-    })
-  }
+  // loadJsonDate(){
+  //   this.interviewService.loadConfiguration().subscribe({
+  //     next: (res : any) => {
+  //       this.interviewService.question.set(res);
+  //     },error: (err:any) => {
+  //       console.log("Error=>",err);
+  //     },complete: () => {
+  //       console.log();
+  //     }
+  //   })
+  // }
 
   flatarray(arr:any){
     let result: any[] = [];

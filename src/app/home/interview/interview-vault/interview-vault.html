@@ -1,0 +1,66 @@
+<div class="layout">
+
+  <aside class="sidebar">
+    <div class="section-toggle">
+      <button 
+        class="toggle-btn"
+        [class.active]="sectionFilter === 'backend'"
+        (click)="onSectionChange('backend')">
+        Backend
+      </button>
+      <button 
+        class="toggle-btn"
+        [class.active]="sectionFilter === 'frontend'"
+        (click)="onSectionChange('frontend')">
+        Frontend
+      </button>
+      <button 
+        class="toggle-btn"
+        [class.active]="sectionFilter === 'all'"
+        (click)="onSectionChange('all')">
+        All
+      </button>
+    </div>
+
+    <div class="nav-container">
+
+    @for(key of questionKeys; track key){
+
+      <div
+        class="nav-item"
+        [class.active]="activeSection === key"
+        (click)="scrollToSection(key)">
+
+        {{ key }}
+
+      </div>
+
+    }
+
+    </div>
+
+  </aside>
+
+  <div class="content">
+
+    @for(key of questionKeys; track key){
+
+      <section
+        class="category-section"
+        [id]="key">
+
+        <h2>{{key}}</h2>
+
+        <ol>
+          @for(question of groupedQuestions[key]; track question){
+            <li>{{question}}</li>
+          }
+        </ol>
+
+      </section>
+
+    }
+
+  </div>
+
+</div>

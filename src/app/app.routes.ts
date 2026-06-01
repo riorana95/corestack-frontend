@@ -7,6 +7,7 @@ import { InterviewDashboard } from './home/interview/interview-dashboard';
 import { TopicWise } from './home/interview/topic-wise/topic-wise';
 import { Splitwise } from './home/splitwise/splitwise';
 import { authGuard } from './core/auth/guards/auth.guard';
+import { InterviewVault } from './home/interview/interview-vault/interview-vault';
 
 export const routes: Routes = [
     {
@@ -36,6 +37,11 @@ export const routes: Routes = [
     {
         path: 'interview-topic-wise',
         component: TopicWise,
+        canActivate: [authGuard]
+    },
+    {
+        path : 'interview-vault',
+        component: InterviewVault,
         canActivate: [authGuard]
     },
     {

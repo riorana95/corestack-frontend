@@ -1,50 +1,82 @@
 <div class="container">
-
   <!-- COMPANY LIST -->
   @if (!selectedCompany()) {
-
     <div class="companies-section">
-
-      <h2 class="section-title">Companies</h2>
-      <p class="section-subtitle">
-        Select a company to start practicing interview questions
-      </p>
-
+      <div style="display: flex; justify-content: space-between;">
+        <div>
+          <h2 class="section-title">Companies</h2>
+          <p class="section-subtitle">Select a company to start practicing interview questions</p>
+        </div>
+        <div>
+          <button (click)="addPopup('company')">add</button>
+        </div>
+      </div>
       <div class="companies-grid">
-        @for (company of companies(); track company) {
-          <div class="company-card" (click)="selectCompany(company)">
-            <div class="company-name">{{ company }}</div>
-            <div class="company-arrow">→</div>
-          </div>
+        @for (company of  groupedCompanies(); track company.name) {
+<div class="company-card"
+     (click)="selectCompany(company)">
+
+    <div class="company-name">
+      {{ company.name }}
+    </div>
+
+    <div class="company-role">
+      {{ company.role }}
+    </div>
+
+    <div class="round-count">
+      {{ company.rounds.length }}
+      Interview Rounds
+    </div>
+
+</div>
         }
       </div>
-
     </div>
   }
 
   <!-- QUESTIONS SECTION -->
   @if (selectedCompany()) {
-
     <div class="questions-section">
-
       <div class="section-header">
         <button class="back-btn" (click)="clearSelection()">←</button>
         <h2>{{ selectedCompany() }}</h2>
-        <!-- <button class="add-btn" (click)="addQuestionPopup()">+ Add Question</button> -->
+        <button class="add-btn" (click)="addPopup('question')">+ Add Question</button>
       </div>
 
-      @for (question of selectedQuestions(); track question.question; let i = $index) {
-        <app-question-card-component
-          [question]="question"
-          [companyName]="selectedCompany()"
-          [index]="$index"
-          (updatedData)="onQuestionUpdated($event)"
-        >
-        </app-question-card-component>
-      }
+@for (round of selectedQuestions(); track round.companyId) {
+
+  <div class="round-section">
+
+    <div class="round-header">
+
+      <span>
+        {{ round.round }}
+      </span>
+
+      <span>
+        {{formatDate(round.date)}}
+      </span>
 
     </div>
 
-  }
+    @for (
+      question of round.questions;
+      track question.id;
+      let i = $index
+    ) {
 
+      <app-question-card-component
+        [question]="question"
+        [companyName]="selectedCompany()"
+        [index]="i">
+      </app-question-card-component>
+
+    }
+
+  </div>
+
+}
+    </div>
+  }
 </div>

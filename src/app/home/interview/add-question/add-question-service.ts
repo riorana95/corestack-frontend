@@ -15,6 +15,10 @@ export class AddQuestionService {
     return this.http.post(`${this.apiUrl}/question`, data);
   }
 
+  addCompnay(data: object){
+    return this.http.post(`${this.apiUrl}/company/add`, data)
+  }
+
   UpdateQuestion(data: any) {
     return this.http.put(`${this.apiUrl}/question/${data.id}`, data);
   }

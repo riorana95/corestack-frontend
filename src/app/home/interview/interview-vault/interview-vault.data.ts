@@ -8,7 +8,6 @@ export const interviewPrepration: IInterviewData = {
   backend: {
     springBoot: [
       'How does @SpringBootApplication work internally?',
-      'What happens during application startup lifecycle?',
       'Difference between @ComponentScan and @EnableAutoConfiguration?',
       'How does BeanFactory differ from ApplicationContext?',
       'What is circular dependency and how to resolve it?',

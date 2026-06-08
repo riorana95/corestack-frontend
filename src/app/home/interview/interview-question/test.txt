@@ -76,7 +76,7 @@ Question 2)
 //     let result = [];
 //     arr.forEach((item)=>{
 //         if(Array.isArray(item)){
-//             result = result.concat(flatarray(item));
+//             result.push(...flatarray(item))
 //         }else{
 //             result.push(item);
 //         }
@@ -703,3 +703,522 @@ Data = name1 = 'Angular 4';
         <li>Compare-And-Swap (CAS): For lock-free insertions (like inserting a new node into an empty bucket), it leverages atomic CAS instructions. If two threads try to write to an empty bucket at the same time, the CAS operation ensures one succeeds and the other fails, prompting the failed thread to retry without blocking.</li>
     </ol>
 </p>
+
+
+
+----------------------------------------
+
+
+Both HashMap and ConcurrentHashMap are built on a hashtable (array of buckets) structure using node chaining to handle collisions. However, they handle memory and thread safety in completely different ways. [1, 2, 3, 4, 5] 
+Here is how they both work under the hood.
+------------------------------
+## 1. How HashMap Works Internally
+HashMap is not thread-safe. It focuses entirely on speed for single-threaded applications. [6, 7, 8] 
+## Key Structures
+
+* The Bucket Array: It maintains an internal array of nodes (Node<K,V>[] table). The default initial capacity is 16.
+* The Nodes: Each slot in the array is a bucket. If multiple keys hash to the same bucket, they form a Singly Linked List. [9, 10, 11, 12, 13] 
+
+## The Core Workflow (put and get)
+
+   1. Hashing: When you call put(key, value), Spring/Java calculates the key's hashCode(). It applies a supplemental hash function to distribute high and low bits evenly, preventing bad hash distribution. [14] 
+   2. Index Calculation: It calculates the array index using bitwise AND: index = (n - 1) & hash (where n is the array length). [15, 16] 
+   3. Collision Handling:
+   * If the bucket is empty, a new Node is inserted.
+      * If a node exists, it traverses the linked list. If key.equals(existingKey) matches, it replaces the value. Otherwise, it appends the new node to the end. [17, 18, 19, 20, 21] 
+   4. Treeification (Java 8+): If a single linked list grows past 8 elements (and the total map capacity is at least 64), Java converts that specific bucket into a Balanced Red-Black Tree (TreeNode). This optimizes lookup time from $O(n)$ down to $O(\log n)$. [22, 23, 24, 25, 26] 
+   5. Resizing: When the number of elements exceeds the Load Factor threshold (default is 75% of capacity), the array size doubles, and every single element is rehashed into the new array. [27, 28, 29, 30] 
+
+------------------------------
+## 2. How ConcurrentHashMap Works Internally (Java 8+)
+ConcurrentHashMap provides full thread safety without locking the entire map, allowing multiple threads to read and write concurrently. [31, 32, 33, 34] 
+## Optimized Lock Strategy: Bucket-Level Locking [35, 36] 
+Older Java versions used "Segment Locking" (dividing the map into 16 large locked segments). Modern Java 8+ handles concurrency at the individual bucket level. [37, 38, 39, 40] 
+
+   1. Lock-Free Reads: Reading operations (get()) do not use locks at all. The node values are marked as volatile. This ensures that any thread writing a new value immediately flushes it to main memory, making it instantly visible to reading threads. [41, 42, 43, 44, 45] 
+   2. CAS (Compare-And-Swap) for New Buckets: When a thread wants to put() a value into a completely empty bucket, it does not use a heavy lock. Instead, it uses a low-level, CPU-optimized CAS instruction. It checks: "If this bucket is still null, insert my node." If another thread beat it to it, the CAS fails, and it retries. [46, 47, 48, 49, 50] 
+   3. Synchronized Buckets for Collisions: If a thread wants to insert into a bucket that already has elements (a list or a tree), it uses a standard synchronized block, but only locks the first node (head) of that specific bucket. [51, 52] 
+
+[ ConcurrentHashMap Array ]
+ ├─ Bucket 0: [ Null ]  ───────────────► Thread A uses CAS to insert (Lock-free)
+ ├─ Bucket 1: [ Head ] ──► [ Node ] ──► Thread B locks ONLY this Head node via synchronized
+ ├─ Bucket 2: [ Null ]
+ └─ Bucket 3: [ Head ] ──► [ Tree ] ──► Thread C can write here simultaneously without blocking B
+
+## Multi-Threaded Resizing (Help-Resize) [53] 
+In a standard HashMap, if one thread triggers a resize, that thread is stuck rebuilding the entire double-sized array alone.
+In ConcurrentHashMap, when a thread detects that the map is resizing during a put() operation, it actively helps transfer nodes to the new table. The map is broken up into small strides of buckets, allowing multiple threads to distribute the migration workload concurrently. [54, 55, 56] 
+------------------------------
+## Key Summary
+
+| Feature [57, 58, 59, 60, 61] | HashMap | ConcurrentHashMap (Java 8+) |
+|---|---|---|
+| Thread Safety | No (can cause infinite loops or data loss) | Yes (fully thread-safe) |
+| Locking Mechanism | None | CAS (for empty buckets) + synchronized (on bucket heads) |
+| Read Operations | Unlocked (Fast, unsafe across threads) | Unlocked + volatile (Fast, safe across threads) |
+| Null Keys/Values | Allows one null key and multiple null values | Strictly forbids null keys and null values |
+
+
+-----------------------------------------accolite
+// Online Javascript Editor for free
+// Write, Edit and Run your Javascript code using JS Online Compiler
+
+const person1 = {firstName:"Rana"}
+const person2 = {firstName:"Rahul"}
+
+function sayHello(){
+    console.log("hello", this.firstName)
+}
+
+sayHello.call(person1);
+
+
+//using new promise to demostrate resolve and reject
+
+// const promise = new Promise((resolve, reject) =>
+// {
+//     const success = false;
+//     if (success) {
+//         resolve("Success")
+//     } else {
+//         reject("failed")
+//     }
+// });
+
+// promise.then(result => console.log(result))
+// .catch(error => console.log(error))
+
+
+// console.log("Start small. Ship something.");
+// // to make captial of every 
+// const inp = "Start small. Ship something."
+
+// const capitalize = inp.split(" ")
+//         .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+//         .join(" ");
+// console.log(capitalize)
+
+
+// Input ="aabbbc"
+// Output ={ a:2, b:3, c:1 }
+
+// const str = "aabbbc";
+// const result = {};
+
+// for(const ch of str) {
+//     result[ch] = (result[ch] || 0) + 1;
+// }
+// console.log(result)
+
+
+-----------------------
+
+Data = name1 = 'Angular 4';
+  // data = [
+  //   {
+  //     id: 1,
+  //     name: 'README.md',
+  //   },
+  //   {
+  //     id: 2,
+  //     name: 'Documents',
+  //     children: [
+  //       {
+  //         id: 3,
+  //         name: 'Word.doc',
+  //       },
+  //       {
+  //         id: 4,
+  //         name: 'Powerpoint.ppt',
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: 5,
+  //     name: 'Downloads',
+  //     children: [
+  //       {
+  //         id: 6,
+  //         name: 'unnamed.txt',
+  //       },
+  //       {
+  //         id: 7,
+  //         name: 'Misc',
+  //         children: [
+  //           {
+  //             id: 8,
+  //             name: 'foo.txt',
+  //           },
+  //           {
+  //             id: 9,
+  //             name: 'bar.txt',
+  //           },
+  //         ],
+  //       },
+  //     ],
+  //   },
+  // ];
+  
+  
+  so nested expanision
+  
+  
+    count = 0;
+  increment() {
+    this.count++;
+  }
+
+  decrement() {
+    this.count--;
+  }
+
+
+
+  -------------------------------
+  import java.util.*;
+public class SumEvenNumbers {
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        int sumOfEvens = numbers.stream()
+            .filter(n -> n % 2 == 0)  // Keep only even numbers
+            .mapToInt(Integer::intValue) // Convert to an IntStream
+            .sum();                  // Sum all the values
+        System.out.println("Sum of even numbers: " + sumOfEvens);
+    }
+}
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class ListToString {
+    public static void main(String[] args) {
+        List<String> words = Arrays.asList("apple", "banana", "cherry");
+        String result = words.stream()
+                .map(String::toUpperCase)        // Convert each word to uppercase
+                .collect(Collectors.joining(",")); // Join elements with commas
+        System.out.println(result); // Output: APPLE,BANANA,CHERRY
+    }
+}
+
+import java.util.*;
+import java.util.stream.Collectors;
+public class NthHighestSalary {
+    public static void main(String[] args) {
+        List<Integer> salaries = Arrays.asList(5000, 2000, 3000, 5000, 4000);
+        int n = 2;
+        Optional<Integer> nthSalary = salaries.stream()
+            .distinct() // Remove duplicates to find the "nth" distinct value
+            .sorted(Comparator.reverseOrder()) // Sort highest to lowest
+            .skip(n - 1) // Skip the first n-1 elements
+            .findFirst(); // Get the current top element
+        if (nthSalary.isPresent()) {
+            System.out.println("highest salary: " + nthSalary.get());
+        } else {
+            System.out.println("The list does ");
+        }
+    }
+}
+
+package com.example.demo.config;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
+class MyService { }
+@Configuration
+public class AppScopes {
+    // 1. SINGLETON BEAN (Default)
+    @Bean
+    @Scope("singleton") // <-- Tells Spring to create only one instance
+    public MyService singletonService() {
+        return new MyService();
+    }
+    // 2. PROTOTYPE BEAN
+    @Bean
+    @Scope("prototype") // <-- Tells Spring to make a new object every time
+    public MyService prototypeService() {
+        return new MyService();
+    }
+}
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface UserService extends JpaRepository<User, Long> {
+    // Built-in CRUD methods like findById() are automatically provided
+}
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import java.util.Optional;
+@Service
+public class UserService {
+    @Autowired
+    private UserRepository userRepository;
+
+    public Optional<User> getUserById(Long id) {
+        // Business logic can go here (e.g., validation, logging)
+        return userRepository.findById(id);
+    }
+}
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+@RestController
+@RequestMapping("/api/users")
+public class UserController {
+    @Autowired
+    private UserService userService;
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+        return userService.getUserById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+}
+
+
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+@Entity
+@Table(name = "users")
+@Data                // Generates getters, setters, toString, equals, and hashCode
+@NoArgsConstructor   // Generates the required default constructor for JPA
+@AllArgsConstructor  // Generates a constructor with all fields
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(name = "name", nullable = false)
+    private String name;
+    @Column(name = "email", unique = true, nullable = false)
+    private String email;
+}
+
+
+--------------------------- L1 Round 1 accolite
+// Online Javascript Editor for free
+// Write, Edit and Run your Javascript code using JS Online Compiler
+
+const person1 = {firstName:"Rana"}
+const person2 = {firstName:"Rahul"}
+
+function sayHello(){
+    console.log("hello", this.firstName)
+}
+
+sayHello.call(person1);
+
+
+//using new promise to demostrate resolve and reject
+
+// const promise = new Promise((resolve, reject) =>
+// {
+//     const success = false;
+//     if (success) {
+//         resolve("Success")
+//     } else {
+//         reject("failed")
+//     }
+// });
+
+// promise.then(result => console.log(result))
+// .catch(error => console.log(error))
+
+
+// console.log("Start small. Ship something.");
+// // to make captial of every 
+// const inp = "Start small. Ship something."
+
+// const capitalize = inp.split(" ")
+//         .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+//         .join(" ");
+// console.log(capitalize)
+
+
+// Input ="aabbbc"
+// Output ={ a:2, b:3, c:1 }
+
+// const str = "aabbbc";
+// const result = {};
+
+// for(const ch of str) {
+//     result[ch] = (result[ch] || 0) + 1;
+// }
+// console.log(result)
+
+
+-----------------------
+
+Data = name1 = 'Angular 4';
+  // data = [
+  //   {
+  //     id: 1,
+  //     name: 'README.md',
+  //   },
+  //   {
+  //     id: 2,
+  //     name: 'Documents',
+  //     children: [
+  //       {
+  //         id: 3,
+  //         name: 'Word.doc',
+  //       },
+  //       {
+  //         id: 4,
+  //         name: 'Powerpoint.ppt',
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: 5,
+  //     name: 'Downloads',
+  //     children: [
+  //       {
+  //         id: 6,
+  //         name: 'unnamed.txt',
+  //       },
+  //       {
+  //         id: 7,
+  //         name: 'Misc',
+  //         children: [
+  //           {
+  //             id: 8,
+  //             name: 'foo.txt',
+  //           },
+  //           {
+  //             id: 9,
+  //             name: 'bar.txt',
+  //           },
+  //         ],
+  //       },
+  //     ],
+  //   },
+  // ];
+  
+  
+  so nested expanision
+  
+  
+    count = 0;
+  increment() {
+    this.count++;
+  }
+
+  decrement() {
+    this.count--;
+  }
+
+  ------------------------------------------------ L3 Round 2 accolite
+  // [{id:1},{id:2},{id:1},{id:4}]  
+
+// const employee = [{id:1},{id:2},{id:1},{id:4}]
+// const unqiur = employee.filter((emp, index,arr) =>
+//             index ===arr.findIndex(e=> e.id ===emp.id)
+//             );
+
+// console.log(unqiur)
+
+const data = ['a','b','c',['d','e','f'],['g','h',['i','j']],'k','l'];
+
+// flat map
+
+// if arraya is array concat else 
+
+function custFlat(arr){
+    let res = []
+    for (const item of arr) {
+        if (Array.isArray(item)) {
+            res= res.concat(custFlat(item))
+        } else {
+            res.push(item)
+        }
+    }
+    return res;
+}
+
+console.log(custFlat(data));
+
+
+-------------------- CGI round 1
+
+ye uss din wala
+
+
+
+@RestController
+public class Controller {
+
+	@GetMapping("/test")
+	public String test() {
+		return "Test working"
+	}
+
+}
+
+
+employeee table
+find 2nd highest salary
+
+
+
+Select  max(salary) from employee where salary < (select max(salary) from employee) 
+
+
+String str = "Duplicatee";
+
+Map<Character, Integer> map = new Hasmap<>();
+
+for (char ch: str.toCharArray()){
+	map.put(ch, map.getOrDefault(ch, 0) + 1);
+}
+
+for (Map.Entry<Character, Integer> entry: map.entrySet()) {
+
+	if (entry.getValue() > 1) {
+		System.out.print(entry.getKey());
+	}
+
+}
+
+---------------------------- backend ---
+
+// Online Java Compiler
+// Use this editor to write, compile and run your Java code online
+
+// I have list of employees. I want to put  Employees by Salary into 2 groups - 
+// salary >= 100000
+// salary < 100000
+ 
+// class Employee {
+//     int id;
+//     string name;
+//     double salary;
+// }
+
+class Main {
+    public static void main(String[] args) {
+        System.out.println("Start small. Ship something.");
+        
+        Map<String List<Employee>> groupedBySalary = new HashMap<>();
+        map.put("greaterThan10k", new ArrayList<>());
+        map.put("lessThan10k", new ArrayList<>());
+        
+        // consider employees is the list of Employee
+        // for(Employee emp : employees){
+        //     if (emp.getSalary() >= 10000) {
+        //         groupedBySalary.get("greaterThan10k").add(emp);
+        //     } else {
+        //         groupedBySalary.get("lessThan10k").add(emp);
+                
+        //     }
+        // }
+        Map<Boolean, List<Employee>> res = employees.stream().collect(Collector.partioningBy(emp -> emp.getSalary() >= 10000, Collectors.counting()));
+        res.get(true) // salary >= 10k
+        res.get(false)
+        
+        
+    }
+}

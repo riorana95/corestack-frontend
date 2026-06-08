@@ -1,59 +1,84 @@
 <div class="dialog-container">
-
   <div class="card-header">
-    <h3>{{ receivedData.isEditMode ? 'Edit Question' : 'Add Question' }}</h3>
+    @if (receivedData) {
+      <h3>{{ receivedData.isEditMode ? 'Edit Question' : 'Add Question' }}</h3>
+    } @else {
+      <h3>Add Comapany</h3>
+    }
     <button (click)="close()">✖</button>
   </div>
 
   <div class="form-grid">
+    @if (receivedData) {
+      <div class="form-group form-full">
+        <label>Interview Round *</label>
 
-    <div class="form-group form-full">
-      <label>Question *</label>
-      <input [(ngModel)]="newQuestion.question" />
-    </div>
+        <select [(ngModel)]="newQuestion.companyId">
+          <option [ngValue]="null">Select Round</option>
 
-    <div class="form-group form-full">
-      <label>Answer</label>
-      <quill-editor
-        [(ngModel)]="newQuestion.description"
-        [modules]="editorConfig"
-        placeholder="Write answer..."
-      >
-      </quill-editor>
-    </div>
+          @for (item of availableId; track item.companyId) {
+            <option [value]="item.companyId">
+              {{ item.round }}
+              -
+              {{ item.date | date: 'MMM yyyy' }}
+            </option>
+          }
+        </select>
+      </div>
+      <div class="form-group form-full">
+        <label>Question *</label>
+        <input [(ngModel)]="newQuestion.question" />
+      </div>
 
-    <!-- <div class="form-group form-full">
-      <label>Text</label>
-      <textarea [(ngModel)]="newQuestion.content.text"></textarea>
-    </div>
+      <div class="form-group form-full">
+        <label>Answer</label>
+        <quill-editor
+          [(ngModel)]="newQuestion.description"
+          [modules]="editorConfig"
+          placeholder="Write answer..."
+        >
+        </quill-editor>
+      </div>
 
-    <div class="form-group">
-      <label>List</label>
-      <input [(ngModel)]="newQuestion.content.list" />
-    </div>
+      <div class="form-group form-full">
+        <label>Tags</label>
 
-    <div class="form-group">
-      <label>Code</label>
-      <textarea [(ngModel)]="newQuestion.content.code"></textarea>
-    </div>
-
-    <div class="form-group">
-      <label>Table Columns</label>
-      <input [(ngModel)]="tableColumns" />
-    </div>
-
-    <div class="form-group">
-      <label>Table Rows</label>
-      <textarea [(ngModel)]="tableRows"></textarea>
-    </div> -->
-
+        <div class="tags-container">
+          @for (tag of availableTags; track tag) {
+            <div class="tag-chip" [class.selected]="isTagSelected(tag)" (click)="toggleTag(tag)">
+              {{ tag }}
+            </div>
+          }
+        </div>
+      </div>
+    } @else {
+      <div class="form-group form-full">
+        <label>Company Name *</label>
+        <input [(ngModel)]="newCompanyReq.name" />
+      </div>
+      <div class="form-group form-full">
+        <label>Role *</label>
+        <input [(ngModel)]="newCompanyReq.role" />
+      </div>
+      <div class="form-group form-full">
+        <label>Round *</label>
+        <input [(ngModel)]="newCompanyReq.round" />
+      </div>
+      <div class="form-group form-full">
+        <label>Date *</label>
+        <input type="date" [(ngModel)]="newCompanyReq.date" />
+      </div>
+    }
   </div>
 
   <div class="action-buttons">
     <button class="save-btn" (click)="save()">
-      save{{ receivedData.isEditMode ? 'Update' : 'Save' }}
+      @if (receivedData) {
+        save{{ receivedData.isEditMode ? 'Update' : 'Save' }}
+      } @else {
+        Add
+      }
     </button>
     <button class="cancel-btn" (click)="close()">Cancel</button>
   </div>
-
 </div>

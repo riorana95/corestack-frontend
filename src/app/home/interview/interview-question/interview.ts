@@ -1,105 +1,54 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, signal } from '@angular/core';
-import { AnySoaRecord } from 'node:dns';
-import { Subject, of } from 'rxjs';
-import { debounce, switchMap, filter, debounceTime, catchError } from 'rxjs/operators';
-import { InterviewService } from './interview.service';
+import { CommonModule } from '@angular/common';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { SectionFilter } from '../section-detail-component/section-filter/section-filter';
+import { SectionTable } from '../section-detail-component/section-table/section-table';
 import { CompanyDetailComponent } from './company-detail-component/company-detail-component';
-
 
 @Component({
   selector: 'app-interview',
-  imports: [CompanyDetailComponent],
+  imports: [CommonModule, CompanyDetailComponent, SectionFilter, SectionTable],
   templateUrl: './interview.html',
   styleUrl: './interview.scss',
 })
 export class Interview implements OnInit {
-  count = signal(0);
-  result : any[]=[];
-  DummyAPIData = signal<any>(null);
-  data = [4, 12, 2, [21, 55, 23, [7, 33]], 1, 9];
-  search$ = new Subject<string>();
-  productList : any;
-  loading : any;
+  @ViewChild('questionFilterRef') questionFilter?: SectionFilter;
 
-  constructor(
-    private https: HttpClient,
-    private interviewService : InterviewService
-  ){
-    this.switchMap();
-    // this.loadJsonDate();
-  }
+  activeView: 'companies' | 'explorer' = 'companies';
+  filteredQuestionList: any[] = [];
+  currentPage = 0;
+  pageSize = 10;
+  totalPages = 0;
 
-  ngOnInit(){
+  constructor(private route: ActivatedRoute) {}
 
-  }
-
-  // loadJsonDate(){
-  //   this.interviewService.loadConfiguration().subscribe({
-  //     next: (res : any) => {
-  //       this.interviewService.question.set(res);
-  //     },error: (err:any) => {
-  //       console.log("Error=>",err);
-  //     },complete: () => {
-  //       console.log();
-  //     }
-  //   })
-  // }
-
-  flatarray(arr:any){
-    let result: any[] = [];
-    arr.forEach((item: any)=>
-    {
-      if(Array.isArray(item)){
-        result = result.concat(this.flatarray(item))
-      }else{
-        result.push(item)
-      }
+  ngOnInit() {
+    if (this.route.snapshot.queryParamMap.get('view') === 'explorer') {
+      this.activeView = 'explorer';
     }
-    )
-    return this.result = result;
-   }
-
-   getdummyAPI(){
-    const url = 'https://jsonplaceholder.typicode.com/posts';
-    this.https.get<any>(url).subscribe(
-      (data:any) =>{
-        console.log(data);
-        this.DummyAPIData.set(data[0].body);
-      },
-      (err : any) =>{
-        console.log("Error=",err)
-      }
-    )
-   }
-
- // Rxjs SwitchMap
-  switchMap(){
-    this.loading = true;
-    this.search$.pipe(
-      debounceTime(300),
-      filter(terms=>terms.trim() !== ''),
-      switchMap((terms:any)=> this.dataFun(terms).pipe(
-        catchError(err=>{
-          console.log(err)
-          return of ([])
-        })
-      )
-      )
-    ).subscribe((res:any)=>{
-      this.loading = false;
-      this.productList = res;
-    })
   }
 
-  dataFun(terms:any){
-    const data = [{ name: 'iPhone' }, { name: 'Samsung' }, { name: 'MacBook' }];
+  setView(view: 'companies' | 'explorer') {
+    this.activeView = view;
+  }
 
-    return of (data.filter(x=>x.name.toLowerCase().includes(terms.toLowerCase())))
-  } 
+  questionList(event: any) {
+    this.filteredQuestionList = event.content || event.data || event || [];
+    this.totalPages = event.totalPages || 0;
+    this.currentPage = event.page ?? event.number ?? this.currentPage;
+  }
 
-  myCodeSnippet = `form = new FormGroup({
- name: new FormControl('', Validators.required)
-});`
+  nextPage() {
+    if (this.currentPage < this.totalPages - 1) {
+      this.currentPage++;
+      this.questionFilter?.filterQuestions(this.currentPage, this.pageSize);
+    }
+  }
 
+  prevPage() {
+    if (this.currentPage > 0) {
+      this.currentPage--;
+      this.questionFilter?.filterQuestions(this.currentPage, this.pageSize);
+    }
+  }
 }

@@ -11,8 +11,10 @@ export class InterviewDashboard {
 
   constructor(private routes : Router){}
 
-  routeTo(path:string){
-    this.routes.navigate([path])
+  routeTo(path: string, view?: 'companies' | 'explorer') {
+    this.routes.navigate([path], {
+      queryParams: view ? { view } : undefined
+    })
   }
 }
 

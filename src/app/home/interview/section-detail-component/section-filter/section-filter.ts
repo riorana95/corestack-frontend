@@ -50,7 +50,7 @@ export class SectionFilter implements OnInit {
   ngOnInit(){
     this.filterQuestions();
     this.sectionService.getAllCompany().subscribe({
-      next : ((res:any)=> this.companyList = res.map((x:any)=>x.name))
+      next : ((res:any)=> this.companyList = [...new Set(res.map((x:any)=>x.name))])
     })
   }
 

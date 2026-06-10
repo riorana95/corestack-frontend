@@ -7,7 +7,7 @@
   flex-wrap: wrap; // add this
 
   padding: 20px;
-  border-radius: 16px;
+  border-radius: 8px;
 
   background: rgba(255,255,255,0.05);
   backdrop-filter: blur(12px);
@@ -32,16 +32,20 @@
   min-width: 140px;
   padding: 8px 10px;
 
-  border-radius: 10px;
+  border-radius: 8px;
   border: 1px solid rgba(255,255,255,0.1);
 
   background: rgba(255,255,255,0.05);
   color: white;
 }
 
+.filter-action {
+  align-content: end;
+}
+
 .filter-action button {
   padding: 10px 18px;
-  border-radius: 10px;
+  border-radius: 8px;
   border: none;
 
   background: linear-gradient(135deg, #6366f1, #9333ea);

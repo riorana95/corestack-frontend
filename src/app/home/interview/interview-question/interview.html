@@ -1,2 +1,89 @@
-<app-company-detail-component>
-</app-company-detail-component>
+<main class="interview-workspace">
+  <!-- <section class="workspace-header">
+    <div class="header-copy">
+      <span class="eyebrow">Interview preparation</span>
+      <h1>Practice by company or filter the full question bank</h1>
+      <p>
+        Use company mode when you want the real interview flow. Use explorer mode
+        when you want to revise by company, skill, or most-asked questions.
+      </p>
+    </div>
+
+    <div class="header-stats" aria-label="Interview question summary">
+      <div class="stat-item">
+        <strong>Companies</strong>
+        <span>Past interviews</span>
+      </div>
+      <div class="stat-item">
+        <strong>Filters</strong>
+        <span>Company + skill</span>
+      </div>
+      <div class="stat-item">
+        <strong>Answers</strong>
+        <span>Code friendly</span>
+      </div>
+    </div>
+  </section> -->
+  @if (activeView === 'companies') {
+    <div>
+      <h2 class="section-title">Companies</h2>
+      <p class="section-subtitle">Select a company to start practicing interview questions</p>
+    </div>
+  }
+  @if (activeView === 'explorer') {
+    <div>
+      <h2 class="section-title">Question Explorer</h2>
+      <p class="section-subtitle">Filter past interview question</p>
+    </div>
+  }
+
+  <section class="view-switcher" aria-label="Interview question views">
+    <button
+      type="button"
+      [class.active]="activeView === 'companies'"
+      (click)="setView('companies')"
+    >
+      Company Interviews
+    </button>
+
+    <button type="button" [class.active]="activeView === 'explorer'" (click)="setView('explorer')">
+      Question Explorer
+    </button>
+  </section>
+
+  @if (activeView === 'companies') {
+    <section class="content-panel">
+      <app-company-detail-component></app-company-detail-component>
+    </section>
+  }
+
+  @if (activeView === 'explorer') {
+    <section class="content-panel explorer-panel">
+      <div class="panel-heading">
+        <div>
+          <h2>Question Explorer</h2>
+          <p>Filter the same interview question bank without leaving this page.</p>
+        </div>
+      </div>
+
+      <app-section-filter
+        (questionSet)="questionList($event)"
+        #questionFilterRef
+      ></app-section-filter>
+
+      <app-section-table [tableList]="filteredQuestionList"></app-section-table>
+
+      @if (totalPages > 0) {
+        <div class="pagination">
+          <button type="button" (click)="prevPage()" [disabled]="currentPage === 0">Prev</button>
+
+          <span>Page {{ currentPage + 1 }} of {{ totalPages }}</span>
+
+          <button type="button" (click)="nextPage()" [disabled]="currentPage === totalPages - 1">
+            Next
+          </button>
+        </div>
+      }
+    </section>
+  }
+</main>

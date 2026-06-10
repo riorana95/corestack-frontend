@@ -2,7 +2,7 @@
   <!-- COMPANY LIST -->
   @if (!selectedCompany()) {
     <div class="companies-section">
-      <div style="display: flex; justify-content: space-between;">
+      <div style="display: flex; justify-content: space-between">
         <div>
           <h2 class="section-title">Companies</h2>
           <p class="section-subtitle">Select a company to start practicing interview questions</p>
@@ -12,22 +12,25 @@
         </div>
       </div>
       <div class="companies-grid">
-        @for (company of  groupedCompanies(); track company.name) {
+        @for (company of groupedCompanies(); track company.name) {
 <div class="company-card"
      (click)="selectCompany(company)">
 
-    <div class="company-name">
-      {{ company.name }}
-    </div>
+  <div class="company-name">
+    {{ company.name }}
+  </div>
 
-    <div class="company-role">
-      {{ company.role }}
-    </div>
+  <div class="experience-count">
+    {{ company.rounds.length }}
+  </div>
 
-    <div class="round-count">
-      {{ company.rounds.length }}
-      Interview Rounds
-    </div>
+  <div class="experience-label">
+    Interview Tracks
+  </div>
+
+  <div class="card-arrow">
+    →
+  </div>
 
 </div>
         }
@@ -44,39 +47,34 @@
         <button class="add-btn" (click)="addPopup('question')">+ Add Question</button>
       </div>
 
-@for (round of selectedQuestions(); track round.companyId) {
+      @for (round of selectedQuestions(); track round.companyId) {
+        <div class="round-section">
+          <div class="round-header">
+            <div class="left-info">
+              <div class="role-name">
+                {{ round.role }}
+              </div>
 
-  <div class="round-section">
+              <div class="round-name">
+                {{ round.round }}
+              </div>
+            </div>
 
-    <div class="round-header">
+            <div class="round-date">
+              {{ formatDate(round.date) }}
+            </div>
+          </div>
 
-      <span>
-        {{ round.round }}
-      </span>
-
-      <span>
-        {{formatDate(round.date)}}
-      </span>
-
-    </div>
-
-    @for (
-      question of round.questions;
-      track question.id;
-      let i = $index
-    ) {
-
-      <app-question-card-component
-        [question]="question"
-        [companyName]="selectedCompany()"
-        [index]="i">
-      </app-question-card-component>
-
-    }
-
-  </div>
-
-}
+          @for (question of round.questions; track question.id; let i = $index) {
+            <app-question-card-component
+              [question]="question"
+              [companyName]="selectedCompany()"
+              [index]="i"
+            >
+            </app-question-card-component>
+          }
+        </div>
+      }
     </div>
   }
 </div>

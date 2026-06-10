@@ -82,12 +82,13 @@ selectCompany(company: any) {
 
           ...existing,
 
-          {
-            round: roundData.round,
-            date: roundData.date,
-            companyId: roundData.id,
-            questions
-          }
+        {
+          role: roundData.role,
+          round: roundData.round,
+          date: roundData.date,
+          companyId: roundData.id,
+          questions
+        }
 
         ]);
 

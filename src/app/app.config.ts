@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
+import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -9,10 +9,12 @@ import { provideHttpClient, withInterceptors, withFetch } from '@angular/common/
 import { loadingInterceptor } from './interceptor/loading-interceptor';
 import { authInterceptor } from './core/auth/interceptors/auth.interceptor';
 import { provideMarkdown } from 'ngx-markdown';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
     provideMarkdown(),
     provideBrowserGlobalErrorListeners(),
     importProvidersFrom(MatDialogModule),
@@ -20,6 +22,6 @@ export const appConfig: ApplicationConfig = {
       authInterceptor,
       loadingInterceptor,
     ])),
-    provideRouter(routes), provideClientHydration(withEventReplay())
+    provideRouter(routes), provideAnimations(), provideClientHydration(withEventReplay())
   ]
 };

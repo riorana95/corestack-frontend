@@ -1,134 +1,110 @@
-# CoreStack Frontend
+# Rana Rahul Kumar — Cinematic Spatial Portfolio
 
-Angular frontend for CoreStack. This app provides the user interface for authentication, the Interview preparation product, and the Splitwise-style expense sharing product.
+A premium Angular 21 portfolio built with **spatial UI design** and **cinematic scroll choreography**. Built for Rana Rahul Kumar, Senior Full Stack Engineer (Angular × Java Spring Boot).
 
-## Frontend Products
+---
 
-| Product | Main Folder | Documentation |
-| --- | --- | --- |
-| Interview | `src/app/home/interview` | [docs/INTERVIEW.md](docs/INTERVIEW.md) |
-| Splitwise | `src/app/home/splitwise` and `src/app/core/*` | [docs/SPLITWISE.md](docs/SPLITWISE.md) |
+## ✦ Design language
 
-## Tech Stack
+- **Spatial UI**: layered depth, glassmorphism surfaces, floating shards, 3D tilt on hover, parallax that recedes/rushes with scroll
+- **Cinematic movement**: GSAP `ScrollTrigger` pinning, word-by-word text reveals, blur-fade entrances, horizontal scroll for projects, scroll-progress-linked line fills, animated counters
+- **Custom cursor** with contextual labels (magnetic hover, label hover, text cursor)
+- **Lenis smooth scroll** for buttery inertia
+- **Premium dark theme** with warm bronze-gold accent (`#d4a574`)
+- **Loader sequence** with counter + bar reveal before content unveils
+- Type system: `Instrument Serif` (display) × `Space Grotesk` (UI) × `JetBrains Mono` (meta)
 
-- Angular 21
-- Angular Material
-- Bootstrap 5
-- RxJS
-- TypeScript
-- Vitest
-- Angular SSR support
-- ngx-quill / Quill
+---
 
-## Project Structure
+## ✦ Tech stack
 
-```text
-src/app/
-+-- core/
-|   +-- auth/           # Auth services, token storage, auth guard, interceptor
-|   +-- expenses/       # Splitwise expense models and API service
-|   +-- groups/         # Splitwise group models and API service
-|   +-- settlements/    # Splitwise settlement models and API service
-+-- home/
-|   +-- interview/      # Interview dashboard, sections, companies, questions
-|   +-- splitwise/      # Main Splitwise UI
-+-- login/              # Login and registration screen
-+-- shared/             # Shared layout and UI components
-+-- environments/       # API URL configuration
-```
+- **Angular 21** — standalone components, Signals, OnPush change detection
+- **GSAP + ScrollTrigger** — cinematic scroll choreography
+- **Lenis** — smooth inertial scrolling
+- **SCSS** — design tokens, glass utilities, spatial layering
+- TypeScript strict mode
 
-## Prerequisites
+---
 
-- Node.js compatible with Angular 21
-- npm 11 or newer
+## ✦ Sections
 
-## Install Dependencies
+1. **Hero** — kinetic typography, parallax shards, floating "now" card
+2. **About** — bio, education, animated stat counters
+3. **Experience** — Digit Insurance trajectory with scroll-linked timeline progress
+4. **Projects** — CoreStack horizontal pinned scroll (4 products + end card)
+5. **Skills** — spatial 4-column grid with tilt + skill bars
+6. **Achievements** — Top Gun, Wall of Awesomeness, Super Squad, Tech Titan
+7. **Contact** — big kinetic CTA, magnetic email button, link grid
 
-```powershell
+---
+
+## ✦ Run it
+
+```bash
+# install deps
 npm install
-```
 
-## Configure API URL
-
-Update:
-
-```text
-src/app/environments/environment.ts
-```
-
-Local backend:
-
-```typescript
-export const environment = {
-  production: false,
-  apiUrl: 'http://localhost:8080',
-};
-```
-
-Deployed backend:
-
-```typescript
-export const environment = {
-  production: true,
-  apiUrl: 'https://your-backend-domain.com',
-};
-```
-
-## Run Frontend
-
-```powershell
+# dev server (http://localhost:4200)
 npm start
-```
 
-Open:
-
-```text
-http://localhost:4200
-```
-
-## Build
-
-```powershell
+# production build
 npm run build
 ```
 
-Build output:
+> Requires Node 20+ and Angular CLI 21 (`npm i -g @angular/cli@21` optional).
 
-```text
-dist/
+---
+
+## ✦ File map
+
+```
+src/
+├── app/
+│   ├── app.component.ts          # root shell + loader orchestration
+│   ├── app.config.ts             # providers (router, animations, zone)
+│   ├── app.routes.ts
+│   ├── components/
+│   │   ├── loader/               # counter + bar preloader
+│   │   ├── custom-cursor/        # magnetic contextual cursor
+│   │   ├── navigation/           # sticky pill nav + progress bar
+│   │   ├── hero/                 # kinetic title + parallax shards
+│   │   ├── about/                # bio + animated counters
+│   │   ├── experience/           # scroll-linked timeline
+│   │   ├── projects/             # horizontal pinned scroll
+│   │   ├── skills/               # spatial tilt grid
+│   │   ├── achievements/         # award cards with magnetic hover
+│   │   └── contact/              # final CTA
+│   ├── directives/
+│   │   ├── parallax.directive.ts     # scroll-speed transform
+│   │   ├── reveal.directive.ts       # 5 reveal variants (rise/clip/scale/blur/split)
+│   │   ├── magnetic.directive.ts     # cursor-magnetic pull
+│   │   └── tilt.directive.ts         # 3D hover rotation
+│   ├── services/
+│   │   └── smooth-scroll.service.ts  # Lenis wrapper + signals
+│   ├── data/
+│   │   └── portfolio.data.ts         # all content (edit me!)
+│   └── models/
+│       └── portfolio.model.ts
+├── styles.scss                   # design tokens, ambient bg, grain
+├── index.html                    # fonts + meta
+└── main.ts
 ```
 
-## Test
+---
 
-```powershell
-npm test
-```
+## ✦ Customising
 
-## Run SSR Server
+All content lives in **`src/app/data/portfolio.data.ts`** — edit that single file to update name, bio, experience, projects, skills, awards, and education. The UI re-renders automatically.
 
-After building:
+To change the accent color, edit `--accent` in **`src/styles.scss`**.
 
-```powershell
-npm run serve:ssr:app1
-```
+---
 
-## Main Routes
+## ✦ Notes
 
-| Route | Description |
-| --- | --- |
-| `/` | Login and registration |
-| `/home` | Main dashboard |
-| `/interview-dashboard` | Interview product dashboard |
-| `/interview` | Interview question view |
-| `/question-set` | Section-based question view |
-| `/splitwise` | Splitwise expense sharing product |
+- Custom cursor & magnetic effects auto-disable on touch devices
+- `prefers-reduced-motion` is respected
+- Keyboard arrows (↑ ↓) trigger smooth section jumps
+- All animations are GPU-friendly (transform / opacity / filter only)
 
-Protected routes use `authGuard` and require a valid login.
-
-## Deployment Notes
-
-- `vercel.json` is included for Vercel deployment.
-- Confirm the production `apiUrl` before building.
-- Confirm backend CORS includes the deployed frontend URL.
-- Run `npm run build` before deployment.
-- Do not commit environment files with secrets.
+Built with care. — RRK

@@ -11,7 +11,14 @@ export class Home {
 
   constructor(private routes : Router){}
 
-  routeTo(path:string){
-    this.routes.navigate([path])
+  /**
+   * Navigate to a CoreStack product sub-route.
+   *
+   * Accepts single- or multi-segment paths (e.g. `'interview-dashboard'`
+   * or `'docs/backend/java/java-basics'`) and prefixes them with the
+   * `/corestack` namespace so the HTML template can stay path-agnostic.
+   */
+  routeTo(path: string){
+    this.routes.navigate(['/corestack', ...path.split('/')]);
   }
 }

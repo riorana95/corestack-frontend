@@ -1,266 +1,284 @@
+/* =========================================================
+   RANA RAHUL KUMAR — CINEMATIC SPATIAL PORTFOLIO
+   Global stylesheet / design tokens
+   ========================================================= */
 
-// Include theming for Angular Material with `mat.theme()`.
-// This Sass mixin will define CSS variables that are used for styling Angular Material
-// components according to the Material 3 design spec.
-// Learn more about theming and how to use it for your application's
-// custom components at https://material.angular.dev/guide/theming
-@use '@angular/material' as mat;
-// @import "highlight.js/styles/atom-one-dark.css";
-// @import 'highlight.js/styles/tokyo-night-dark.css';
-@import 'highlight.js/styles/github-dark.css';
-@import 'prismjs/themes/prism-tomorrow.css';
+/* ---------- DESIGN TOKENS ---------- */
+:root {
+  /* color system — cinematic dark */
+  --bg: #06070a;
+  --bg-elevated: #0c0e13;
+  --bg-glass: rgba(16, 19, 26, 0.55);
+  --bg-glass-strong: rgba(20, 23, 32, 0.78);
+
+  --ink: #f5f3ee;
+  --ink-soft: #d4d0c8;
+  --ink-muted: #8a8579;
+  --ink-faint: #4a463e;
+
+  --accent: #d4a574;          /* warm bronze gold */
+  --accent-bright: #f0c898;
+  --accent-deep: #8b6f47;
+  --accent-glow: rgba(212, 165, 116, 0.35);
+
+  --line: rgba(245, 243, 238, 0.08);
+  --line-strong: rgba(245, 243, 238, 0.16);
+
+  /* depth */
+  --shadow-soft: 0 20px 60px -20px rgba(0, 0, 0, 0.6);
+  --shadow-lift: 0 40px 120px -30px rgba(0, 0, 0, 0.8);
+  --shadow-accent: 0 30px 80px -20px rgba(212, 165, 116, 0.25);
+
+  /* typography */
+  --font-display: 'Instrument Serif', 'Times New Roman', serif;
+  --font-sans: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+
+  /* spacing rhythm */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 2rem;
+  --space-lg: 4rem;
+  --space-xl: 8rem;
+  --space-2xl: 12rem;
+
+  /* layout */
+  --container: 1320px;
+  --container-narrow: 880px;
+  --radius-sm: 4px;
+  --radius-md: 12px;
+  --radius-lg: 24px;
+  --radius-xl: 40px;
+
+  /* motion */
+  --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-emphasis: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-decel: cubic-bezier(0, 0, 0.2, 1);
+  --dur: 1.2s;
+}
+
+/* ---------- RESET ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 html {
-  height: 100%;
-  @include mat.theme((
-    color: (
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
-    ),
-    typography: Roboto,
-    density: 0,
-  ));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: auto; /* lenis handles smooth scroll */
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
 }
 
 body {
-  // Default the application to a light color theme. This can be changed to
-  // `dark` to enable the dark color theme, or to `light dark` to defer to the
-  // user's system settings.
-  color-scheme: light;
-
-  // Set a default background, font and text colors for the application using
-  // Angular Material's system-level CSS variables. Learn more about these
-  // variables at https://material.angular.dev/guide/system-variables
-  background-color: var(--mat-sys-surface);
-  color: var(--mat-sys-on-surface);
-  font: var(--mat-sys-body-medium);
-
-  // Reset the user agent margin.
-  margin: 0;
-  height: 100%;
-}
-/* You can add global styles to this file, and also import other style files */
-body {
-    font-family: sans-serif;
-    background: #121212;
-    color: #fff;
-  // user-select: none;
-  // -webkit-user-select: none;
-  // -moz-user-select: none;
-  // -ms-user-select: none;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-weight: 400;
+  line-height: 1.55;
+  letter-spacing: -0.01em;
+  overflow-x: hidden;
+  min-height: 100vh;
+  cursor: none; /* custom cursor */
 }
 
-body input {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 8px;
-  padding: 0.3rem;
+@media (hover: none), (pointer: coarse) {
+  body { cursor: auto; }
 }
 
-label {
-  font-size: 14px;
-  margin-bottom: 6px;
-  color: rgba(255, 255, 255, 0.7);
-  transition: color 0.2s ease;
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
 button {
-  background: linear-gradient(135deg, #4F46E5, #7C3AED);
+  font: inherit;
+  color: inherit;
+  background: none;
   border: none;
-  border-radius: 10px;
-
-  padding: 12px 16px;
-  width: auto;
-
-  color: #fff;
-  font-weight: 500;
-  font-size: 14px;
-
-  cursor: pointer;
-  transition: all 0.25s ease;
-
-  box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);
+  cursor: none;
 }
 
-button:hover{
-    transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(124, 58, 237, 0.6);
+/* ---------- TYPOGRAPHY ---------- */
+.display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
 }
 
-button:active{
-  transform: scale(0.98);
+.mono {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  letter-spacing: 0.02em;
 }
 
-button:disabled{
-    background: rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.4);
-  cursor: not-allowed;
-  box-shadow: none;
+.label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
 }
 
-.btn-secondary {
-  background: transparent;
-  border: none;
-  color: rgba(255, 255, 255, 0.6);
-
-  margin-top: 10px;
-  font-size: 13px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.btn-secondary:hover {
-  color: #ffffff;
-}
-
-.card{
-    padding: 2rem;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 16px;
-
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
-    height: 10rem;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    color: #fff;
-}
-
-/* 🔥 GLOBAL MAT DIALOG FIX */
-
-.custom-dialog .mat-mdc-dialog-container {
-  background: #0f1720 !important;
-  border-radius: 16px !important;
-  padding: 2rem !important;
-  color: white;
-}
-
-/* remove default white background */
-.mat-mdc-dialog-surface {
-  background: transparent !important;
-}
-
-/* backdrop (dark overlay) */
-.cdk-overlay-backdrop {
-  background: rgba(0, 0, 0, 0.7) !important;
-}
-
-/* QUILL DARK THEME FIX */
-.ql-toolbar {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 10px 10px 0 0;
-}
-
-.ql-container {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-top: none;
-  border-radius: 0 0 10px 10px;
-  color: #e5e7eb;
-  min-height: 150px;
-}
-
-/* toolbar icons color */
-.ql-toolbar .ql-stroke {
-  stroke: #cbd5e1;
-}
-.ql-toolbar .ql-fill {
-  fill: #cbd5e1;
-}
-
-/* hover */
-.ql-toolbar button:hover {
-  background: rgba(99,102,241,0.2);
-  border-radius: 6px;
-}
-
-/* active */
-.ql-toolbar button.ql-active {
-  background: rgba(99,102,241,0.3);
-}
-
-/* editor text */
-.ql-editor {
-  color: #e5e7eb;
-  font-size: 14px;
-}
-
-/* placeholder */
-.ql-editor.ql-blank::before {
-  color: #6b7280;
-}
-
-.ql-container {
-  box-shadow: 0 0 0 1px rgba(99,102,241,0.2),
-              0 10px 30px rgba(0,0,0,0.5);
-}
-
-.rich-content {
+/* ---------- LAYOUT ---------- */
+.container {
   width: 100%;
-  max-width: 100%;
-  overflow-wrap: break-word;   // ✅ break long words
-  word-wrap: break-word;
-  word-break: break-word;
-
-  line-height: 1.6;
-  font-size: 14px;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 2.5vw;
 }
 
-/* paragraphs */
-.rich-content p {
-  margin: 0 0 10px;
+.container-narrow {
+  width: 100%;
+  max-width: var(--container-narrow);
+  margin: 0 auto;
+  padding: 0 2.5vw;
 }
 
-/* lists */
-.rich-content ul,
-.rich-content ol {
-  padding-left: 20px;
-  margin-bottom: 10px;
+section {
+  position: relative;
+  padding: var(--space-2xl) 0;
 }
 
-/* list items */
-.rich-content li {
-  margin-bottom: 6px;
+@media (max-width: 768px) {
+  section { padding: var(--space-xl) 0; }
 }
 
-/* fix nested list overflow */
-.rich-content li p {
-  display: inline;
+/* ---------- GLASS / SURFACES ---------- */
+.glass {
+  background: var(--bg-glass);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
 }
 
-/* headings */
-.rich-content h1,
-.rich-content h2,
-.rich-content h3 {
-  margin: 10px 0;
+.glass-strong {
+  background: var(--bg-glass-strong);
+  backdrop-filter: blur(40px) saturate(160%);
+  -webkit-backdrop-filter: blur(40px) saturate(160%);
+  border: 1px solid var(--line-strong);
 }
 
-/* 🔥 MOST IMPORTANT — fix horizontal overflow */
-.rich-content pre {
-  overflow-x: auto;
-  white-space: pre;   // keep formatting
-  max-width: 100%;
+/* ---------- CINEMATIC TEXT REVEAL ---------- */
+.reveal-line {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
 }
 
-/* code block */
-.rich-content code {
-  word-break: break-word;
+.reveal-line > span {
+  display: inline-block;
+  transform: translateY(110%);
+  will-change: transform;
 }
 
-/* prevent anything from breaking layout */
-.rich-content * {
-  max-width: 100%;
+/* ---------- AMBIENT BACKGROUND ---------- */
+.ambient {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
 }
 
-.rich-content {
-  padding: 16px;
+.ambient::before,
+.ambient::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.45;
+  will-change: transform;
 }
 
-.rich-content * {
-  box-sizing: border-box;
+.ambient::before {
+  width: 60vw;
+  height: 60vw;
+  top: -20vw;
+  right: -15vw;
+  background: radial-gradient(circle, rgba(212, 165, 116, 0.18), transparent 65%);
+}
+
+.ambient::after {
+  width: 50vw;
+  height: 50vw;
+  bottom: -15vw;
+  left: -10vw;
+  background: radial-gradient(circle, rgba(60, 90, 140, 0.14), transparent 65%);
+}
+
+/* film grain */
+.grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- SCROLLBAR ---------- */
+::-webkit-scrollbar { width: 0; height: 0; }
+body { scrollbar-width: none; }
+
+/* ---------- UTILITIES ---------- */
+.text-accent { color: var(--accent); }
+.text-muted { color: var(--ink-muted); }
+.text-soft { color: var(--ink-soft); }
+
+.serif-italic {
+  font-family: var(--font-display);
+  font-style: italic;
+}
+
+.hairline {
+  height: 1px;
+  width: 100%;
+  background: var(--line);
+}
+
+/* ---------- ACCESSIBILITY ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

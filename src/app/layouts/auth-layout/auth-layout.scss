@@ -1,0 +1,28 @@
+:host {
+  display: block;
+  position: relative;
+  min-height: 100vh;
+  background: #06070a;
+  overflow: hidden;
+}
+
+.auth-surface {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 70% 20%, rgba(99, 102, 241, 0.18), transparent 55%),
+    radial-gradient(circle at 20% 80%, rgba(212, 165, 116, 0.12), transparent 60%),
+    #06070a;
+}
+
+.auth-shell {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}

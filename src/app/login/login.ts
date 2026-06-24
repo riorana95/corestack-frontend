@@ -6,7 +6,7 @@ import {
   FormGroup,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../core/auth/services/auth.service';
 import { ApiErrorResponse } from '../core/auth/models/auth.model';
@@ -40,6 +40,7 @@ declare const google:
 export class Login implements OnInit, AfterViewInit {
   private readonly fb = inject(FormBuilder);
   private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
   private readonly authService = inject(AuthService);
   private readonly platformId = inject(PLATFORM_ID);
 
@@ -50,7 +51,7 @@ export class Login implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     if (this.authService.isAuthenticated()) {
-      this.router.navigate(['/home']);
+      this.router.navigate([this.resolveReturnUrl()]);
       return;
     }
     this.createForm();
@@ -58,6 +59,23 @@ export class Login implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.initGoogleButton();
+  }
+
+  /**
+   * Where to send the user after a successful auth.
+   *
+   * Prefers a `?returnUrl=` query param (set by `authGuard` when a deep
+   * link was hit unauthenticated); otherwise defaults to the CoreStack
+   * dashboard. Strips leading slashes defensively so a crafted
+   * `?returnUrl=//evil.com` cannot perform an open redirect.
+   */
+  private resolveReturnUrl(): string {
+    const raw = this.route.snapshot.queryParamMap.get('returnUrl');
+    if (!raw) {
+      return '/corestack';
+    }
+    const safe = raw.replace(/^\/+/, '/');
+    return safe.startsWith('/') ? safe : '/corestack';
   }
 
   private initGoogleButton(retryCount = 0): void {
@@ -130,7 +148,7 @@ export class Login implements OnInit, AfterViewInit {
         .subscribe({
           next: () => {
             this.isSubmitting = false;
-            this.router.navigate(['/home']);
+            this.router.navigate([this.resolveReturnUrl()]);
           },
           error: (err) => this.handleAuthError(err),
         });
@@ -155,7 +173,7 @@ export class Login implements OnInit, AfterViewInit {
       .subscribe({
         next: () => {
           this.isSubmitting = false;
-          this.router.navigate(['/home']);
+          this.router.navigate([this.resolveReturnUrl()]);
         },
         error: (err) => this.handleAuthError(err),
       });
@@ -179,7 +197,7 @@ export class Login implements OnInit, AfterViewInit {
     this.authService.googleLogin({ credential: response.credential }).subscribe({
       next: () => {
         this.isSubmitting = false;
-        this.router.navigate(['/home']);
+        this.router.navigate([this.resolveReturnUrl()]);
       },
       error: (err) => this.handleAuthError(err),
     });

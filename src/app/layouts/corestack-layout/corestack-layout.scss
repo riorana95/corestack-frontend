@@ -1,0 +1,31 @@
+.corestack-shell {
+  min-height: 100vh;
+
+  position: relative;
+
+  overflow-x: hidden;
+
+  background:
+    radial-gradient(circle at top left,
+      rgba(99,102,241,0.18),
+      transparent 30%),
+
+    radial-gradient(circle at bottom right,
+      rgba(147,51,234,0.18),
+      transparent 30%),
+
+    #050816;
+
+  color: white;
+}
+
+.corestack-content {
+  position: relative;
+  z-index: 2;
+
+  max-width: 1500px;
+
+  margin: auto;
+
+  padding: 90px 24px 40px;
+}

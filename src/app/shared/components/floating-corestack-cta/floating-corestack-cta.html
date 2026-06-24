@@ -1,0 +1,16 @@
+<button
+  type="button"
+  class="cs-cta"
+  [class.cs-cta--visible]="visible()"
+  [class.cs-cta--dimmed]="dimmed()"
+  (click)="enterCoreStack()"
+  aria-label="Enter CoreStack"
+  data-cursor="hover"
+  data-cursor-label="Enter"
+>
+  <span class="cs-cta__dot" aria-hidden="true"></span>
+  <span class="cs-cta__label">Enter CoreStack</span>
+  <svg class="cs-cta__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+    <path d="M5 12h14M13 5l7 7-7 7" />
+  </svg>
+</button>

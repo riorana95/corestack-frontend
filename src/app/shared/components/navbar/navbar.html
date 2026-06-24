@@ -6,10 +6,15 @@
       CS
     </div>
 
-    <div class="branding">
+    <div class="branding" (click)="goHome()">
       <h2>CoreStack AI</h2>
       <span>Interview Intelligence Platform</span>
     </div>
+
+    <button class="back-portfolio" (click)="goPortfolio()" title="Back to portfolio">
+      <span class="back-arrow">&larr;</span>
+      <span class="back-label">Portfolio</span>
+    </button>
 
   </div>
 

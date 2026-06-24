@@ -151,7 +151,7 @@ async onNavigate(
   }
 
   await this.router.navigate([
-  '/docs/backend',
+  '/corestack/docs/backend',
   parent.id,
   sectionId,
 ]);

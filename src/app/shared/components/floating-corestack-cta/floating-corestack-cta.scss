@@ -1,0 +1,141 @@
+/* =========================================================
+   Floating "Enter CoreStack" CTA
+   Lives on the portfolio surface only (rendered by
+   PortfolioLayout). Bottom-right, cinematic bronze-gold accent.
+   ========================================================= */
+
+.cs-cta {
+  /* Position */
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 950; /* below the nav (1000) and grain (999) */
+
+  /* Layout */
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 22px 14px 18px;
+  border-radius: 100px;
+
+  /* Surface — cinematic glass matching the portfolio */
+  background: var(--bg-glass-strong);
+  backdrop-filter: blur(28px) saturate(160%);
+  -webkit-backdrop-filter: blur(28px) saturate(160%);
+  border: 1px solid var(--line-strong);
+
+  /* Typography */
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--ink-soft);
+
+  /* Motion */
+  cursor: none;
+  opacity: 0;
+  transform: translateY(24px) scale(0.92);
+  transition:
+    opacity 0.8s var(--ease-cinematic),
+    transform 0.8s var(--ease-cinematic),
+    background 0.4s var(--ease-cinematic),
+    color 0.4s var(--ease-cinematic),
+    border-color 0.4s var(--ease-cinematic),
+    box-shadow 0.4s var(--ease-cinematic);
+  pointer-events: none;
+}
+
+.cs-cta--visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+/* Subtle dim while the user is in the hero — the hero CTA is the
+   primary entry point there. Brightens as they scroll into the
+   rest of the portfolio. */
+.cs-cta--dimmed {
+  opacity: 0.55;
+}
+
+/* Pulsing status dot — bronze gold to match the portfolio accent */
+.cs-cta__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent-glow);
+  flex-shrink: 0;
+  animation: cs-cta-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes cs-cta-pulse {
+  0%, 100% {
+    box-shadow: 0 0 8px var(--accent-glow);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 18px var(--accent-glow);
+    transform: scale(1.15);
+  }
+}
+
+.cs-cta__label {
+  white-space: nowrap;
+}
+
+.cs-cta__arrow {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.4s var(--ease-cinematic);
+}
+
+/* Hover: lift, glow, swap to accent-filled */
+.cs-cta:hover {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-accent);
+  opacity: 1 !important;
+}
+
+.cs-cta:hover .cs-cta__dot {
+  background: var(--bg);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+}
+
+.cs-cta:hover .cs-cta__arrow {
+  transform: translateX(4px);
+}
+
+/* Touch / no-hover devices: restore the default cursor */
+@media (hover: none), (pointer: coarse) {
+  .cs-cta { cursor: pointer; }
+}
+
+/* Mobile: shrink the pill, keep it reachable */
+@media (max-width: 768px) {
+  .cs-cta {
+    bottom: 18px;
+    right: 18px;
+    padding: 12px 18px 12px 14px;
+    gap: 10px;
+    font-size: 12px;
+  }
+
+  .cs-cta__label {
+    /* Keep the label on mobile — the pill is small enough to
+       coexist with the contact section. */
+    white-space: nowrap;
+  }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .cs-cta {
+    transition: opacity 0.2s linear;
+  }
+  .cs-cta__dot {
+    animation: none;
+  }
+}

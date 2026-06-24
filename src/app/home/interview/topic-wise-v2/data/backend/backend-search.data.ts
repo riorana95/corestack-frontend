@@ -22,7 +22,7 @@ SearchItem[] = [
     ],
 
     route:
-      '/backend/java/java-basics',
+      '/corestack/docs/backend/java/java-basics',
   },
 
   {
@@ -42,7 +42,7 @@ SearchItem[] = [
     ],
 
     route:
-      '/backend/java/java-basics',
+      '/corestack/docs/backend/java/java-basics',
   },
 
   {
@@ -62,7 +62,7 @@ SearchItem[] = [
     ],
 
     route:
-      '/backend/spring-boot/spring-security',
+      '/corestack/docs/backend/spring-boot/spring-security',
   },
 
   {
@@ -81,7 +81,7 @@ SearchItem[] = [
     ],
 
     route:
-      '/backend/kafka/kafka-consumers',
+      '/corestack/docs/backend/kafka/kafka-consumers',
   },
 
 ];

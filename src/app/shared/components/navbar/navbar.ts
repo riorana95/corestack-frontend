@@ -16,8 +16,14 @@ export class Navbar {
 
   }
 
+  /** CoreStack dashboard — the `/corestack` index route. */
   goHome() {
-    this.routes.navigate(['home']);
+    this.routes.navigate(['/corestack']);
+  }
+
+  /** Back to the public portfolio at `/`. */
+  goPortfolio() {
+    this.routes.navigate(['/']);
   }
 
   logout(){

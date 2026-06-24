@@ -106,7 +106,7 @@ export class DocsPagination {
     }
 
     this.router.navigate([
-      '/backend',
+      '/corestack/docs/backend',
       parent.id,
       sectionId,
     ]);

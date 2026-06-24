@@ -50,7 +50,7 @@ export class AuthService {
 
   logout(): void {
     this.tokenStorage.clearSession();
-    this.routes.navigate([''])
+    this.routes.navigate(['/'])
   }
 
   isAuthenticated(): boolean {

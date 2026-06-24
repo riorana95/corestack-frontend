@@ -1,0 +1,18 @@
+@if (loading()) {
+  <app-loader (done)="onLoaderDone()" />
+}
+
+<app-custom-cursor />
+
+<div class="ambient" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<app-navigation />
+
+<main class="portfolio-surface" [class.is-hidden]="loading()" [class.is-ready]="!loading()">
+  <router-outlet></router-outlet>
+</main>
+
+<!-- Persistent hand-off into the protected product surface.
+     Bottom-right pill, only visible on the portfolio. -->
+<app-floating-corestack-cta />

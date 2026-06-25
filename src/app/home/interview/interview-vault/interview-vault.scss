@@ -1,188 +1,198 @@
+/* =========================================================
+   CORESTACK — INTERVIEW VAULT
+   Categorized prep content with sidebar nav.
+   Premium polish, cyan accent, Geist Sans.
+   ========================================================= */
+
 .qa-container {
-
   max-width: 1200px;
-
   margin: 0 auto;
 }
 
-.category-section {
-
-  margin-bottom: 32px;
-}
-
-.category-title {
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  margin-bottom: 8px;
-
-  padding-bottom: 10px;
-
-  border-bottom: 1px solid rgba(255,255,255,.08);
-}
-
-.category-title h2 {
-
-  margin: 0;
-
-  font-size: 22px;
-
-  font-weight: 700;
-
-  color: #818cf8;
-
-  text-transform: uppercase;
-
-  letter-spacing: 1px;
-}
-
-.category-title span {
-
-  font-size: 13px;
-
-  color: rgba(255,255,255,.5);
-}
-
-.question-list {
-
-  margin: 0;
-
-}
-
-.question-list li {
-
-  line-height: 1.6;
-
-  color: rgba(255,255,255,.9);
-}
-
-.question-list li:last-child {
-
-  border-bottom: none;
-}
-
-.question-list li:hover {
-
-  color: white;
-}
-
+/* ---------- LAYOUT ---------- */
 .layout {
-
   display: flex;
-
   gap: 24px;
-
-  height: 79vh;
-
-  overflow: hidden;
+  height: calc(100vh - var(--cs-navbar-height) - 80px);
+  min-height: 500px;
 }
 
+/* ---------- SIDEBAR ---------- */
 .sidebar {
-
   position: sticky;
-
   top: 0;
-
-  width: 220px;
-
-  height: fit-content;
-
+  width: 240px;
   flex-shrink: 0;
 
-  background: rgba(255,255,255,.03);
+  background: var(--cs-surface);
+  border: 1px solid var(--cs-border);
+  border-radius: var(--cs-radius-lg);
+  padding: 14px;
 
-  border: 1px solid rgba(255,255,255,.08);
-
-  border-radius: 12px;
-
-  padding: 12px;
-
-  max-height: 79vh;
-
+  max-height: 100%;
   overflow-y: auto;
 
   display: flex;
-
   flex-direction: column;
-
   gap: 12px;
 }
 
+/* ---------- SECTION TOGGLE (Backend/Frontend/All) ---------- */
 .section-toggle {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  padding-bottom: 12px;
-  border-bottom: 1px solid rgba(255,255,255,.08);
+  /* 3 equal-width buttons on one row. Previous min-width caused
+     the third button to wrap awkwardly. */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--cs-border);
 }
 
 .toggle-btn {
-  padding: 8px 12px;
-  border: 1px solid rgba(99, 102, 241, 0.3);
-  background: rgba(99, 102, 241, 0.05);
-  color: rgba(255, 255, 255, 0.7);
-  border-radius: 6px;
+  padding: 8px 6px;
+  border: 1px solid var(--cs-border);
+  background: transparent;
+  color: var(--cs-ink-muted);
+  border-radius: var(--cs-radius-sm);
   cursor: pointer;
-  font-size: 12px;
+
+  font-family: var(--cs-font-sans);
+  font-size: 11px;
   font-weight: 500;
-  transition: all 0.2s ease;
-  flex: 1;
-  min-width: calc(50% - 4px);
+  letter-spacing: 0.02em;
+  text-align: center;
+  white-space: nowrap;
 
-  &:hover {
-    background: rgba(99, 102, 241, 0.1);
-    color: rgba(255, 255, 255, 0.9);
-    border-color: rgba(99, 102, 241, 0.5);
-  }
-
-  &.active {
-    background: rgba(99, 102, 241, 0.2);
-    color: #818cf8;
-    border-color: #818cf8;
-    font-weight: 600;
-  }
+  transition: all var(--cs-dur-fast) var(--cs-ease);
 }
 
+.toggle-btn:hover {
+  background: var(--cs-surface-hover);
+  color: var(--cs-ink-soft);
+  border-color: var(--cs-border-strong);
+}
+
+.toggle-btn.active {
+  background: var(--cs-accent-soft);
+  color: var(--cs-accent-bright);
+  border-color: var(--cs-border-accent);
+  font-weight: 600;
+}
+
+/* ---------- NAV ITEMS ---------- */
 .nav-container {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 2px;
 }
 
 .nav-item {
-
-  padding: 10px 14px;
-
+  padding: 10px 12px;
   cursor: pointer;
-
-  border-radius: 8px;
-
-  transition: .2s;
+  border-radius: var(--cs-radius-sm);
+  font-size: 13px;
+  color: var(--cs-ink-muted);
+  transition: all var(--cs-dur-fast) var(--cs-ease);
+  border-left: 2px solid transparent;
+  line-height: 1.4;
 }
 
 .nav-item:hover {
-
-  background: rgba(99,102,241,.08);
+  background: var(--cs-surface-hover);
+  color: var(--cs-ink-soft);
 }
 
 .nav-item.active {
-
-  background: rgba(99,102,241,.15);
-
-  color: #818cf8;
-
-  font-weight: 600;
-
-  border-left: 3px solid #818cf8;
+  background: var(--cs-accent-soft);
+  color: var(--cs-accent-bright);
+  font-weight: 500;
+  border-left-color: var(--cs-accent);
 }
 
+/* ---------- CONTENT ---------- */
 .content {
-
   flex: 1;
-
   overflow-y: auto;
+  padding-right: 12px;
+}
 
-  padding-right: 16px;
+/* ---------- CATEGORY SECTION ---------- */
+.category-section {
+  margin-bottom: 36px;
+}
+
+.category-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--cs-border);
+}
+
+.category-title h2 {
+  margin: 0;
+  font-family: var(--cs-font-display);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--cs-accent-bright);
+  letter-spacing: -0.01em;
+  text-transform: none;
+}
+
+.category-title span {
+  font-family: var(--cs-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--cs-ink-faint);
+}
+
+/* ---------- QUESTION LIST ---------- */
+.question-list {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.question-list li {
+  line-height: 1.6;
+  color: var(--cs-ink-soft);
+  font-size: 14px;
+  /* Padding between items so they don't run together. */
+  padding: 6px 0;
+  border-bottom: 1px solid transparent;
+  transition: color var(--cs-dur-fast) var(--cs-ease);
+}
+
+/* Subtle separator between items — barely visible until hover
+   to avoid visual noise. */
+.question-list li + li {
+  border-top: 1px solid var(--cs-border);
+}
+
+.question-list li:hover {
+  color: var(--cs-ink);
+}
+
+/* ---------- MOBILE ---------- */
+@media (max-width: 768px) {
+  .layout {
+    flex-direction: column;
+    height: auto;
+    min-height: auto;
+  }
+
+  .sidebar {
+    position: relative;
+    width: 100%;
+    max-height: 280px;
+  }
+
+  .content {
+    overflow-y: visible;
+    padding-right: 0;
+  }
+}
+
+section {
+  padding: 0;
 }

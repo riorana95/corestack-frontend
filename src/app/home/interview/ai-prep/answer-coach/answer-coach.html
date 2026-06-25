@@ -1,0 +1,135 @@
+<div class="cs-coach">
+
+  @if (error()) {
+    <div class="cs-coach__error" role="alert">{{ error() }}</div>
+  }
+
+  <div class="cs-coach__grid">
+
+    <!-- INPUT -->
+    <section class="cs-coach__input">
+      <h2 class="cs-coach__section-title">Your answer</h2>
+
+      <div class="cs-coach__field">
+        <label>Question</label>
+        <textarea
+          [(ngModel)]="question"
+          rows="3"
+          placeholder="Paste an interview question, or write your own…"
+          [disabled]="loading()"
+        ></textarea>
+      </div>
+
+      <div class="cs-coach__field">
+        <label>Your answer</label>
+        <textarea
+          [(ngModel)]="userAnswer"
+          rows="6"
+          placeholder="Type how you would answer this in an interview…"
+          [disabled]="loading()"
+        ></textarea>
+      </div>
+
+      <div class="cs-coach__field">
+        <label>Reference answer (optional)</label>
+        <textarea
+          [(ngModel)]="idealAnswer"
+          rows="3"
+          placeholder="If you have a model answer, paste it here for comparison…"
+          [disabled]="loading()"
+        ></textarea>
+      </div>
+
+      <div class="cs-coach__field">
+        <label>Difficulty</label>
+        <div class="cs-coach__seg">
+          @for (d of difficulties; track d) {
+            <button
+              type="button"
+              [class.is-active]="difficulty() === d"
+              (click)="difficulty.set(d)"
+              [disabled]="loading()"
+            >{{ d | titlecase }}</button>
+          }
+        </div>
+      </div>
+
+      <div class="cs-coach__actions">
+        <button
+          type="button"
+          class="cs-coach__eval"
+          [disabled]="loading() || !question().trim() || !userAnswer().trim()"
+          (click)="evaluate()"
+        >
+          @if (loading()) {
+            Evaluating…
+          } @else {
+            Evaluate answer
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M13 5l7 7-7 7" />
+            </svg>
+          }
+        </button>
+        <button type="button" class="cs-coach__reset" (click)="reset()" [disabled]="loading()">
+          Clear
+        </button>
+      </div>
+    </section>
+
+    <!-- RESULT -->
+    <section class="cs-coach__result">
+      @if (!evaluation() && !loading()) {
+        <div class="cs-coach__empty">
+          <div class="cs-coach__empty-icon">◆</div>
+          <h3>AI feedback appears here</h3>
+          <p>Type a question and your answer on the left, then click "Evaluate answer".</p>
+        </div>
+      }
+
+      @if (loading()) {
+        <div class="cs-coach__loading">
+          <div class="cs-coach__spinner"></div>
+          <p>GLM-4.6 is reviewing your answer…</p>
+        </div>
+      }
+
+      @if (evaluation(); as eval) {
+        <div class="cs-coach__eval cs-rise" style="--cs-i: 0">
+          <div class="cs-coach__eval-header">
+            <span class="cs-coach__eval-title">AI evaluation</span>
+            <span class="cs-coach__eval-score" [class]="scoreClass(eval.score)">
+              {{ eval.score }}<small>/100</small>
+            </span>
+          </div>
+
+          <div class="cs-coach__feedback">
+            <div class="cs-coach__fb-row cs-coach__fb--good">
+              <span class="cs-coach__fb-label">Good</span>
+              <span>{{ eval.feedback.good }}</span>
+            </div>
+            <div class="cs-coach__fb-row cs-coach__fb--missing">
+              <span class="cs-coach__fb-label">Missing</span>
+              <span>{{ eval.feedback.missing }}</span>
+            </div>
+            <div class="cs-coach__fb-row cs-coach__fb--wrong">
+              <span class="cs-coach__fb-label">Wrong</span>
+              <span>{{ eval.feedback.wrong }}</span>
+            </div>
+          </div>
+
+          <div class="cs-coach__ideal">
+            <span class="cs-coach__fb-label cs-coach__fb-label--accent">Model answer</span>
+            <p>{{ eval.idealAnswer }}</p>
+          </div>
+
+          <div class="cs-coach__tip">
+            <span class="cs-coach__fb-label cs-coach__fb-label--accent">Tip</span>
+            <p>{{ eval.followUpTip }}</p>
+          </div>
+        </div>
+      }
+    </section>
+
+  </div>
+
+</div>

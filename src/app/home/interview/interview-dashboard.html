@@ -1,87 +1,85 @@
-<div class="home-grid">
-<div class="product-card" (click)="routeTo('interview', 'companies')">
-  <div class="card-top">
-    <span class="chip">Interview Questions</span>
-    <span class="badge">Companies + Filters</span>
+<div class="cs-idash">
+
+  <!-- Page header -->
+  <header class="cs-idash__header cs-rise" style="--cs-i: 0">
+    <span class="cs-label">Interview QA / Workspaces</span>
+    <h1 class="cs-idash__title">Interview preparation</h1>
+    <p class="cs-idash__subtitle">
+      Real company interview tracks and a 500+ question vault covering
+      backend, frontend, system design, DSA, and machine coding.
+    </p>
+  </header>
+
+  <!-- Workspace grid -->
+  <div class="cs-idash__grid">
+
+    <!-- INTERVIEW WORKSPACE -->
+    <article
+      class="cs-pcard cs-pcard--accent cs-rise"
+      style="--cs-i: 1"
+      (click)="routeTo('interview', 'companies')"
+      tabindex="0"
+      role="button"
+      aria-label="Open Interview Workspace"
+    >
+      <div class="cs-pcard__top">
+        <span class="cs-pcard__chip">Interview Questions</span>
+        <span class="cs-pcard__badge">Companies + Filters</span>
+      </div>
+
+      <div class="cs-pcard__body">
+        <h3 class="cs-pcard__title">Interview Workspace</h3>
+        <p class="cs-pcard__desc">
+          Practice real company interview tracks and filter the full question bank by
+          company, skill, and most-asked questions in one place.
+        </p>
+      </div>
+
+      <div class="cs-pcard__footer">
+        <span class="cs-pcard__cta">
+          Open
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M13 5l7 7-7 7" />
+          </svg>
+        </span>
+        <span class="cs-pcard__meta cs-mono">Companies · Rounds · Filters</span>
+      </div>
+    </article>
+
+    <!-- INTERVIEW VAULT -->
+    <article
+      class="cs-pcard cs-pcard--accent cs-rise"
+      style="--cs-i: 2"
+      (click)="routeTo('interview-vault')"
+      tabindex="0"
+      role="button"
+      aria-label="Open Interview Vault"
+    >
+      <div class="cs-pcard__top">
+        <span class="cs-pcard__chip">Interview Vault</span>
+        <span class="cs-pcard__badge">500+ Questions</span>
+      </div>
+
+      <div class="cs-pcard__body">
+        <h3 class="cs-pcard__title">Interview Vault</h3>
+        <p class="cs-pcard__desc">
+          Comprehensive interview preparation vault covering Backend, Frontend, System
+          Design, DSA, Machine Coding, JavaScript, Angular, React, Spring Boot,
+          Microservices, and more.
+        </p>
+      </div>
+
+      <div class="cs-pcard__footer">
+        <span class="cs-pcard__cta">
+          Open
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M13 5l7 7-7 7" />
+          </svg>
+        </span>
+        <span class="cs-pcard__meta cs-mono">Backend · Frontend · DSA</span>
+      </div>
+    </article>
+
   </div>
 
-  <h3>Interview Workspace</h3>
-
-  <p>
-    Practice real company interview tracks and filter the full question
-    bank by company, skill, and most-asked questions in one place.
-  </p>
-
-  <div class="card-footer"></div>
-</div>
-
-  <!-- <div class="product-card" (click)="routeTo('interview', 'explorer')">
-  <div class="card-top">
-    <span class="chip">Fast Revision</span>
-    <span class="badge">Question Explorer</span>
-  </div>
-
-  <h3>Filter Question Bank</h3>
-
-  <p>
-    Jump into the same workspace and switch to explorer mode for quick
-    revision across Angular, JavaScript, React, Java, SQL, and more.
-  </p>
-
-  <div class="card-footer"></div>
-</div> -->
-
- <div class="product-card" (click)="routeTo('interview-vault')">
-  <div class="card-top">
-    <span class="chip">Interview Vault</span>
-    <span class="badge">500+ Questions</span>
-  </div>
-
-  <h3>Interview Vault</h3>
-
-  <p>
-    Comprehensive interview preparation vault covering Backend,
-    Frontend, System Design, DSA, Machine Coding, JavaScript,
-    Angular, React, Spring Boot, Microservices, and more.
-  </p>
-
-  <div class="card-footer">
-    <!-- <span class="arrow">-&gt;</span> -->
-  </div>
-</div>
-
-  <!-- <div class="product-card" (click)="routeTo('interview-topic-wise')">
-    <div class="card-top">
-      <span class="chip">Topic Wise Study</span>
-      <span class="badge">Frontend + Backend</span>
-    </div>
-
-    <h3>Topic Wise Study</h3>
-    <p>Structured roadmap with short answers, detailed explanations, and coding examples.</p>
-
-    <div class="card-footer">
-      <span class="arrow">-&gt;</span>
-    </div>
-  </div> -->
-
-  <!-- <div class="product-card" (click)="routeTo('docs/backend/java/java-basics')">
-
-  <div class="card-top">
-    <span class="chip">Engineering Docs</span>
-    <span class="badge">Angular Style</span>
-  </div>
-
-  <h3>Backend Docs</h3>
-
-  <p>
-    Structured backend engineering roadmap with
-    deep explanations, interview theory,
-    architecture concepts, and production patterns.
-  </p>
-
-  <div class="card-footer">
-    <span class="arrow">-&gt;</span>
-  </div>
-
-</div> -->
 </div>

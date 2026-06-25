@@ -4,17 +4,19 @@ import { ActivatedRoute } from '@angular/router';
 import { SectionFilter } from '../section-detail-component/section-filter/section-filter';
 import { SectionTable } from '../section-detail-component/section-table/section-table';
 import { CompanyDetailComponent } from './company-detail-component/company-detail-component';
+import { AiPrep } from '../ai-prep/ai-prep';
 
 @Component({
   selector: 'app-interview',
-  imports: [CommonModule, CompanyDetailComponent, SectionFilter, SectionTable],
+  imports: [CommonModule, CompanyDetailComponent, SectionFilter, SectionTable, AiPrep],
   templateUrl: './interview.html',
   styleUrl: './interview.scss',
 })
 export class Interview implements OnInit {
   @ViewChild('questionFilterRef') questionFilter?: SectionFilter;
 
-  activeView: 'companies' | 'explorer' = 'companies';
+  /** Three views: companies (default), explorer (filter table), ai-prep (AI coach). */
+  activeView: 'companies' | 'explorer' | 'ai-prep' = 'companies';
   filteredQuestionList: any[] = [];
   currentPage = 0;
   pageSize = 10;
@@ -23,12 +25,13 @@ export class Interview implements OnInit {
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
-    if (this.route.snapshot.queryParamMap.get('view') === 'explorer') {
-      this.activeView = 'explorer';
+    const view = this.route.snapshot.queryParamMap.get('view');
+    if (view === 'explorer' || view === 'ai-prep') {
+      this.activeView = view;
     }
   }
 
-  setView(view: 'companies' | 'explorer') {
+  setView(view: 'companies' | 'explorer' | 'ai-prep') {
     this.activeView = view;
   }
 

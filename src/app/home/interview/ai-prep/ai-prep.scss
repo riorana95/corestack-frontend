@@ -1,0 +1,99 @@
+/* =========================================================
+   CORESTACK — AI PREP CONTAINER
+   Tab switcher + header. Each mode renders below.
+   ========================================================= */
+
+.cs-ai {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* ---------- HEADER ---------- */
+.cs-ai__header {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 720px;
+}
+
+.cs-ai__title {
+  margin: 0;
+  font-family: var(--cs-font-display);
+  font-size: clamp(24px, 3.2vw, 32px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--cs-ink);
+}
+
+.cs-ai__subtitle {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--cs-ink-muted);
+}
+
+/* ---------- MODE TABS ---------- */
+.cs-ai__tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.cs-ai__tab {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding: 14px 16px;
+  border-radius: var(--cs-radius-md);
+  background: var(--cs-surface);
+  border: 1px solid var(--cs-border);
+  text-align: left;
+  cursor: pointer;
+  transition: all var(--cs-dur) var(--cs-ease);
+
+  &:hover {
+    background: var(--cs-surface-hover);
+    border-color: var(--cs-border-strong);
+  }
+
+  &.is-active {
+    background: var(--cs-accent-soft);
+    border-color: var(--cs-border-accent);
+  }
+}
+
+.cs-ai__tab-label {
+  font-family: var(--cs-font-display);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--cs-ink);
+}
+
+.cs-ai__tab.is-active .cs-ai__tab-label {
+  color: var(--cs-accent-bright);
+}
+
+.cs-ai__tab-desc {
+  font-size: 11px;
+  color: var(--cs-ink-muted);
+  line-height: 1.4;
+}
+
+/* ---------- CONTENT ---------- */
+.cs-ai__content {
+  min-height: 400px;
+}
+
+/* ---------- MOBILE ---------- */
+@media (max-width: 768px) {
+  .cs-ai__tabs {
+    grid-template-columns: 1fr;
+  }
+
+  .cs-ai__tab {
+    padding: 12px 14px;
+  }
+}

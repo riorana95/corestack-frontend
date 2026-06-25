@@ -1,378 +1,284 @@
-/* =========================
-   COMPANY SECTION
-========================= */
+/* =========================================================
+   CORESTACK — COMPANY DETAIL
+   Company grid + per-company question rounds.
+   ========================================================= */
 
-.companies-section {
-  padding: 16px 0;
-}
-
-/* TITLE */
-.section-title {
-  font-size: 22px;
-  font-weight: 600;
-  margin-bottom: 4px;
-}
-
-/* SUBTITLE */
-.section-subtitle {
-  font-size: 13px;
-  color: rgba(255,255,255,0.6);
-  margin-bottom: 20px;
-}
-
-/* GRID */
-.companies-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+.cs-companies {
+  display: flex;
+  flex-direction: column;
   gap: 20px;
 }
 
-/* =========================
-   COMPANY CARD
-========================= */
-.company-card {
-
-  position: relative;
-
-  min-height: 180px;
-
-  padding: 24px;
-
-  border-radius: 20px;
-
-  background:
-    linear-gradient(
-      135deg,
-      rgba(15,23,42,.95),
-      rgba(30,41,59,.95)
-    );
-
-  border: 1px solid rgba(255,255,255,.08);
-
-  display: flex;
-  flex-direction: column;
-
-  justify-content: center;
-  align-items: center;
-
-  text-align: center;
-
-  cursor: pointer;
-
-  transition: all .25s ease;
-
-  overflow: hidden;
-}
-
-.company-card:hover {
-
-  transform: translateY(-6px);
-
-  border-color:
-    rgba(99,102,241,.45);
-
-  box-shadow:
-    0 20px 40px rgba(0,0,0,.45);
-}
-
-.company-card::before {
-
-  content: '';
-
-  position: absolute;
-
-  inset: 0;
-
-  background:
-    radial-gradient(
-      circle at top right,
-      rgba(99,102,241,.15),
-      transparent 60%
-    );
-
-  opacity: 0;
-
-  transition: .3s;
-}
-
-.company-card:hover::before {
-  opacity: 1;
-}
-
-.company-name {
-
-  font-size: 24px;
-
-  font-weight: 700;
-
-  color: white;
-
-  margin-bottom: 18px;
-
-  z-index: 2;
-}
-
-.experience-count {
-
-  font-size: 42px;
-
-  font-weight: 800;
-
-  color: #818cf8;
-
-  line-height: 1;
-
-  z-index: 2;
-}
-
-.experience-label {
-
-  margin-top: 8px;
-
-  font-size: 13px;
-
-  color: rgba(255,255,255,.6);
-
-  z-index: 2;
-}
-
-.card-arrow {
-
-  position: absolute;
-
-  bottom: 18px;
-  right: 20px;
-
-  font-size: 22px;
-
-  color: rgba(255,255,255,.4);
-
-  transition: .25s;
-}
-
-.company-card:hover .card-arrow {
-
-  transform: translateX(4px);
-
-  color: #818cf8;
-}
-
-
-
-.company-card:hover {
-  transform: translateY(-6px);
-}
-
-.company-card:hover .card-arrow {
-  transform: translateX(6px);
-}
-
-.company-card:hover .company-name {
-  color: #a5b4fc;
-}
-
-/* =========================
-   QUESTIONS SECTION
-========================= */
-
-.questions-section {
-  padding-top: 20px;
-}
-
-/* HEADER */
-.section-header {
-  display: flex;
-  align-items: center;
+/* ---------- COMPANY GRID ---------- */
+.cs-companies__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 16px;
-  margin-bottom: 24px;
 }
 
-/* BACK BUTTON */
-.back-btn {
-  width: 40px;
-  height: 40px;
-  padding: 0;
-
-  background: rgba(255, 255, 255, 0.08);
-  color: #fff;
-
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 50%;
-
-  cursor: pointer;
-  font-size: 1.2rem;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  transition: all 0.25s ease;
-}
-
-/* BACK BUTTON HOVER */
-.back-btn:hover {
-  background: rgba(255, 255, 255, 0.18);
-}
-
-/* TITLE */
-.section-header h2 {
-  margin: 0;
-}
-
-.company-role {
-
-  font-size: 13px;
-  opacity: .7;
-
-  margin-top: 8px;
-}
-
-.round-count {
-
-  margin-top: 12px;
-
-  padding: 6px 10px;
-
-  border-radius: 20px;
-
-  background:
-    rgba(99,102,241,.12);
-
-  color:
-    #818cf8;
-
-  font-size: 12px;
-}
-
-.round-section {
-
-  margin-bottom: 40px;
-}
-
-.round-header {
-
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: center;
-
-  margin-bottom: 16px;
-
-  padding-bottom: 10px;
-
-  border-bottom:
-    1px solid rgba(255,255,255,.08);
-
-  font-weight: 600;
-
-  color: #818cf8;
-}
-
-.company-card {
+/* ---------- COMPANY CARD ---------- */
+.cs-company {
   position: relative;
-}
+  padding: 24px;
+  border-radius: var(--cs-radius-lg);
+  background: var(--cs-surface);
+  border: 1px solid var(--cs-border);
+  overflow: hidden;
 
-.experience-count {
-
-  position: absolute;
-
-  top: 20px;
-  right: 20px;
-
-  padding: 8px 14px;
-
-  border-radius: 999px;
-
-  background: rgba(99,102,241,.18);
-
-  color: #a5b4fc;
-
-  font-size: 12px;
-
-  font-weight: 500;
-
-  white-space: nowrap;
-}
-
-.company-tooltip {
-  position: absolute;
-
-  top: calc(100% + 10px);
-  left: 0;
-
-  width: 320px;
-
-  opacity: 0;
-  visibility: hidden;
-
-  transform: translateY(10px);
-
-  transition: .25s ease;
-
-  background: #0f172a;
-
-  border: 1px solid rgba(255,255,255,.08);
-
-  border-radius: 14px;
-
-  padding: 12px;
-
-  z-index: 100;
-}
-
-.company-card:hover .company-tooltip {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-
-.tooltip-row {
-  padding: 10px 0;
-  border-bottom: 1px solid rgba(255,255,255,.08);
-}
-
-.tooltip-row:last-child {
-  border-bottom: none;
-}
-
-.tooltip-role {
-  font-size: 13px;
-  font-weight: 600;
-  color: white;
-}
-
-.tooltip-round {
-  font-size: 12px;
-  color: #a5b4fc;
-  margin-top: 4px;
-}
-
-.tooltip-date {
-  font-size: 11px;
-  color: rgba(255,255,255,.5);
-  margin-top: 2px;
-}
-
-.left-info {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 16px;
+  min-height: 160px;
+
+  cursor: pointer;
+  transition:
+    transform var(--cs-dur) var(--cs-ease),
+    border-color var(--cs-dur) var(--cs-ease),
+    background var(--cs-dur) var(--cs-ease),
+    box-shadow var(--cs-dur) var(--cs-ease);
 }
 
-.role-name {
-  font-size: 15px;
+.cs-company:focus-visible {
+  outline: 2px solid var(--cs-accent);
+  outline-offset: 2px;
+}
+
+.cs-company:hover {
+  transform: translateY(-3px);
+  background: var(--cs-surface-hover);
+  border-color: var(--cs-border-accent);
+  box-shadow: var(--cs-shadow-md);
+}
+
+/* Hover corner glow */
+.cs-company::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  right: -30%;
+  width: 70%;
+  height: 90%;
+  background: radial-gradient(circle, var(--cs-accent-soft), transparent 70%);
+  opacity: 0;
+  transition: opacity var(--cs-dur) var(--cs-ease);
+  pointer-events: none;
+}
+
+.cs-company:hover::before {
+  opacity: 1;
+}
+
+/* ---------- CARD HEAD ---------- */
+.cs-company__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* Ensure the index and count badge share the same baseline
+     so the head row reads as a balanced pair rather than two
+     dissimilar elements. */
+  min-height: 24px;
+}
+
+.cs-company__index {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--cs-ink-faint);
+  line-height: 1;
+}
+
+.cs-company__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 8px;
+  border-radius: var(--cs-radius-pill);
+  background: var(--cs-accent-soft);
+  color: var(--cs-accent-bright);
+  border: 1px solid var(--cs-border-accent);
+
+  font-size: 11px;
   font-weight: 600;
-  color: white;
+  line-height: 1;
 }
 
-.round-name {
-  font-size: 13px;
-  color: #818cf8;
+/* ---------- NAME ---------- */
+.cs-company__name {
+  margin: 0;
+  font-family: var(--cs-font-display);
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--cs-ink);
+  line-height: 1.2;
+  transition: color var(--cs-dur) var(--cs-ease);
 }
 
-.round-date {
-  color: #a5b4fc;
-  font-size: 13px;
-  white-space: nowrap;
+.cs-company:hover .cs-company__name {
+  color: var(--cs-accent-bright);
+}
+
+/* ---------- META FOOTER ---------- */
+.cs-company__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--cs-border);
+}
+
+.cs-company__label {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  /* Bumped from --cs-ink-muted to --cs-ink-soft for readability
+     against the dark card surface. */
+  color: var(--cs-ink-soft);
+}
+
+.cs-company__arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--cs-surface-hover);
+  color: var(--cs-ink-muted);
+  transition: all var(--cs-dur) var(--cs-ease);
+}
+
+.cs-company__arrow svg {
+  width: 13px;
+  height: 13px;
+}
+
+.cs-company:hover .cs-company__arrow {
+  background: var(--cs-accent);
+  color: var(--cs-bg);
+  transform: translateX(3px);
+}
+
+/* =========================================================
+   QUESTIONS SECTION (per-company)
+   ========================================================= */
+
+.cs-questions {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.cs-questions__header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.cs-back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--cs-radius-md);
+  border: 1px solid var(--cs-border);
+  background: var(--cs-surface);
+  color: var(--cs-ink-soft);
+  cursor: pointer;
+  transition: all var(--cs-dur) var(--cs-ease);
+}
+
+.cs-back svg {
+  width: 16px;
+  height: 16px;
+}
+
+.cs-back:hover {
+  background: var(--cs-surface-hover);
+  border-color: var(--cs-border-strong);
+  color: var(--cs-ink);
+}
+
+.cs-questions__title {
+  margin: 0;
+  font-family: var(--cs-font-display);
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--cs-ink);
+}
+
+/* ---------- ROUND ---------- */
+.cs-round {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.cs-round__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--cs-border);
+}
+
+.cs-round__info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.cs-round__role {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--cs-ink);
+}
+
+.cs-round__name {
+  font-size: 12px;
+  color: var(--cs-accent);
+  letter-spacing: 0.02em;
+}
+
+.cs-round__date {
+  font-size: 12px;
+  color: var(--cs-ink-muted);
+  letter-spacing: 0.04em;
+}
+
+.cs-round__questions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ---------- MOBILE ---------- */
+@media (max-width: 680px) {
+  .cs-companies__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .cs-company {
+    padding: 18px;
+    min-height: 140px;
+  }
+
+  .cs-company__name {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cs-companies__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+section{
+  padding: 0;
 }

@@ -3,6 +3,11 @@
    Global stylesheet / design tokens
    ========================================================= */
 
+/* CoreStack product surface tokens (scoped to .corestack-shell).
+   Imported here so the --cs-* vars are available everywhere; they
+   only take effect inside the CoreStack layout. */
+@import './styles/corestack-tokens.scss';
+
 /* ---------- DESIGN TOKENS ---------- */
 :root {
   /* color system — cinematic dark */

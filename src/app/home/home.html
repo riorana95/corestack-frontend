@@ -1,62 +1,123 @@
-<div class="container">
+<div class="cs-home">
 
-  <!-- INTERVIEW -->
-  <div class="card active-card"
-       (click)="routeTo('interview-dashboard')">
-
-    <div class="card-top">
-      <span class="status live">LIVE</span>
-    </div>
-
-    <div class="card-icon">🎯</div>
-
-    <h2>Interview QA</h2>
-
-    <p>
-        Past Interview Questions Explored
-      <!-- AI-powered interview preparation platform -->
+  <!-- Page header -->
+  <header class="cs-home__header cs-rise" style="--cs-i: 0">
+    <span class="cs-label">CoreStack / Products</span>
+    <h1 class="cs-home__title">Pick a workspace</h1>
+    <p class="cs-home__subtitle">
+      Each product is a standalone application — shared auth, shared design system,
+      independent roadmaps. Choose one to dive in.
     </p>
+  </header>
 
-  </div>
+  <!-- Product grid -->
+  <div class="cs-home__grid">
 
-  <!-- SPLITWISE -->
-  <div class="card active-card"
-       (click)="routeTo('splitwise')">
+    <!-- INTERVIEW QA -->
+    <article
+      class="cs-card cs-card--live cs-rise"
+      style="--cs-i: 1"
+      (click)="routeTo('interview-dashboard')"
+      tabindex="0"
+      role="button"
+      aria-label="Open Interview QA"
+    >
+      <div class="cs-card__top">
+        <span class="cs-status cs-status--live">
+          <span class="cs-status__dot"></span>
+          Live
+        </span>
+        <span class="cs-card__index cs-mono">01</span>
+      </div>
 
-    <div class="card-top">
-      <span class="status beta">BETA</span>
-    </div>
+      <div class="cs-card__icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10" />
+          <circle cx="12" cy="12" r="6" />
+          <circle cx="12" cy="12" r="2" fill="currentColor" />
+        </svg>
+      </div>
 
-    <div class="card-icon">💸</div>
+      <h2 class="cs-card__title">Interview QA</h2>
+      <p class="cs-card__desc">Past interview questions, explored company-by-company with tag filters and rich answers.</p>
 
-    <h2>Splitwise</h2>
+      <div class="cs-card__footer">
+        <span class="cs-card__cta">
+          Open
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M13 5l7 7-7 7" />
+          </svg>
+        </span>
+        <span class="cs-card__meta cs-mono">Angular · Spring Boot</span>
+      </div>
+    </article>
 
-    <p>
-      Smart expense sharing & tracking
-    </p>
+    <!-- SPLITWISE -->
+    <article
+      class="cs-card cs-card--beta cs-rise"
+      style="--cs-i: 2"
+      (click)="routeTo('splitwise')"
+      tabindex="0"
+      role="button"
+      aria-label="Open Splitwise"
+    >
+      <div class="cs-card__top">
+        <span class="cs-status cs-status--beta">
+          <span class="cs-status__dot"></span>
+          Beta
+        </span>
+        <span class="cs-card__index cs-mono">02</span>
+      </div>
 
-  </div>
+      <div class="cs-card__icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+        </svg>
+      </div>
 
-  <!-- ECOMMERCE -->
-  <div class="card disabled-card">
+      <h2 class="cs-card__title">Splitwise</h2>
+      <p class="cs-card__desc">Smart expense sharing with equal, exact, and percentage splits. Settle up with simplified debts.</p>
 
-    <div class="card-top">
-      <span class="status progress1">
-        Coming Soon
-      </span>
-    </div>
+      <div class="cs-card__footer">
+        <span class="cs-card__cta">
+          Open
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M13 5l7 7-7 7" />
+          </svg>
+        </span>
+        <span class="cs-card__meta cs-mono">Angular · Spring Boot</span>
+      </div>
+    </article>
 
-    <div class="card-icon">🛒</div>
+    <!-- E-COMMERCE -->
+    <article
+      class="cs-card cs-card--soon cs-rise"
+      style="--cs-i: 3"
+      aria-disabled="true"
+    >
+      <div class="cs-card__top">
+        <span class="cs-status cs-status--soon">
+          <span class="cs-status__dot"></span>
+          Coming Soon
+        </span>
+        <span class="cs-card__index cs-mono">03</span>
+      </div>
 
-    <h2>E-Commerce</h2>
+      <div class="cs-card__icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+          <path d="M3 6h18M16 10a4 4 0 0 1-8 0" />
+        </svg>
+      </div>
 
-    <p>
-      Modern AI commerce platform
-    </p>
-<!-- 
-    <div class="coming-soon">
-      Coming Soon
-    </div> -->
+      <h2 class="cs-card__title">E-Commerce</h2>
+      <p class="cs-card__desc">AI-driven product discovery, personalized recommendations, smart search, and order management.</p>
+
+      <div class="cs-card__footer">
+        <span class="cs-card__cta cs-card__cta--disabled">In Progress</span>
+        <span class="cs-card__meta cs-mono">AI Search · 2026</span>
+      </div>
+    </article>
 
   </div>
 

@@ -1,0 +1,132 @@
+<div class="cs-gen">
+
+  @if (error()) {
+    <div class="cs-gen__error" role="alert">{{ error() }}</div>
+  }
+
+  <!-- Setup -->
+  <section class="cs-gen__setup">
+
+    <!-- Topic -->
+    <div class="cs-gen__field">
+      <label class="cs-gen__label">Topic</label>
+      <div class="cs-gen__chips">
+        @for (topic of topics; track topic) {
+          <button
+            type="button"
+            class="cs-gen__chip"
+            [class.is-active]="!useCustomTopic() && selectedTopic() === topic"
+            (click)="selectTopic(topic)"
+            [disabled]="loading()"
+          >{{ topic }}</button>
+        }
+      </div>
+      <input
+        type="text"
+        class="cs-gen__custom"
+        [class.is-active]="useCustomTopic()"
+        [(ngModel)]="customTopic"
+        (focus)="enableCustomTopic()"
+        placeholder="Or type a custom topic…"
+        [disabled]="loading()"
+      />
+    </div>
+
+    <!-- Difficulty + Count -->
+    <div class="cs-gen__row">
+      <div class="cs-gen__field">
+        <label class="cs-gen__label">Difficulty</label>
+        <div class="cs-gen__seg">
+          @for (d of difficulties; track d) {
+            <button
+              type="button"
+              [class.is-active]="selectedDifficulty() === d"
+              (click)="selectedDifficulty.set(d)"
+              [disabled]="loading()"
+            >{{ d | titlecase }}</button>
+          }
+        </div>
+      </div>
+
+      <div class="cs-gen__field">
+        <label class="cs-gen__label">Number of questions</label>
+        <div class="cs-gen__seg">
+          @for (c of counts; track c) {
+            <button
+              type="button"
+              [class.is-active]="selectedCount() === c"
+              (click)="selectedCount.set(c)"
+              [disabled]="loading()"
+            >{{ c }}</button>
+          }
+        </div>
+      </div>
+    </div>
+
+    <button
+      type="button"
+      class="cs-gen__go"
+      [disabled]="loading()"
+      (click)="generate()"
+    >
+      @if (loading()) {
+        Generating…
+      } @else {
+        Generate questions
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14M13 5l7 7-7 7" />
+        </svg>
+      }
+    </button>
+  </section>
+
+  <!-- Loading -->
+  @if (loading()) {
+    <div class="cs-gen__loading">
+      <div class="cs-gen__spinner"></div>
+      <p>GLM-4.6 is generating {{ selectedCount() }} questions on {{ useCustomTopic() ? customTopic() : selectedTopic() }}…</p>
+    </div>
+  }
+
+  <!-- Results -->
+  @if (questions().length > 0) {
+    <section class="cs-gen__results">
+      <div class="cs-gen__results-head">
+        <h2 class="cs-gen__results-title">
+          {{ questions().length }} questions generated
+        </h2>
+        <span class="cs-gen__results-meta cs-mono">
+          {{ useCustomTopic() ? customTopic() : selectedTopic() }} · {{ selectedDifficulty() }}
+        </span>
+      </div>
+
+      <div class="cs-gen__list">
+        @for (q of questions(); track q.id; let i = $index) {
+          <article class="cs-gen__card cs-rise" style="--cs-i: {{ i }}">
+            <details>
+              <summary class="cs-gen__card-head">
+                <span class="cs-gen__card-num cs-mono">{{ i + 1 < 10 ? '0' : '' }}{{ i + 1 }}</span>
+                <span class="cs-gen__card-text">{{ q.text }}</span>
+                <span class="cs-gen__card-icon">+</span>
+              </summary>
+              <div class="cs-gen__card-body">
+                <div class="cs-gen__card-meta">
+                  <span class="cs-gen__tag">{{ q.topic }}</span>
+                  <span class="cs-gen__tag cs-gen__tag--muted">{{ q.difficulty }}</span>
+                  @for (t of q.tags; track t) {
+                    <span class="cs-gen__tag cs-gen__tag--muted cs-mono">{{ t }}</span>
+                  }
+                </div>
+                <div class="cs-gen__card-answer">
+                  <span class="cs-gen__label">Model answer</span>
+                  <p>{{ q.answer }}</p>
+                </div>
+              </div>
+            </details>
+          </article>
+        }
+      </div>
+    </section>
+  }
+
+</div>

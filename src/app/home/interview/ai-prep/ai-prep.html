@@ -1,0 +1,43 @@
+<div class="cs-ai">
+
+  <!-- Mode header -->
+  <header class="cs-ai__header cs-rise" style="--cs-i: 0">
+    <span class="cs-label">Interview QA / AI Prep</span>
+    <h1 class="cs-ai__title">AI Interview Coach</h1>
+    <p class="cs-ai__subtitle">
+      Three modes powered by GLM-4.6. Practice full mock interviews, get
+      instant feedback on your answers, or generate fresh questions on any topic.
+    </p>
+  </header>
+
+  <!-- Mode tabs -->
+  <nav class="cs-ai__tabs cs-rise" style="--cs-i: 1" aria-label="AI Prep modes">
+    @for (tab of tabs; track tab.id) {
+      <button
+        type="button"
+        class="cs-ai__tab"
+        [class.is-active]="mode() === tab.id"
+        (click)="selectMode(tab.id)"
+      >
+        <span class="cs-ai__tab-label">{{ tab.label }}</span>
+        <span class="cs-ai__tab-desc">{{ tab.description }}</span>
+      </button>
+    }
+  </nav>
+
+  <!-- Active mode -->
+  <div class="cs-ai__content cs-rise" style="--cs-i: 2">
+    @switch (mode()) {
+      @case ('mock-interview') {
+        <app-mock-interview></app-mock-interview>
+      }
+      @case ('answer-coach') {
+        <app-answer-coach></app-answer-coach>
+      }
+      @case ('question-generator') {
+        <app-question-generator></app-question-generator>
+      }
+    }
+  </div>
+
+</div>

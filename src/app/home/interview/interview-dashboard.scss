@@ -1,95 +1,211 @@
-.home-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 24px;
-  padding: 1rem;
-}
+/* =========================================================
+   CORESTACK — INTERVIEW DASHBOARD
+   Inner product-picker for the Interview QA surface.
+   Shares the same design language as the home dashboard.
+   ========================================================= */
 
-.product-card {
-  position: relative;
-  min-height: 220px;
-  padding: 24px;
-  border-radius: 28px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
-  backdrop-filter: blur(16px);
-  color: #ffffff;
-  cursor: pointer;
-  overflow: hidden;
-  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-
-  &:hover {
-    transform: translateY(-6px);
-    border-color: rgba(255, 255, 255, 0.24);
-    box-shadow: 0 28px 50px rgba(0, 0, 0, 0.35);
-  }
-
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(79, 31, 255, 0.25), rgba(0, 216, 255, 0.18));
-    opacity: 0;
-    transition: opacity 0.25s ease;
-    pointer-events: none;
-  }
-
-  &:hover::before {
-    opacity: 1;
-  }
-}
-
-.card-top {
+.cs-idash {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-
-  .chip,
-  .badge {
-    padding: 0.5rem 0.9rem;
-    border-radius: 999px;
-    font-size: 0.78rem;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-  }
-
-  .chip {
-    background: rgba(255, 255, 255, 0.12);
-  }
-
-  .badge {
-    background: rgba(255, 255, 255, 0.08);
-  }
+  flex-direction: column;
+  gap: 36px;
 }
 
-h3 {
-  margin: 0 0 14px;
-  font-size: 1.3rem;
-  line-height: 1.2;
+/* ---------- PAGE HEADER ---------- */
+.cs-idash__header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 680px;
 }
 
-p {
-  margin: 0 0 22px;
-  color: rgba(255, 255, 255, 0.72);
+.cs-idash__title {
+  margin: 0;
+  font-family: var(--cs-font-display);
+  font-size: clamp(26px, 3.6vw, 36px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--cs-ink);
+}
+
+.cs-idash__subtitle {
+  margin: 0;
+  font-size: 15px;
   line-height: 1.6;
+  color: var(--cs-ink-muted);
 }
 
-.card-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-weight: 700;
-  color: #fff;
+/* ---------- GRID ---------- */
+.cs-idash__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+}
 
-  .arrow {
-    display: inline-flex;
-    width: 32px;
-    height: 32px;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.08);
+/* ---------- PRODUCT CARD ---------- */
+.cs-pcard {
+  position: relative;
+  padding: 28px;
+  border-radius: var(--cs-radius-lg);
+  background: var(--cs-surface);
+  border: 1px solid var(--cs-border);
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  min-height: 260px;
+  transition:
+    transform var(--cs-dur) var(--cs-ease),
+    border-color var(--cs-dur) var(--cs-ease),
+    background var(--cs-dur) var(--cs-ease),
+    box-shadow var(--cs-dur) var(--cs-ease);
+}
+
+.cs-pcard:focus-visible {
+  outline: 2px solid var(--cs-accent);
+  outline-offset: 2px;
+}
+
+.cs-pcard:hover {
+  transform: translateY(-4px);
+  background: var(--cs-surface-hover);
+  border-color: var(--cs-border-strong);
+  box-shadow: var(--cs-shadow-lg);
+}
+
+/* Hover corner glow */
+.cs-pcard::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  right: -20%;
+  width: 60%;
+  height: 80%;
+  background: radial-gradient(circle, var(--cs-accent-soft), transparent 70%);
+  opacity: 0;
+  transition: opacity var(--cs-dur) var(--cs-ease);
+  pointer-events: none;
+}
+
+.cs-pcard:hover::before {
+  opacity: 1;
+}
+
+/* ---------- TOP ROW (chips) ---------- */
+.cs-pcard__top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.cs-pcard__chip {
+  padding: 5px 12px;
+  border-radius: var(--cs-radius-pill);
+  background: var(--cs-accent-soft);
+  color: var(--cs-accent-bright);
+  border: 1px solid var(--cs-border-accent);
+
+  font-family: var(--cs-font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.cs-pcard__badge {
+  padding: 5px 12px;
+  border-radius: var(--cs-radius-pill);
+  background: var(--cs-surface-hover);
+  color: var(--cs-ink-soft);
+  border: 1px solid var(--cs-border);
+
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* ---------- BODY ---------- */
+.cs-pcard__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cs-pcard__title {
+  margin: 0;
+  font-family: var(--cs-font-display);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--cs-ink);
+}
+
+.cs-pcard__desc {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--cs-ink-muted);
+}
+
+/* ---------- FOOTER ---------- */
+.cs-pcard__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 16px;
+  border-top: 1px solid var(--cs-border);
+}
+
+.cs-pcard__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--cs-ink-soft);
+  transition: color var(--cs-dur) var(--cs-ease);
+}
+
+.cs-pcard__cta svg {
+  width: 14px;
+  height: 14px;
+  transition: transform var(--cs-dur) var(--cs-ease);
+}
+
+.cs-pcard:hover .cs-pcard__cta {
+  color: var(--cs-accent);
+}
+
+.cs-pcard:hover .cs-pcard__cta svg {
+  transform: translateX(3px);
+}
+
+.cs-pcard__meta {
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--cs-ink-faint);
+}
+
+/* ---------- MOBILE ---------- */
+@media (max-width: 768px) {
+  .cs-idash {
+    gap: 28px;
   }
+
+  .cs-idash__grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .cs-pcard {
+    padding: 22px;
+    min-height: 220px;
+  }
+}
+
+section {
+  padding: 0;
 }

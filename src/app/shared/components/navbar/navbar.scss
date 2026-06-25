@@ -1,29 +1,31 @@
+/* =========================================================
+   CORESTACK NAVBAR
+   Refined premium product look — cyan accent, tighter glass,
+   Geist Sans, refined back-to-portfolio pill.
+   ========================================================= */
+
 .navbar {
-
   position: fixed;
-
   top: 0;
   left: 0;
   right: 0;
-
-  height: 72px;
+  height: var(--cs-navbar-height, 64px);
 
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   padding: 0 24px;
 
   z-index: 1000;
 
-  backdrop-filter: blur(18px);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
 
-  background: rgba(5,8,22,0.65);
-
-  border-bottom:
-    1px solid rgba(255,255,255,0.06);
+  background: rgba(8, 9, 13, 0.7);
+  border-bottom: 1px solid var(--cs-border, rgba(255, 255, 255, 0.08));
 }
 
+/* ---------- LOGO CLUSTER ---------- */
 .logo-section {
   display: flex;
   align-items: center;
@@ -31,24 +33,28 @@
 }
 
 .logo {
-
-  width: 42px;
-  height: 42px;
+  width: 36px;
+  height: 36px;
   cursor: pointer;
-
-  border-radius: 12px;
+  border-radius: var(--cs-radius-md, 10px);
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  font-weight: 700;
+  font-family: var(--cs-font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--cs-bg);
 
-  background:
-    linear-gradient(135deg,#3b82f6,#7c3aed);
+  background: linear-gradient(135deg, var(--cs-accent, #22d3ee), var(--cs-accent-deep, #0e7490));
+  box-shadow: 0 0 24px rgba(34, 211, 238, 0.35);
+  transition: transform var(--cs-dur, 0.32s) var(--cs-ease, ease);
 
-  box-shadow:
-    0 0 30px rgba(99,102,241,0.45);
+  &:hover {
+    transform: scale(1.05);
+  }
 }
 
 .branding {
@@ -58,17 +64,24 @@
 
   h2 {
     margin: 0;
-    font-size: 18px;
+    font-family: var(--cs-font-display);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--cs-ink, #f4f5f7);
   }
 
   span {
-    font-size: 11px;
-    color: rgba(255,255,255,0.55);
+    font-family: var(--cs-font-mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cs-ink-muted, #8a8f9c);
+    margin-top: 2px;
   }
 }
 
-/* Back-to-portfolio pill — sits between the CoreStack brand and the
-   right-hand cluster. Subtle by default, lights up on hover. */
+/* ---------- BACK-TO-PORTFOLIO PILL ---------- */
 .back-portfolio {
   display: inline-flex;
   align-items: center;
@@ -77,103 +90,104 @@
   margin-left: 8px;
   padding: 6px 12px;
 
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--cs-radius-pill, 999px);
+  border: 1px solid var(--cs-border, rgba(255, 255, 255, 0.08));
+  background: var(--cs-surface, rgba(255, 255, 255, 0.03));
+  color: var(--cs-ink-muted, #8a8f9c);
 
-  background: rgba(255,255,255,0.04);
-  color: rgba(255,255,255,0.7);
-
+  font-family: var(--cs-font-sans);
   font-size: 12px;
   font-weight: 500;
+  letter-spacing: 0.01em;
 
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--cs-dur, 0.32s) var(--cs-ease, ease);
 }
 
 .back-portfolio:hover {
-  background: rgba(255,255,255,0.08);
-  border-color: rgba(255,255,255,0.2);
-  color: #fff;
+  background: var(--cs-surface-hover, rgba(255, 255, 255, 0.05));
+  border-color: var(--cs-border-strong, rgba(255, 255, 255, 0.14));
+  color: var(--cs-ink, #f4f5f7);
 }
 
 .back-arrow {
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1;
 }
 
+/* ---------- RIGHT CLUSTER ---------- */
 .nav-right {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
 }
 
 .status {
-
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 
-  font-size: 12px;
-
-  color: #22c55e;
+  font-family: var(--cs-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--cs-success, #34d399);
 }
 
 .dot {
-  width: 8px;
-  height: 8px;
-
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
+  background: var(--cs-success, #34d399);
+  box-shadow: 0 0 10px var(--cs-success, #34d399);
+  animation: cs-nav-pulse 2.4s ease-in-out infinite;
+}
 
-  background: #22c55e;
-
-  box-shadow:
-    0 0 12px #22c55e;
+@keyframes cs-nav-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
 }
 
 .profile {
-
-  width: 36px;
-  height: 36px;
-
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  background: rgba(255,255,255,0.08);
+  background: var(--cs-surface, rgba(255, 255, 255, 0.03));
+  border: 1px solid var(--cs-border, rgba(255, 255, 255, 0.08));
 
-  font-weight: 600;
+  font-family: var(--cs-font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--cs-ink-soft, #c5c8d1);
 }
 
 .logout-btn {
+  padding: 8px 14px;
+  border-radius: var(--cs-radius-md, 10px);
+  border: 1px solid var(--cs-border, rgba(255, 255, 255, 0.08));
 
-  border: none;
-
-  padding: 10px 16px;
-
-  border-radius: 12px;
-
-  color: white;
+  font-family: var(--cs-font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--cs-ink-soft, #c5c8d1);
+  background: var(--cs-surface, rgba(255, 255, 255, 0.03));
 
   cursor: pointer;
-
-  background:
-    linear-gradient(135deg,#6366f1,#9333ea);
-
-  transition: 0.2s;
+  transition: all var(--cs-dur, 0.32s) var(--cs-ease, ease);
 }
 
 .logout-btn:hover {
-  transform: translateY(-2px);
-
-  box-shadow:
-    0 10px 24px rgba(99,102,241,0.35);
+  background: var(--cs-surface-hover, rgba(255, 255, 255, 0.05));
+  border-color: var(--cs-border-strong, rgba(255, 255, 255, 0.14));
+  color: var(--cs-ink, #f4f5f7);
 }
 
-/* MOBILE */
+/* ---------- MOBILE ---------- */
 @media (max-width: 768px) {
-
   .branding span {
     display: none;
   }
@@ -191,7 +205,6 @@
   }
 
   .navbar {
-    padding: 0 14px;
+    padding: 0 16px;
   }
-
 }

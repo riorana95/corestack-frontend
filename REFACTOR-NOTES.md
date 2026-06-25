@@ -140,3 +140,374 @@ changed were not updated. They will fail to compile if you run
    - Logout returns to `/`.
 4. `npm run build` — should succeed. SSR config unchanged
    (`app.routes.server.ts` still uses `RenderMode.Client` for `**`).
+
+## Round 3 — Premium CoreStack visual upgrade (Home + Interview)
+
+### Design language
+- **Direction:** Distinct product surface (Linear/Vercel/Raycast polish),
+  not a match-the-portfolio direction. CoreStack keeps its own identity.
+- **Accent:** Electric cyan (#22d3ee) on near-black (#08090d).
+- **Typography:** Geist Sans (headings + body), JetBrains Mono (code/labels).
+  Loaded via Google Fonts in `src/index.html`.
+- **Motion:** Subtle entrance stagger (CSS-only, 60ms per item) + refined
+  hover lifts. No GSAP on CoreStack — products should feel like products.
+- **Icons:** Inline SVG line icons replace emojis on product cards.
+- **Cursor:** Native cursor on CoreStack (custom cursor stays on portfolio).
+
+### New design system
+- `src/styles/corestack-tokens.scss` — all `--cs-*` tokens, scoped to
+  `.corestack-shell` so they don't leak into the portfolio. Includes
+  utility classes (`.cs-label`, `.cs-mono`, `.cs-rise`) and a CSS-only
+  entrance animation keyframe.
+- Imported globally in `src/styles.scss` via `@import` so the vars are
+  available everywhere; the scoping is by `.corestack-shell` selector,
+  not by file import.
+
+### Files upgraded
+- `src/app/layouts/corestack-layout/corestack-layout.scss` — refined
+  shell background, cyan-tinted ambient gradient.
+- `src/app/shared/components/background-effects/background-effects.scss`
+  — cyan glows replace blue/purple.
+- `src/app/shared/components/navbar/navbar.scss` — cyan logo gradient,
+  refined glass, tighter spacing.
+- `src/app/home/home.html` + `home.scss` — full premium rewrite:
+  SVG line icons, status badges, entrance stagger, hover lift, accent
+  corner glow.
+- `src/app/home/interview/interview-dashboard.html` + `.scss` — same
+  premium rewrite for the inner product picker.
+- `src/app/home/interview/interview-question/interview.html` + `.scss`
+  — restored workspace header (was commented out), view switcher
+  becomes a segmented control, refined pagination with SVG arrows.
+- `src/app/home/interview/interview-question/company-detail-component/`
+  — refined company cards with index numbers, accent count badges,
+  hover arrow chips.
+- `src/app/home/interview/interview-question/question-card-component/`
+  `.scss` — Linear-style left accent bar on hover/open, refined
+  expand animation, better code block, smoother icon rotation.
+- `src/app/home/interview/interview-vault/interview-vault.scss` —
+  cyan accent, Geist Sans, refined sidebar + nav items.
+- `src/app/home/interview/section-detail-component/section-filter/`
+  `section-filter.scss` + `section-table/section-table.scss` + parent
+  `section-detail-component.scss` — color swap from blue/indigo to
+  cyan tokens. Structure unchanged.
+
+### Files NOT touched (out of scope for this round)
+- `src/app/home/splitwise/*` — explicitly out of scope. Still uses
+  the old blue/indigo palette. Will look out-of-place next to the
+  upgraded pages until it gets the same treatment.
+- `src/app/home/interview/add-question/*` — modal dialog, rarely
+  opened. Still uses blue/indigo. Lower priority.
+- `src/app/home/interview/topic-wise/*` — legacy topic-wise view.
+  Same situation.
+- `src/app/home/interview/topic-wise-v2/*` — docs surface. Already
+  has its own design language. Would need a separate pass.
+
+### Verification
+- Run `npm start` and visit:
+  - `/corestack` — new dashboard with cyan accent, SVG icons,
+    entrance stagger.
+  - `/corestack/interview-dashboard` — inner product picker,
+    same design language.
+  - `/corestack/interview` — workspace with segmented control,
+    company grid, question cards with left accent bar on hover.
+  - `/corestack/interview-vault` — sidebar nav with cyan accents.
+- Portfolio at `/` should be **unchanged** — bronze-gold, custom
+  cursor, cinematic. The `.corestack-shell` scoping ensures the
+  `--cs-*` tokens don't leak.
+
+### Known visual debt
+1. **Splitwise** still uses blue/indigo. Will look out-of-place.
+2. **Add Question modal** still uses blue/indigo.
+3. **Topic-wise (legacy)** still uses blue/indigo.
+4. **Topic-wise-v2 docs** has its own design language — may want
+   to align in a future pass.
+
+Each of these is a self-contained refactor that can be done
+independently when you're ready.
+
+## Round 4 — Visual QA fixes (Company Interview, Question Explorer, Interview Vault)
+
+### Issues identified from screenshots (VLM analysis)
+
+**Company Interview page (2 issues):**
+1. Segmented control buttons ("Company Interviews" vs "Question Explorer") had
+   inconsistent visual width because text lengths differ and there was no
+   equalization.
+2. Company card head row (index "01" + count badge "2") looked unbalanced —
+   plain text vs chip-style badge didn't share a clear baseline. "INTERVIEW
+   TRACKS" label had low contrast against the dark card.
+
+**Question Explorer page (1 issue):**
+1. Section filter card still used old hardcoded `rgba(255,255,255,...)` colors
+   instead of `--cs-*` tokens. Search button didn't align with selects
+   because it had no label (flex `align-items: stretch` caused misalignment).
+   Expanded question content (Quill HTML in `rich-content` div) had
+   inconsistent bullet/paragraph indentation — no styling was applied to it.
+
+**Interview Vault spacing:**
+1. Sidebar toggle buttons (Backend/Frontend/All) used `flex-wrap` with
+   `min-width: calc(50% - 4px)` which caused the third button to wrap
+   awkwardly to a second row.
+2. Nav items had tight padding (9px 12px) — felt cramped.
+3. Question list `<li>` items had no spacing between them — ran together.
+   The `<ol>` in the HTML was missing the `question-list` class entirely,
+   so the SCSS rules never applied.
+
+### Fixes applied
+
+**`interview.scss`**
+- Segmented control buttons: added `flex: 1`, `min-width: 160px`,
+  `text-align: center`, `white-space: nowrap` so both buttons are
+  equal-width regardless of text length.
+- Tightened header gap from 10px to 8px.
+
+**`company-detail-component.scss`**
+- Card head: added `min-height: 24px` so index and count badge share
+  a clear baseline. Added `line-height: 1` to both.
+- "INTERVIEW TRACKS" label: bumped from `--cs-ink-muted` to
+  `--cs-ink-soft` for better contrast.
+- Count badge: tightened `min-width` from 28px to 24px.
+
+**`section-filter.scss`** — full premium rewrite
+- Replaced all hardcoded `rgba(255,255,255,...)` with `--cs-*` tokens.
+- Changed `align-items: stretch` to `align-items: flex-end` so the
+  Search button (which has no label) aligns with the select baselines.
+- Added `flex: 1` and `min-width: 160px` to filter groups so they
+  share width evenly.
+- Refined selects: `--cs-bg-elevated` background, cyan focus ring,
+  consistent 38px height, custom dropdown arrow with muted ink color.
+- Search button: cyan gradient, 38px height to match selects.
+
+**`interview-vault.scss`**
+- Toggle buttons: replaced `flex-wrap` + `min-width: calc(50% - 4px)`
+  with `display: grid; grid-template-columns: repeat(3, 1fr)` so all
+  three buttons sit on one row at equal width. Added `text-align: center`
+  and `white-space: nowrap`.
+- Nav items: increased padding from 9px to 10px, added `line-height: 1.4`.
+- Question list items: added `padding: 6px 0` and a subtle
+  `border-top: 1px solid var(--cs-border)` between items so they
+  don't run together.
+
+**`interview-vault.html`**
+- Added `class="question-list"` to the `<ol>` so the SCSS rules
+  actually apply (was missing entirely).
+
+**`question-card-component.scss`** — added `.rich-content` styling
+- Normalizes Quill HTML: `p`, `h3/h4`, `ul/ol/li`, `strong/em`,
+  `code`, `pre`, `blockquote` all get consistent margins, padding,
+  indentation, and color tokens. Fixes the bullet-point indentation
+  issue in expanded question content.
+
+**`section-table.scss`** — added same `.rich-content` styling
+- The Question Explorer's expanded rows also render Quill HTML via
+  a `rich-content` div. Added the same normalization rules so both
+  surfaces render rich content consistently.
+- Bumped table header background from `--cs-border` to
+  `--cs-surface-hover` so the header row reads as distinct.
+
+## Round 5 — Splitwise + Add Question modal + Topic-wise legacy upgrade
+
+### What changed
+All three remaining CoreStack surfaces migrated to the `--cs-*` design
+system. Zero blue/indigo references remain across the entire CoreStack
+surface — every page now uses the cyan accent, Geist Sans, and the
+unified radius/spacing scale.
+
+### Files upgraded
+
+**`src/app/home/splitwise/splitwise.scss`** — full premium rewrite
+- All `--sw-*` token definitions now map to `--cs-*` values (e.g.
+  `--sw-primary: var(--cs-accent)`, `--sw-bg: var(--cs-surface)`).
+  This preserves the existing class structure while pulling in the
+  new design system.
+- Title: Geist Sans display font, 600 weight, tightened letter-spacing.
+- Section titles: Geist Sans, refined size hierarchy.
+- Labels: JetBrains Mono, uppercase, 0.12em tracking.
+- Buttons: cyan gradient primary, refined ghost/text variants.
+- Inputs/selects: `--cs-bg-elevated` background, cyan focus ring.
+- Group items: cyan-soft active state, refined hover.
+- Balance rows: monospace amounts, cyan positive / red negative.
+- Settlement status badges: token-based semantic colors with borders.
+- Member avatar chips: cyan-soft with border.
+- Expense cards: monospace amounts in cyan-bright.
+- Search items: cyan-soft hover.
+- Chip-check (participant selection): cyan-soft when checked.
+
+**`src/app/home/interview/add-question/add-question.scss`** — full premium rewrite
+- Container: `--cs-bg-elevated` background, `--cs-radius-lg`, refined shadow.
+- Header: Geist Sans 600 title, refined close button (surface bg, subtle
+  border, hover state instead of gradient).
+- Form labels: JetBrains Mono, uppercase, 0.1em tracking.
+- Inputs/textarea: `--cs-bg` background, cyan focus ring, consistent
+  radius.
+- Select: custom cyan-tinted dropdown arrow, dark option styling.
+- Save button: cyan gradient with accent shadow.
+- Cancel button: surface ghost style.
+- Tag chips: surface default, cyan-soft on hover, cyan-filled when
+  selected — consistent with the chip language across CoreStack.
+- **Quill editor overrides**: added `::ng-deep` rules to theme the
+  Quill `.ql-snow` toolbar/editor to match the CoreStack dark theme
+  (toolbar surface bg, editor dark bg, cyan active states on
+  toolbar buttons). Previously the Quill editor rendered with its
+  default white snow theme, clashing with the dark modal.
+- Mobile: form-grid collapses to 1 column, action buttons stack
+  vertically.
+
+**`src/app/home/interview/topic-wise/topic-wise.scss`** — full premium rewrite
+- All hardcoded `rgba(15, 23, 42, ...)` / `rgba(30, 41, 59, ...)` /
+  `rgba(148, 163, 184, ...)` colors replaced with `--cs-*` tokens.
+- Header: Geist Sans title, cyan eyebrow, cyan-soft stats card with
+  accent border.
+- Area tabs: surface default, cyan-soft active with accent shadow.
+- Topic nav (sidebar): sticky, refined panel-title with mono small.
+- Topic buttons: surface default, cyan-soft active.
+- Question rows: surface default, cyan-soft active, mono small meta.
+- Difficulty/answer tabs: pill-shaped, cyan-soft active.
+- Answer body: `--cs-bg-elevated` background, monospace code in
+  cyan-bright.
+- Tag list: cyan-soft pills with accent border (matches question-card
+  tag styling).
+- Empty states: surface bg with dashed border-strong.
+- Filters: monospace labels, cyan focus ring on search input.
+
+### Verification
+- `grep` confirms zero remaining `#6366f1`, `#818cf8`, `#9333ea`,
+  `#4f46e5`, `#7c3aed`, `rgba(99,102,241,...)`, `rgba(147,51,234,...)`,
+  or `rgba(79,70,229,...)` references across the entire
+  `src/app/home/` tree.
+- Topic-wise-v2 docs area also clean — no blue/indigo refs.
+
+### Visual consistency check
+Every CoreStack page now shares:
+- Cyan accent (`--cs-accent: #22d3ee`)
+- Geist Sans display + body, JetBrains Mono for labels/meta
+- Same radius scale (`--cs-radius-sm/md/lg/pill`)
+- Same surface/border tokens
+- Same entrance animation pattern (`cs-rise` where applicable)
+- Same hover language (surface-hover bg + border-strong)
+
+The only surface NOT yet aligned is the topic-wise-v2 docs area,
+which has its own docs-style design language (sidebar + article
+reading layout). That's a deliberate choice — docs surfaces
+typically warrant their own typography and reading rhythm.
+
+## Round 6 — AI Interview Prep feature
+
+### What was built
+A full AI-powered interview prep feature with three modes (Mock Interview,
+Answer Coach, Question Generator), integrated as a new tab in the existing
+Interview Workspace. Powered by a separate Node.js/Express AI proxy that
+calls Z.ai's GLM-4.6 model.
+
+### Architecture
+```
+Angular frontend (CoreStack)
+   │
+   ├── POST /api/ai/mock-interview/start
+   ├── POST /api/ai/mock-interview/answer
+   ├── POST /api/ai/mock-interview/results
+   ├── POST /api/ai/answer-coach/evaluate
+   ├── POST /api/ai/question-generator
+   │
+   ▼
+Node.js Express AI proxy (ai-proxy/, separate folder)
+   │
+   ├── Calls Z.ai GLM-4.6 via z-ai-web-dev-sdk
+   ├── Holds the API key (frontend never sees it)
+   ├── Structured prompts per endpoint (prompts.js)
+   ├── Returns JSON the Angular service consumes
+   │
+   ▼
+Z.ai GLM-4.6
+```
+
+### New files
+
+**AI Proxy microservice (separate folder, deploy independently):**
+- `ai-proxy/package.json` — Express + cors + z-ai-web-dev-sdk
+- `ai-proxy/server.js` — 5 endpoints + health check, lazy ZAI client
+- `ai-proxy/prompts.js` — system prompts per endpoint (engineered to
+  return pure JSON)
+- `ai-proxy/.env.example` — ZAI_API_KEY, PORT, CORESTACK_API_URL
+- `ai-proxy/README.md` — setup, deploy, and integration docs
+
+**Angular frontend (paste into corestack-frontend):**
+- `src/app/home/interview/ai-prep/ai-prep.models.ts` — TypeScript
+  interfaces matching the proxy's JSON contract + option lists
+- `src/app/home/interview/ai-prep/ai-prep.service.ts` — HTTP client
+  for all 5 proxy endpoints
+- `src/app/home/interview/ai-prep/ai-prep.{ts,html,scss}` — container
+  with 3-tab switcher (Mock Interview / Answer Coach / Question Generator)
+- `src/app/home/interview/ai-prep/mock-interview/` — 3-screen flow:
+  - Setup: role, skills, difficulty, count, source (hybrid/bank/AI)
+  - Interview: chat-style Q&A, progress bar, live evaluation feedback
+  - Results: overall score, strengths, weak areas, recommendations,
+    per-question breakdown, "practice weak areas" button
+- `src/app/home/interview/ai-prep/answer-coach/` — two-column layout
+  (input left, AI feedback right), standalone answer evaluation
+- `src/app/home/interview/ai-prep/question-generator/` — topic chips +
+  difficulty + count → AI generates expandable question cards
+
+### Modified files
+- `src/app/environments/environment.ts` — added `aiProxyUrl`
+- `src/app/home/interview/interview-question/interview.ts` — added
+  `'ai-prep'` to the `activeView` union, imported `AiPrep` component
+- `src/app/home/interview/interview-question/interview.html` — added
+  third tab button "AI Prep" + the `<app-ai-prep>` view block
+- `src/app/home/interview/interview-question/interview.scss` —
+  segmented control now scrollable on mobile (3 tabs don't fit)
+
+### How to run
+
+1. **Start the AI proxy:**
+   ```bash
+   cd ai-proxy
+   npm install
+   npm start
+   # Listens on http://localhost:3001
+   ```
+
+2. **Start the Angular frontend** (as usual):
+   ```bash
+   cd corestack-frontend
+   npm start
+   # Visit http://localhost:4200/corestack/interview
+   # Click the "AI Prep" tab
+   ```
+
+3. **Use the feature:**
+   - Mock Interview: pick role + skills + difficulty + count → click
+     "Start mock interview" → AI asks first question → type answer →
+     submit → AI evaluates + asks next → after last question, results
+     screen with score + weak areas.
+   - Answer Coach: type/paste a question + your answer → click
+     "Evaluate answer" → AI returns score + 3-bullet feedback + model
+     answer + tip.
+   - Question Generator: pick topic + difficulty + count → click
+     "Generate questions" → AI returns expandable question cards with
+     model answers.
+
+### Verified working
+All 5 proxy endpoints tested end-to-end with real GLM-4.6 calls:
+- `POST /api/ai/question-generator` — returned 2 questions with answers
+- `POST /api/ai/mock-interview/start` — returned first question + session ID
+- `POST /api/ai/answer-coach/evaluate` — returned score 60, structured
+  feedback, model answer, tip (for a deliberately weak answer about
+  JPA N+1 problem)
+
+### Design system
+All AI Prep components use the same `--cs-*` tokens as the rest of
+CoreStack — cyan accent, Geist Sans, JetBrains Mono for labels/meta,
+refined glass surfaces. Visually consistent with the existing
+interview workspace.
+
+### Production notes
+- The AI proxy is stateless — session context (transcript, question
+  bank subset) is passed from the frontend on each call. Horizontally
+  scalable with no session storage.
+- For production: deploy the proxy to any Node.js host (Vercel,
+  Railway, Render), set `ZAI_API_KEY` as an env var, point
+  `environment.aiProxyUrl` at the deployed URL.
+- Optional: add JWT validation to the proxy by having it call your
+  Spring Boot backend to verify tokens. For v1, the proxy is open —
+  secure it behind your existing auth interceptor or add rate limiting.

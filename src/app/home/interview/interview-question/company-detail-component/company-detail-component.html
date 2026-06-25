@@ -1,72 +1,69 @@
-<div class="container">
+<div class="cs-companies">
   <!-- COMPANY LIST -->
   @if (!selectedCompany()) {
-    <div class="companies-section">
-      <!-- <div style="display: flex; justify-content: space-between"> -->
-      <!-- <div>
-          <h2 class="section-title">Companies</h2>
-          <p class="section-subtitle">Select a company to start practicing interview questions</p>
-        </div> -->
-      <!-- <div> -->
-        <!-- <button style="float: right; margin:-5rem 0rem 0rem 0rem;" (click)="addPopup('company')">add</button> -->
-      <!-- </div> -->
-      <!-- </div> -->
-      <div class="companies-grid">
-        @for (company of groupedCompanies(); track company.name) {
-          <div class="company-card" (click)="selectCompany(company)">
-            <div class="company-name">
-              {{ company.name }}
-            </div>
-
-            <div class="experience-count">
-              {{ company.rounds.length }}
-            </div>
-
-            <div class="experience-label">Interview Tracks</div>
-
-            <div class="card-arrow">-></div>
+    <div class="cs-companies__grid">
+      @for (company of groupedCompanies(); track company.name; let i = $index) {
+        <article
+          class="cs-company cs-rise"
+          style="--cs-i: {{ i }}"
+          (click)="selectCompany(company)"
+          tabindex="0"
+          role="button"
+          [attr.aria-label]="'Open ' + company.name + ' interview tracks'"
+        >
+          <div class="cs-company__head">
+            <span class="cs-company__index cs-mono">{{ i + 1 < 10 ? '0' : '' }}{{ i + 1 }}</span>
+            <span class="cs-company__count cs-mono">{{ company.rounds.length }}</span>
           </div>
-        }
-      </div>
+
+          <h3 class="cs-company__name">{{ company.name }}</h3>
+
+          <div class="cs-company__meta">
+            <span class="cs-company__label">Interview Tracks</span>
+            <span class="cs-company__arrow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14M13 5l7 7-7 7" />
+              </svg>
+            </span>
+          </div>
+        </article>
+      }
     </div>
   }
 
   <!-- QUESTIONS SECTION -->
   @if (selectedCompany()) {
-    <div class="questions-section">
-      <div class="section-header">
-        <button class="back-btn" (click)="clearSelection()">&lt;-</button>
-        <h2>{{ selectedCompany() }}</h2>
-        <!-- <button class="add-btn" (click)="addPopup('question')">+ Add Question</button> -->
+    <div class="cs-questions">
+      <div class="cs-questions__header">
+        <button class="cs-back" (click)="clearSelection()" aria-label="Back to companies">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <h2 class="cs-questions__title">{{ selectedCompany() }}</h2>
       </div>
 
       @for (round of selectedQuestions(); track round.companyId) {
-        <div class="round-section">
-          <div class="round-header">
-            <div class="left-info">
-              <div class="role-name">
-                {{ round.role }}
-              </div>
-
-              <div class="round-name">
-                {{ round.round }}
-              </div>
+        <section class="cs-round">
+          <header class="cs-round__head">
+            <div class="cs-round__info">
+              <span class="cs-round__role">{{ round.role }}</span>
+              <span class="cs-round__name">{{ round.round }}</span>
             </div>
+            <span class="cs-round__date cs-mono">{{ formatDate(round.date) }}</span>
+          </header>
 
-            <div class="round-date">
-              {{ formatDate(round.date) }}
-            </div>
+          <div class="cs-round__questions">
+            @for (question of round.questions; track question.id; let i = $index) {
+              <app-question-card-component
+                [question]="question"
+                [companyName]="selectedCompany()"
+                [index]="i"
+              >
+              </app-question-card-component>
+            }
           </div>
-
-          @for (question of round.questions; track question.id; let i = $index) {
-            <app-question-card-component
-              [question]="question"
-              [companyName]="selectedCompany()"
-              [index]="i"
-            >
-            </app-question-card-component>
-          }
-        </div>
+        </section>
       }
     </div>
   }

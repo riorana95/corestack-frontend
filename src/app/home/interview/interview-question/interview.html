@@ -1,68 +1,60 @@
-<main class="interview-workspace">
-  <!-- <section class="workspace-header">
-    <div class="header-copy">
-      <span class="eyebrow">Interview preparation</span>
-      <h1>Practice by company or filter the full question bank</h1>
-      <p>
-        Use company mode when you want the real interview flow. Use explorer mode
-        when you want to revise by company, skill, or most-asked questions.
-      </p>
-    </div>
+<main class="cs-workspace">
 
-    <div class="header-stats" aria-label="Interview question summary">
-      <div class="stat-item">
-        <strong>Companies</strong>
-        <span>Past interviews</span>
-      </div>
-      <div class="stat-item">
-        <strong>Filters</strong>
-        <span>Company + skill</span>
-      </div>
-      <div class="stat-item">
-        <strong>Answers</strong>
-        <span>Code friendly</span>
-      </div>
-    </div>
-  </section> -->
-  @if (activeView === 'companies') {
-    <div>
-      <h2 class="section-title">Companies</h2>
-      <p class="section-subtitle">Select a company to start practicing interview questions</p>
-    </div>
-  }
-  @if (activeView === 'explorer') {
-    <div>
-      <h2 class="section-title">Question Explorer</h2>
-      <p class="section-subtitle">Filter past interview question</p>
-    </div>
-  }
+  <!-- Page header -->
+  <header class="cs-workspace__header cs-rise" style="--cs-i: 0">
+    <span class="cs-label">Interview QA / Workspace</span>
+    @if (activeView === 'companies') {
+      <h1 class="cs-workspace__title">Company interviews</h1>
+      <p class="cs-workspace__subtitle">Select a company to start practicing real interview tracks.</p>
+    }
+    @if (activeView === 'explorer') {
+      <h1 class="cs-workspace__title">Question explorer</h1>
+      <p class="cs-workspace__subtitle">Filter the full question bank by company, skill, or most-asked.</p>
+    }
+    @if (activeView === 'ai-prep') {
+      <h1 class="cs-workspace__title">AI interview coach</h1>
+      <p class="cs-workspace__subtitle">Mock interviews, answer coaching, and question generation — powered by GLM-4.6.</p>
+    }
+  </header>
 
-  <section class="view-switcher" aria-label="Interview question views">
+  <!-- Segmented control (view switcher) -->
+  <section class="cs-segmented cs-rise" style="--cs-i: 1" aria-label="Interview question views">
     <button
       type="button"
-      [class.active]="activeView === 'companies'"
+      [class.is-active]="activeView === 'companies'"
       (click)="setView('companies')"
     >
       Company Interviews
     </button>
-
-    <button type="button" [class.active]="activeView === 'explorer'" (click)="setView('explorer')">
+    <button
+      type="button"
+      [class.is-active]="activeView === 'explorer'"
+      (click)="setView('explorer')"
+    >
       Question Explorer
+    </button>
+    <button
+      type="button"
+      [class.is-active]="activeView === 'ai-prep'"
+      (click)="setView('ai-prep')"
+    >
+      AI Prep
     </button>
   </section>
 
+  <!-- Active view content -->
   @if (activeView === 'companies') {
-    <section class="content-panel">
+    <section class="cs-workspace__panel cs-rise" style="--cs-i: 2">
       <app-company-detail-component></app-company-detail-component>
     </section>
   }
 
   @if (activeView === 'explorer') {
-    <section class="content-panel explorer-panel">
-      <div class="panel-heading">
+    <section class="cs-workspace__panel cs-workspace__panel--explorer cs-rise" style="--cs-i: 2">
+      <div class="cs-workspace__panel-head">
         <div>
-          <h2>Question Explorer</h2>
-          <p>Filter the same interview question bank without leaving this page.</p>
+          <h2 class="cs-workspace__panel-title">Question Explorer</h2>
+          <p class="cs-workspace__panel-sub">Filter the same interview question bank without leaving this page.</p>
         </div>
       </div>
 
@@ -74,16 +66,33 @@
       <app-section-table [tableList]="filteredQuestionList"></app-section-table>
 
       @if (totalPages > 0) {
-        <div class="pagination">
-          <button type="button" (click)="prevPage()" [disabled]="currentPage === 0">Prev</button>
+        <div class="cs-pagination">
+          <button type="button" (click)="prevPage()" [disabled]="currentPage === 0">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+            Prev
+          </button>
 
-          <span>Page {{ currentPage + 1 }} of {{ totalPages }}</span>
+          <span class="cs-pagination__count cs-mono">
+            Page {{ currentPage + 1 }} / {{ totalPages }}
+          </span>
 
           <button type="button" (click)="nextPage()" [disabled]="currentPage === totalPages - 1">
             Next
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
           </button>
         </div>
       }
     </section>
   }
+
+  @if (activeView === 'ai-prep') {
+    <section class="cs-workspace__panel cs-rise" style="--cs-i: 2">
+      <app-ai-prep></app-ai-prep>
+    </section>
+  }
+
 </main>

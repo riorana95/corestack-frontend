@@ -1,0 +1,193 @@
+/* =========================================================
+   CORESTACK DESIGN TOKENS
+   =========================================================
+   Scoped to `.corestack-shell` so they don't leak into the
+   portfolio surface. The portfolio keeps its own bronze-gold
+   tokens in `styles.scss`.
+
+   Design language: refined product UI — Linear / Vercel / Raycast
+   polish. Cool dark with electric cyan accent. Geist Sans for
+   headings, system-ui for body, JetBrains Mono for code/labels.
+   ========================================================= */
+
+.corestack-shell {
+  /* ---------- COLOR ---------- */
+
+  /* Backgrounds — layered near-black with a subtle cool tint */
+  --cs-bg: #08090d;
+  --cs-bg-elevated: #0d0f15;
+  --cs-surface: rgba(255, 255, 255, 0.03);
+  --cs-surface-hover: rgba(255, 255, 255, 0.05);
+  --cs-surface-active: rgba(255, 255, 255, 0.07);
+  --cs-glass: rgba(13, 15, 21, 0.65);
+  --cs-glass-strong: rgba(13, 15, 21, 0.82);
+
+  /* Text — cool grey scale */
+  --cs-ink: #f4f5f7;
+  --cs-ink-soft: #c5c8d1;
+  --cs-ink-muted: #8a8f9c;
+  --cs-ink-faint: #4a4f5c;
+
+  /* Accent — electric cyan */
+  --cs-accent: #22d3ee;
+  --cs-accent-bright: #67e8f9;
+  --cs-accent-deep: #0e7490;
+  --cs-accent-glow: rgba(34, 211, 238, 0.35);
+  --cs-accent-soft: rgba(34, 211, 238, 0.12);
+
+  /* Semantic status colors */
+  --cs-success: #34d399;
+  --cs-success-soft: rgba(52, 211, 153, 0.12);
+  --cs-warning: #fbbf24;
+  --cs-warning-soft: rgba(251, 191, 36, 0.12);
+  --cs-info: #818cf8;
+  --cs-info-soft: rgba(129, 140, 248, 0.12);
+
+  /* Borders */
+  --cs-border: rgba(255, 255, 255, 0.08);
+  --cs-border-strong: rgba(255, 255, 255, 0.14);
+  --cs-border-accent: rgba(34, 211, 238, 0.4);
+
+  /* Shadows */
+  --cs-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --cs-shadow-md: 0 8px 24px -8px rgba(0, 0, 0, 0.5);
+  --cs-shadow-lg: 0 24px 48px -12px rgba(0, 0, 0, 0.6);
+  --cs-shadow-accent: 0 16px 40px -12px rgba(34, 211, 238, 0.3);
+
+  /* ---------- TYPOGRAPHY ---------- */
+  --cs-font-display: 'Geist', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --cs-font-sans: 'Geist', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --cs-font-mono: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+
+  /* ---------- RADIUS (single scale, no orphans) ---------- */
+  --cs-radius-sm: 6px;
+  --cs-radius-md: 10px;
+  --cs-radius-lg: 16px;
+  --cs-radius-xl: 24px;
+  --cs-radius-pill: 999px;
+
+  /* ---------- SPACING RHYTHM ---------- */
+  --cs-space-xs: 0.5rem;
+  --cs-space-sm: 1rem;
+  --cs-space-md: 1.5rem;
+  --cs-space-lg: 2.5rem;
+  --cs-space-xl: 4rem;
+  --cs-space-2xl: 6rem;
+
+  /* ---------- LAYOUT ---------- */
+  --cs-container: 1320px;
+  --cs-navbar-height: 64px;
+
+  /* ---------- MOTION ---------- */
+  --cs-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --cs-ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --cs-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --cs-dur-fast: 0.18s;
+  --cs-dur: 0.32s;
+  --cs-dur-slow: 0.6s;
+}
+
+/* =========================================================
+   CORESTACK GLOBAL RESETS (scoped)
+   =========================================================
+   These override the portfolio's global body styles but only
+   inside the CoreStack layout. The portfolio keeps its custom
+   cursor, ambient layers, etc.
+   ========================================================= */
+
+.corestack-shell {
+  font-family: var(--cs-font-sans);
+  color: var(--cs-ink);
+  background: var(--cs-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  cursor: auto; /* products use native cursor, not the portfolio's custom one */
+}
+
+/* Restore default cursor on interactive elements inside CoreStack */
+.corestack-shell button,
+.corestack-shell a,
+.corestack-shell [role="button"] {
+  cursor: pointer;
+}
+
+/* Refined focus ring — accent cyan */
+.corestack-shell :focus-visible {
+  outline: 2px solid var(--cs-accent);
+  outline-offset: 2px;
+  border-radius: var(--cs-radius-sm);
+}
+
+/* Selection */
+.corestack-shell ::selection {
+  background: var(--cs-accent);
+  color: var(--cs-bg);
+}
+
+/* Scrollbar — thin, subtle */
+.corestack-shell ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.corestack-shell ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.corestack-shell ::-webkit-scrollbar-thumb {
+  background: var(--cs-border-strong);
+  border-radius: var(--cs-radius-pill);
+}
+
+.corestack-shell ::-webkit-scrollbar-thumb:hover {
+  background: var(--cs-ink-faint);
+}
+
+/* =========================================================
+   CORESTACK UTILITY CLASSES
+   ========================================================= */
+
+.corestack-shell .cs-label {
+  font-family: var(--cs-font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cs-ink-muted);
+}
+
+.corestack-shell .cs-mono {
+  font-family: var(--cs-font-mono);
+}
+
+/* =========================================================
+   CORESTACK ENTRANCE ANIMATION
+   =========================================================
+   Applied via inline style `--cs-i: <index>` on staggered children.
+   Pure CSS — no JS, no IntersectionObserver. Fires once on mount.
+   ========================================================= */
+
+@keyframes cs-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.corestack-shell .cs-rise {
+  opacity: 0;
+  animation: cs-rise var(--cs-dur-slow) var(--cs-ease) forwards;
+  animation-delay: calc(var(--cs-i, 0) * 60ms + 80ms);
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .corestack-shell .cs-rise {
+    animation: none;
+    opacity: 1;
+  }
+}

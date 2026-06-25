@@ -1,0 +1,278 @@
+<div class="cs-mock">
+
+  @if (error()) {
+    <div class="cs-mock__error" role="alert">{{ error() }}</div>
+  }
+
+  <!-- ============ SCREEN 1: SETUP ============ -->
+  @if (screen() === 'setup') {
+    <section class="cs-mock__setup">
+
+      <!-- Role -->
+      <div class="cs-field">
+        <label class="cs-field__label">Target role</label>
+        <div class="cs-chips">
+          @for (role of roles; track role) {
+            <button
+              type="button"
+              class="cs-chip"
+              [class.is-active]="selectedRole() === role"
+              (click)="selectedRole.set(role)"
+            >{{ role }}</button>
+          }
+        </div>
+      </div>
+
+      <!-- Skills -->
+      <div class="cs-field">
+        <label class="cs-field__label">Skills to test (pick 1–4)</label>
+        <div class="cs-chips">
+          @for (skill of skills; track skill) {
+            <button
+              type="button"
+              class="cs-chip"
+              [class.is-active]="isSkillSelected(skill)"
+              (click)="toggleSkill(skill)"
+            >{{ skill }}</button>
+          }
+        </div>
+      </div>
+
+      <!-- Difficulty -->
+      <div class="cs-field-row">
+        <div class="cs-field">
+          <label class="cs-field__label">Difficulty</label>
+          <div class="cs-seg">
+            @for (d of difficulties; track d) {
+              <button
+                type="button"
+                class="cs-seg__btn"
+                [class.is-active]="selectedDifficulty() === d"
+                (click)="selectedDifficulty.set(d)"
+              >{{ d | titlecase }}</button>
+            }
+          </div>
+        </div>
+
+        <div class="cs-field">
+          <label class="cs-field__label">Number of questions</label>
+          <div class="cs-seg">
+            @for (c of counts; track c) {
+              <button
+                type="button"
+                class="cs-seg__btn"
+                [class.is-active]="selectedCount() === c"
+                (click)="selectedCount.set(c)"
+              >{{ c }}</button>
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- Source -->
+      <div class="cs-field">
+        <label class="cs-field__label">Question source</label>
+        <div class="cs-source-grid">
+          @for (src of sources; track src.id) {
+            <button
+              type="button"
+              class="cs-source-card"
+              [class.is-active]="selectedSource() === src.id"
+              (click)="selectedSource.set(src.id)"
+            >
+              <span class="cs-source-card__label">{{ src.label }}</span>
+              <span class="cs-source-card__desc">{{ src.desc }}</span>
+            </button>
+          }
+        </div>
+      </div>
+
+      <button
+        type="button"
+        class="cs-mock__start"
+        [disabled]="loading() || selectedSkills().size === 0"
+        (click)="startInterview()"
+      >
+        @if (loading()) {
+          Starting…
+        } @else {
+          Start mock interview
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M13 5l7 7-7 7" />
+          </svg>
+        }
+      </button>
+    </section>
+  }
+
+  <!-- ============ SCREEN 2: INTERVIEW ============ -->
+  @if (screen() === 'interview') {
+    <section class="cs-mock__interview">
+
+      <!-- Progress bar -->
+      <div class="cs-progress">
+        <div class="cs-progress__info">
+          <span class="cs-mono">Question {{ session()?.questionNumber }} of {{ session()?.totalQuestions }}</span>
+          <button type="button" class="cs-progress__end" (click)="endEarly()" [disabled]="loading()">
+            End early
+          </button>
+        </div>
+        <div class="cs-progress__bar">
+          <div class="cs-progress__fill" [style.width.%]="progressPct()"></div>
+        </div>
+      </div>
+
+      <!-- AI message -->
+      <div class="cs-msg cs-msg--ai">
+        <div class="cs-msg__avatar">AI</div>
+        <div class="cs-msg__body">
+          <p>{{ session()?.message }}</p>
+          <div class="cs-msg__question">
+            <span class="cs-msg__q-label">Question</span>
+            <p>{{ session()?.question?.text }}</p>
+            <div class="cs-msg__meta">
+              <span class="cs-tag">{{ session()?.question?.topic }}</span>
+              <span class="cs-tag cs-tag--muted">{{ session()?.question?.difficulty }}</span>
+              <span class="cs-tag cs-tag--muted cs-mono">{{ session()?.question?.source }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Last evaluation (if exists) -->
+      @if (lastEvaluation(); as eval) {
+        <div class="cs-eval cs-rise" style="--cs-i: 0">
+          <div class="cs-eval__header">
+            <span class="cs-eval__title">Your last answer</span>
+            <span class="cs-eval__score" [class]="scoreClass(eval.evaluation.score)">
+              {{ eval.evaluation.score }}<small>/100</small>
+            </span>
+          </div>
+          <div class="cs-eval__feedback">
+            <div class="cs-eval__row cs-eval__row--good">
+              <span class="cs-eval__row-label">Good</span>
+              <span>{{ eval.evaluation.feedback.good }}</span>
+            </div>
+            <div class="cs-eval__row cs-eval__row--missing">
+              <span class="cs-eval__row-label">Missing</span>
+              <span>{{ eval.evaluation.feedback.missing }}</span>
+            </div>
+            <div class="cs-eval__row cs-eval__row--wrong">
+              <span class="cs-eval__row-label">Wrong</span>
+              <span>{{ eval.evaluation.feedback.wrong }}</span>
+            </div>
+          </div>
+          <details class="cs-eval__ideal">
+            <summary>Model answer</summary>
+            <p>{{ eval.evaluation.idealAnswer }}</p>
+          </details>
+        </div>
+      }
+
+      <!-- Answer input -->
+      <div class="cs-answer">
+        <label class="cs-field__label">Your answer</label>
+        <textarea
+          class="cs-answer__input"
+          [(ngModel)]="currentAnswer"
+          placeholder="Type your answer here…"
+          rows="6"
+          [disabled]="loading()"
+        ></textarea>
+        <div class="cs-answer__actions">
+          <span class="cs-answer__hint">{{ currentAnswer().length }} chars</span>
+          <button
+            type="button"
+            class="cs-answer__submit"
+            [disabled]="loading() || !currentAnswer().trim()"
+            (click)="submitAnswer()"
+          >
+            @if (loading()) {
+              Evaluating…
+            } @else {
+              Submit answer
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14M13 5l7 7-7 7" />
+              </svg>
+            }
+          </button>
+        </div>
+      </div>
+
+    </section>
+  }
+
+  <!-- ============ SCREEN 3: RESULTS ============ -->
+  @if (screen() === 'results' && results(); as r) {
+    <section class="cs-mock__results">
+
+      <!-- Overall score -->
+      <div class="cs-results__hero">
+        <div class="cs-results__score" [class]="scoreClass(r.overallScore)">
+          <span class="cs-results__score-num">{{ r.overallScore }}</span>
+          <span class="cs-results__score-max">/ 100</span>
+        </div>
+        <div class="cs-results__summary">
+          <span class="cs-label">Session summary</span>
+          <p>{{ r.summary }}</p>
+        </div>
+      </div>
+
+      <!-- Strengths + Weak areas -->
+      <div class="cs-results__cols">
+        <div class="cs-results__col cs-results__col--good">
+          <h3 class="cs-results__col-title">Strengths</h3>
+          <ul>
+            @for (s of r.strengths; track s) {
+              <li>{{ s }}</li>
+            }
+          </ul>
+        </div>
+        <div class="cs-results__col cs-results__col--weak">
+          <h3 class="cs-results__col-title">Weak areas</h3>
+          <ul>
+            @for (w of r.weakAreas; track w) {
+              <li>{{ w }}</li>
+            }
+          </ul>
+        </div>
+      </div>
+
+      <!-- Recommendations -->
+      <div class="cs-results__recs">
+        <h3 class="cs-results__col-title">Recommendations</h3>
+        <ul>
+          @for (rec of r.recommendations; track rec) {
+            <li>{{ rec }}</li>
+          }
+        </ul>
+      </div>
+
+      <!-- Per-question breakdown -->
+      <div class="cs-results__breakdown">
+        <h3 class="cs-results__col-title">Question breakdown</h3>
+        <div class="cs-results__bd-list">
+          @for (q of r.questionBreakdown; track q.questionId) {
+            <div class="cs-results__bd-row">
+              <span class="cs-results__bd-score" [class]="scoreClass(q.score)">{{ q.score }}</span>
+              <span class="cs-results__bd-topic">{{ q.topic }}</span>
+              <span class="cs-results__bd-feedback">{{ q.oneLineFeedback }}</span>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="cs-results__actions">
+        <button type="button" class="cs-btn cs-btn--primary" (click)="practiceWeakAreas()">
+          Practice weak areas
+        </button>
+        <button type="button" class="cs-btn cs-btn--ghost" (click)="restart()">
+          New interview
+        </button>
+      </div>
+
+    </section>
+  }
+
+</div>

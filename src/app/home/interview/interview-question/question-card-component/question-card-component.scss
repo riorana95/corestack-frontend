@@ -1,78 +1,244 @@
-/* CARD */
+/* =========================================================
+   CORESTACK — QUESTION CARD
+   Expandable Q&A card. Most-shown element in the workspace.
+   Premium polish: refined border, accent hover bar, smooth
+   expand, better code block.
+   ========================================================= */
+
 .question-card {
-  border-radius: 16px;
+  position: relative;
+  border-radius: var(--cs-radius-md);
   overflow: hidden;
 
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: var(--cs-surface);
+  border: 1px solid var(--cs-border);
 
-  margin-bottom: 16px;
-  transition: all 0.25s ease;
+  transition:
+    border-color var(--cs-dur) var(--cs-ease),
+    background var(--cs-dur) var(--cs-ease),
+    box-shadow var(--cs-dur) var(--cs-ease);
 }
 
-/* HOVER */
+/* Left accent bar on hover — Linear-style */
+.question-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--cs-accent);
+  opacity: 0;
+  transition: opacity var(--cs-dur) var(--cs-ease);
+}
+
 .question-card:hover {
-  border-color: rgba(124, 58, 237, 0.4);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  border-color: var(--cs-border-strong);
+  background: var(--cs-surface-hover);
 }
 
-/* TITLE */
+.question-card:hover::before,
+.question-card:has(details[open])::before {
+  opacity: 1;
+}
+
+/* ---------- SUMMARY (title row) ---------- */
 .question-title {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  padding: 16px 18px;
+  gap: 16px;
+  padding: 14px 18px;
   cursor: pointer;
 
-  font-size: 15px;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--cs-ink);
+  line-height: 1.5;
 
-  background: rgba(255,255,255,0.06);
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  transition: color var(--cs-dur) var(--cs-ease);
 }
 
-/* REMOVE DEFAULT MARKER */
+.question-text {
+  flex: 1;
+}
+
+.question-text > span:first-child {
+  display: inline-block;
+  min-width: 22px;
+  color: var(--cs-ink-faint);
+  font-family: var(--cs-font-mono);
+  font-size: 12px;
+  margin-right: 4px;
+}
+
+/* Remove default marker */
 summary {
   list-style: none;
 }
-
 summary::-webkit-details-marker {
   display: none;
 }
 
-/* ICON */
-.icon {
-  font-size: 18px;
-  transition: transform 0.25s ease;
+/* ---------- ICON (+) ---------- */
+.actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-shrink: 0;
 }
 
-/* ROTATE ICON ON OPEN */
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--cs-surface-hover);
+  color: var(--cs-ink-muted);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1;
+  transition: all var(--cs-dur) var(--cs-ease);
+}
+
+.question-card:hover .icon {
+  background: var(--cs-accent-soft);
+  color: var(--cs-accent);
+}
+
 details[open] .icon {
   transform: rotate(45deg);
+  background: var(--cs-accent);
+  color: var(--cs-bg);
 }
 
-/* ANSWER */
+/* ---------- ANSWER BLOCK ---------- */
 .answer-block {
   padding: 18px;
-  background: rgba(5, 8, 14, 0.9);
-  animation: fadeIn 0.25s ease;
+  border-top: 1px solid var(--cs-border);
+  background: var(--cs-bg-elevated);
+  animation: cs-q-fade 0.3s var(--cs-ease-out);
 }
 
-/* TEXT */
+@keyframes cs-q-fade {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- TEXT ---------- */
 .answer-text {
   margin-bottom: 14px;
-  color: rgba(255,255,255,0.8);
-  line-height: 1.6;
+  color: var(--cs-ink-soft);
+  line-height: 1.65;
+  font-size: 14px;
 }
 
 .answer-text h4 {
   margin: 0;
   font-size: 14px;
   font-weight: 600;
+  color: var(--cs-ink);
 }
 
-/* LIST */
+/* ---------- RICH CONTENT (Quill HTML) ----------
+   The `rich-content` div renders sanitized HTML from the Quill
+   editor. Without explicit styling it inherits browser defaults,
+   which causes inconsistent indentation for lists, paragraphs,
+   and headings. This normalizes the most common elements. */
+.rich-content {
+  color: var(--cs-ink-soft);
+  font-size: 14px;
+  line-height: 1.65;
+
+  p {
+    margin: 0 0 12px;
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+
+  h3, h4 {
+    margin: 16px 0 8px;
+    font-family: var(--cs-font-display);
+    font-weight: 600;
+    color: var(--cs-ink);
+  }
+
+  h3 { font-size: 16px; }
+  h4 { font-size: 14px; }
+
+  ul, ol {
+    margin: 0 0 12px;
+    padding-left: 22px;
+  }
+
+  li {
+    margin-bottom: 6px;
+    line-height: 1.6;
+  }
+
+  /* Nested lists — slightly tighter */
+  ul ul, ol ol, ul ol, ol ul {
+    margin: 6px 0 0;
+  }
+
+  strong {
+    color: var(--cs-ink);
+    font-weight: 600;
+  }
+
+  em {
+    color: var(--cs-ink-soft);
+  }
+
+  code {
+    font-family: var(--cs-font-mono);
+    font-size: 13px;
+    background: var(--cs-surface-hover);
+    padding: 2px 6px;
+    border-radius: var(--cs-radius-sm);
+    color: var(--cs-accent-bright);
+  }
+
+  pre {
+    margin: 12px 0;
+    padding: 14px;
+    background: var(--cs-bg);
+    border: 1px solid var(--cs-border);
+    border-radius: var(--cs-radius-sm);
+    overflow-x: auto;
+    font-family: var(--cs-font-mono);
+    font-size: 13px;
+    color: var(--cs-ink-soft);
+    line-height: 1.6;
+  }
+
+  pre code {
+    background: none;
+    padding: 0;
+    color: inherit;
+  }
+
+  blockquote {
+    margin: 12px 0;
+    padding: 8px 16px;
+    border-left: 3px solid var(--cs-accent);
+    background: var(--cs-surface);
+    color: var(--cs-ink-muted);
+    font-style: italic;
+  }
+}
+
+/* ---------- LIST ---------- */
 .answer-list {
   padding-left: 1.2rem;
   margin-bottom: 14px;
@@ -80,70 +246,86 @@ details[open] .icon {
 
 .answer-list li {
   margin-bottom: 8px;
-  color: rgba(255,255,255,0.75);
+  color: var(--cs-ink-soft);
+  line-height: 1.55;
+  font-size: 14px;
 }
 
-/* TABLE */
+/* ---------- TABLE ---------- */
 .answer-table {
-  margin: 16px 0;
+  margin: 14px 0;
   overflow-x: auto;
+  border-radius: var(--cs-radius-sm);
+  border: 1px solid var(--cs-border);
 }
 
 .answer-table table {
   width: 100%;
   border-collapse: collapse;
   min-width: 480px;
+  font-size: 13px;
 }
 
 .answer-table th,
 .answer-table td {
-  padding: 10px 12px;
-  border: 1px solid rgba(255,255,255,0.1);
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--cs-border);
+  text-align: left;
 }
 
 .answer-table th {
-  background: rgba(255,255,255,0.08);
+  background: var(--cs-surface-hover);
   font-weight: 600;
+  color: var(--cs-ink);
+  font-family: var(--cs-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
-.answer-table tr:nth-child(even) {
-  background: rgba(255,255,255,0.03);
+.answer-table td {
+  color: var(--cs-ink-soft);
 }
 
-/* CODE */
+.answer-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* ---------- CODE ---------- */
+.answer-code {
+  margin: 14px 0 4px;
+}
+
 .answer-code pre {
-  background: #0b1220;
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 12px;
+  background: var(--cs-bg);
+  border: 1px solid var(--cs-border);
+  border-radius: var(--cs-radius-sm);
   padding: 16px;
   overflow-x: auto;
-  color: #cbd5e1;
+  color: var(--cs-ink-soft);
+  font-family: var(--cs-font-mono);
+  font-size: 13px;
+  line-height: 1.6;
 }
 
-/* ANIMATION */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-.actions {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-
+/* ---------- EDIT BUTTON ---------- */
 .edit-btn {
   background: transparent;
   border: none;
   cursor: pointer;
   font-size: 14px;
+  color: var(--cs-ink-muted);
+  padding: 4px;
+  border-radius: var(--cs-radius-sm);
+  transition: all var(--cs-dur) var(--cs-ease);
 }
 
+.edit-btn:hover {
+  background: var(--cs-surface-hover);
+  color: var(--cs-ink);
+}
+
+/* ---------- COPY BUTTON ---------- */
 .code-container {
   position: relative;
 }
@@ -152,21 +334,37 @@ details[open] .icon {
   position: absolute;
   top: 10px;
   right: 10px;
-
-  padding: 6px 10px;
-  font-size: 12px;
-
-  border-radius: 8px;
-  border: none;
-
-  background: rgba(99,102,241,0.2);
-  color: #cbd5f5;
-
+  padding: 5px 10px;
+  font-size: 11px;
+  font-family: var(--cs-font-mono);
+  letter-spacing: 0.04em;
+  border-radius: var(--cs-radius-sm);
+  border: 1px solid var(--cs-border);
+  background: var(--cs-glass);
+  color: var(--cs-ink-soft);
+  backdrop-filter: blur(8px);
   cursor: pointer;
-  transition: 0.2s;
+  transition: all var(--cs-dur) var(--cs-ease);
 }
 
 .copy-btn:hover {
-  background: rgba(99,102,241,0.4);
-  color: white;
+  background: var(--cs-accent-soft);
+  border-color: var(--cs-border-accent);
+  color: var(--cs-accent-bright);
+}
+
+/* ---------- MOBILE ---------- */
+@media (max-width: 680px) {
+  .question-title {
+    padding: 12px 14px;
+    font-size: 13px;
+  }
+
+  .answer-block {
+    padding: 14px;
+  }
+}
+
+section{
+  padding: 0;
 }

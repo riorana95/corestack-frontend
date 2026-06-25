@@ -511,3 +511,87 @@ interview workspace.
 - Optional: add JWT validation to the proxy by having it call your
   Spring Boot backend to verify tokens. For v1, the proxy is open —
   secure it behind your existing auth interceptor or add rate limiting.
+
+## Round 7 — Switch AI provider to Cloudflare Workers AI (FREE)
+
+### What changed
+The AI proxy now supports **two providers**, with Cloudflare Workers
+AI as the recommended default (free tier — 10k neurons/day, no credit
+card needed). Z.ai is still supported for backward compatibility.
+
+### Why Cloudflare over Z.ai
+- **Genuinely free tier** — 10,000 neurons per day at no cost
+- **No credit card required** to start
+- Multiple strong models (llama-3.3-70b, kimi-k2.6, qwen2.5-coder)
+- OpenAI-compatible response format
+- Runs on Cloudflare's edge network (fast)
+- Z.ai required paid credits even for basic testing
+
+### Provider architecture
+The proxy is now provider-agnostic. `server.js` defines a `CloudflareProvider`
+class and a `ZaiProvider` class. A factory function picks one based on env
+vars:
+
+- If `AI_PROVIDER=cloudflare` (or auto-detected when CLOUDFLARE_* vars set):
+  uses Cloudflare via direct REST calls (no SDK needed)
+- If `AI_PROVIDER=zai` (or auto-detected when ZAI_* vars set): uses Z.ai
+  via the `z-ai-web-dev-sdk` package (now an optional dependency)
+
+Both providers implement the same `chat(systemPrompt, userMessage)`
+interface, so the rest of the proxy (prompts, JSON extraction, endpoints)
+is unchanged.
+
+### Files modified
+
+**`ai-proxy/server.js`** — full rewrite
+- Added `CloudflareProvider` class — direct REST calls to
+  `https://api.cloudflare.com/client/v4/accounts/{id}/ai/run/{model}`,
+  no SDK needed
+- Refactored `ZaiProvider` to use dynamic `import('z-ai-web-dev-sdk')`
+  so Cloudflare-only deployments don't need the package installed
+- Added `getProvider()` factory with auto-detection
+- Renamed `callGlm()` → `callAI()` (provider-agnostic)
+- Added process-level error handlers (`unhandledRejection`,
+  `uncaughtException`) so the proxy never crashes silently
+- Health endpoint now reports active provider + model
+- Clear error messages for each provider's common failures
+
+**`ai-proxy/package.json`**
+- Bumped version to 1.1.0
+- Moved `z-ai-web-dev-sdk` to `optionalDependencies` (Cloudflare-only
+  users don't need it)
+
+**`ai-proxy/.env.example`** — full rewrite
+- Documents both providers with clear "OPTION A (FREE)" / "OPTION B" sections
+- Placeholders only (no real tokens)
+
+**`ai-proxy/README.md`** — full rewrite
+- Quick start focuses on Cloudflare (free) setup
+- Comparison table of providers
+- Model selection guide
+- Troubleshooting section covers both providers
+
+### Verified working end-to-end (with Cloudflare)
+All 5 endpoints tested with real Cloudflare calls using
+`@cf/meta/llama-3.3-70b-instruct-fp8-fast`:
+
+1. **Question Generator** — generated 1 Java question with answer + tags ✓
+2. **Mock Interview Start** — returned session ID + first question
+   ("Can you explain the concept of encapsulation in Java...") ✓
+3. **Mock Interview Answer** — evaluated answer (score 90/100), returned
+   next question ("What is the difference between == and .equals()...") ✓
+4. **Mock Interview Results** — generated final summary (overall 85/100,
+   3 strengths, 3 weak areas, 3 recommendations) ✓
+5. **Answer Coach** — scored weak HashMap answer 80/100 with feedback ✓
+
+### How to run (Cloudflare — free)
+
+```bash
+cd ai-proxy
+npm install
+
+# Create .env with your Cloudflare creds
+cat > .env << 'EOF'
+AI_PROVIDER=cloudflare
+CLOUDFLARE_API_TOKEN=your_token_here
+CLOUDFLARE_ACCOUNT_ID=your_account_id_here

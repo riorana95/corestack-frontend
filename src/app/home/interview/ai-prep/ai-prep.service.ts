@@ -15,7 +15,7 @@ import {
 } from './ai-prep.models';
 
 /**
- * AI Prep service — HTTP client for the CoreStack AI proxy.
+ * AI Prep service — HTTP client for the Xora proxy.
  *
  * All calls go to the Node.js proxy (environment.aiProxyUrl), which
  * holds the Z.ai API key and applies structured prompts. The Angular

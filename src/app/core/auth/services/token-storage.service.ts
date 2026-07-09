@@ -2,9 +2,9 @@ import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { User } from '../models/auth.model';
 
-const ACCESS_TOKEN_KEY = 'sw_access_token';
-const REFRESH_TOKEN_KEY = 'sw_refresh_token';
-const USER_KEY = 'sw_user';
+const ACCESS_TOKEN_KEY = 'xora_access_token';
+const REFRESH_TOKEN_KEY = 'xora_refresh_token';
+const USER_KEY = 'xora_user';
 
 @Injectable({ providedIn: 'root' })
 export class TokenStorageService {

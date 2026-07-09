@@ -1,4 +1,4 @@
-# CoreStack Frontend — Refactor Notes
+# Xora Frontend — Refactor Notes
 
 ## What changed
 
@@ -17,14 +17,14 @@ conflict that was preventing the portfolio from ever rendering.
   `app-portfolio` instead of `app-root`.
 - No auth guard. Fully public.
 
-### Surface 2 — Authenticated CoreStack (`/corestack/*`)
+### Surface 2 — Authenticated Xora (`/xora/*`)
 
-- New layout: `src/app/layouts/corestack-layout/corestack-layout.ts`
+- New layout: `src/app/layouts/xora-layout/xora-layout.ts`
   — renamed successor to `AppShell`. Same markup, clearer name.
 - New layout: `src/app/layouts/auth-layout/auth-layout.ts` — minimal,
-  no navbar. Used by `/corestack/login` only. Fixes the bug where the
-  CoreStack navbar (with logout) was visible on the login screen.
-- Auth guard moved from "everything except `/`" to "only `/corestack/*`
+  no navbar. Used by `/xora/login` only. Fixes the bug where the
+  Xora navbar (with logout) was visible on the login screen.
+- Auth guard moved from "everything except `/`" to "only `/xora/*`
   (excluding login)".
 
 ### Bootstrap shell
@@ -38,34 +38,34 @@ groups.
 
 ```
 /                                  → Portfolio (public)
-/corestack                         → Dashboard cards (auth)
-/corestack/login                   → Login (no navbar)
-/corestack/interview-dashboard     → Interview QA entry (auth)
-/corestack/interview               → Interview workspace (auth)
-/corestack/question-set            → Section detail (auth)
-/corestack/interview-topic-wise    → Legacy topic-wise view (auth)
-/corestack/interview-vault         → Vault (auth)
-/corestack/docs/...                → Topic-wise v2 docs (auth)
-/corestack/splitwise               → Splitwise (auth)
+/xora                         → Dashboard cards (auth)
+/xora/login                   → Login (no navbar)
+/xora/interview-dashboard     → Interview QA entry (auth)
+/xora/interview               → Interview workspace (auth)
+/xora/question-set            → Section detail (auth)
+/xora/interview-topic-wise    → Legacy topic-wise view (auth)
+/xora/interview-vault         → Vault (auth)
+/xora/docs/...                → Topic-wise v2 docs (auth)
+/xora/splitwise               → Splitwise (auth)
 **                                 → Redirects to /
 ```
 
 ## Hand-off CTAs
 
 1. **Hero** (`/`) — secondary CTA renamed from "Start a conversation"
-   to "Enter CoreStack". Calls `enterCoreStack()` which routes to
-   `/corestack`. Auth guard handles the redirect to login if needed.
-2. **Projects** (`/`, Projects section) — CoreStack is project #01.
+   to "Enter Xora". Calls `enterXora()` which routes to
+   `/xora`. Auth guard handles the redirect to login if needed.
+2. **Projects** (`/`, Projects section) — Xora is project #01.
    A "View live" button appears in that card's footer, also routing
-   to `/corestack`.
-3. **CoreStack navbar** — a "← Portfolio" pill next to the CS logo
+   to `/xora`.
+3. **Xora navbar** — a "← Portfolio" pill next to the CS logo
    lets authenticated users hop back to the public surface.
 
 ## Deep-link survival
 
 `authGuard` now preserves the original target URL as `?returnUrl=`:
-unauthenticated users hitting `/corestack/interview-vault` get sent
-to `/corestack/login?returnUrl=/corestack/interview-vault`, and
+unauthenticated users hitting `/xora/interview-vault` get sent
+to `/xora/login?returnUrl=/xora/interview-vault`, and
 after a successful login `Login.resolveReturnUrl()` sends them
 straight back. The `returnUrl` is sanitised to prevent open-redirect
 abuse.
@@ -75,7 +75,7 @@ abuse.
 ### New
 - `src/app/layouts/portfolio-layout/{portfolio-layout.ts,.html,.scss}`
 - `src/app/layouts/auth-layout/{auth-layout.ts,.html,.scss}`
-- `src/app/layouts/corestack-layout/{corestack-layout.ts,.html,.scss}`
+- `src/app/layouts/xora-layout/{xora-layout.ts,.html,.scss}`
 - `src/app/pages/portfolio/portfolio.ts`
 
 ### Modified
@@ -84,34 +84,34 @@ abuse.
 - `src/app/app.scss` — minimal
 - `src/app/app.routes.ts` — nested route groups
 - `src/app/core/auth/guards/auth.guard.ts` — redirect to
-  `/corestack/login?returnUrl=…`
-- `src/app/login/login.ts` — post-auth redirect to `/corestack`
+  `/xora/login?returnUrl=…`
+- `src/app/login/login.ts` — post-auth redirect to `/xora`
   (or `returnUrl`), `ActivatedRoute` injected
 - `src/app/core/auth/services/auth.service.ts` — `logout()` now
   navigates to `/`
 - `src/app/shared/components/navbar/navbar.{ts,html,scss}` —
-  `goHome()` → `/corestack`, new `goPortfolio()` + back-link pill
-- `src/app/home/home.ts` — `routeTo()` prepends `/corestack/`
+  `goHome()` → `/xora`, new `goPortfolio()` + back-link pill
+- `src/app/home/home.ts` — `routeTo()` prepends `/xora/`
 - `src/app/home/interview/interview-dashboard.ts` — same prefix
   logic, preserves `view` query param
 - `src/app/home/interview/topic-wise-v2/pages/backend-docs.ts` —
-  internal nav URL → `/corestack/docs/backend/…`
+  internal nav URL → `/xora/docs/backend/…`
 - `src/app/home/interview/topic-wise-v2/components/docs-pagination/docs-pagination.ts` —
   same URL fix (also fixes a pre-existing bug where it was using
   `/backend/…` instead of `/docs/backend/…`)
 - `src/app/home/interview/topic-wise-v2/data/backend/backend-search.data.ts` —
   same URL fix on all 4 search entries
-- `src/app/components/hero/hero.component.ts` — Enter CoreStack CTA,
-  `Router` injected, `enterCoreStack()` method
+- `src/app/components/hero/hero.component.ts` — Enter Xora CTA,
+  `Router` injected, `enterXora()` method
 - `src/app/components/projects/projects.component.ts` — View live
-  CTA on the CoreStack card, `Router` injected, `enterCoreStack()`
+  CTA on the Xora card, `Router` injected, `enterXora()`
 - `src/app/components/projects/projects.component.scss` —
   `.proj__view-live` styles
 
 ### Removed
 - `src/app/app.component.ts` — renamed to `pages/portfolio/portfolio.ts`
 - `src/app/shared/layout/app-shell/` — renamed to
-  `layouts/corestack-layout/`
+  `layouts/xora-layout/`
 
 ## Spec files
 
@@ -125,46 +125,46 @@ changed were not updated. They will fail to compile if you run
   `navbar.spec.ts`, etc.) reference unchanged class names and
   should still compile, but tests that assert specific navigation
   paths (e.g. `navigate(['home'])`) will need updating to the new
-  `/corestack` URLs.
+  `/xora` URLs.
 
 ## How to apply
 
-1. Unzip this archive — it replaces your entire `corestack-frontend/`
+1. Unzip this archive — it replaces your entire `xora-frontend/`
    directory.
 2. `npm install` (no dependency changes, but safe to refresh).
 3. `npm start` — verify:
    - `/` shows the portfolio (cinematic, no navbar-on-login bug).
-   - Click "Enter CoreStack" in the hero → bounces to
-     `/corestack/login` if not authed, else dashboard.
-   - CoreStack navbar shows "← Portfolio" pill.
+   - Click "Enter Xora" in the hero → bounces to
+     `/xora/login` if not authed, else dashboard.
+   - Xora navbar shows "← Portfolio" pill.
    - Logout returns to `/`.
 4. `npm run build` — should succeed. SSR config unchanged
    (`app.routes.server.ts` still uses `RenderMode.Client` for `**`).
 
-## Round 3 — Premium CoreStack visual upgrade (Home + Interview)
+## Round 3 — Premium Xora visual upgrade (Home + Interview)
 
 ### Design language
 - **Direction:** Distinct product surface (Linear/Vercel/Raycast polish),
-  not a match-the-portfolio direction. CoreStack keeps its own identity.
+  not a match-the-portfolio direction. Xora keeps its own identity.
 - **Accent:** Electric cyan (#22d3ee) on near-black (#08090d).
 - **Typography:** Geist Sans (headings + body), JetBrains Mono (code/labels).
   Loaded via Google Fonts in `src/index.html`.
 - **Motion:** Subtle entrance stagger (CSS-only, 60ms per item) + refined
-  hover lifts. No GSAP on CoreStack — products should feel like products.
+  hover lifts. No GSAP on Xora — products should feel like products.
 - **Icons:** Inline SVG line icons replace emojis on product cards.
-- **Cursor:** Native cursor on CoreStack (custom cursor stays on portfolio).
+- **Cursor:** Native cursor on Xora (custom cursor stays on portfolio).
 
 ### New design system
-- `src/styles/corestack-tokens.scss` — all `--cs-*` tokens, scoped to
-  `.corestack-shell` so they don't leak into the portfolio. Includes
-  utility classes (`.cs-label`, `.cs-mono`, `.cs-rise`) and a CSS-only
+- `src/styles/xora-tokens.scss` — all `--xo-*` tokens, scoped to
+  `.xora-shell` so they don't leak into the portfolio. Includes
+  utility classes (`.xo-label`, `.xo-mono`, `.xo-rise`) and a CSS-only
   entrance animation keyframe.
 - Imported globally in `src/styles.scss` via `@import` so the vars are
-  available everywhere; the scoping is by `.corestack-shell` selector,
+  available everywhere; the scoping is by `.xora-shell` selector,
   not by file import.
 
 ### Files upgraded
-- `src/app/layouts/corestack-layout/corestack-layout.scss` — refined
+- `src/app/layouts/xora-layout/xora-layout.scss` — refined
   shell background, cyan-tinted ambient gradient.
 - `src/app/shared/components/background-effects/background-effects.scss`
   — cyan glows replace blue/purple.
@@ -204,16 +204,16 @@ changed were not updated. They will fail to compile if you run
 
 ### Verification
 - Run `npm start` and visit:
-  - `/corestack` — new dashboard with cyan accent, SVG icons,
+  - `/xora` — new dashboard with cyan accent, SVG icons,
     entrance stagger.
-  - `/corestack/interview-dashboard` — inner product picker,
+  - `/xora/interview-dashboard` — inner product picker,
     same design language.
-  - `/corestack/interview` — workspace with segmented control,
+  - `/xora/interview` — workspace with segmented control,
     company grid, question cards with left accent bar on hover.
-  - `/corestack/interview-vault` — sidebar nav with cyan accents.
+  - `/xora/interview-vault` — sidebar nav with cyan accents.
 - Portfolio at `/` should be **unchanged** — bronze-gold, custom
-  cursor, cinematic. The `.corestack-shell` scoping ensures the
-  `--cs-*` tokens don't leak.
+  cursor, cinematic. The `.xora-shell` scoping ensures the
+  `--xo-*` tokens don't leak.
 
 ### Known visual debt
 1. **Splitwise** still uses blue/indigo. Will look out-of-place.
@@ -239,7 +239,7 @@ independently when you're ready.
 
 **Question Explorer page (1 issue):**
 1. Section filter card still used old hardcoded `rgba(255,255,255,...)` colors
-   instead of `--cs-*` tokens. Search button didn't align with selects
+   instead of `--xo-*` tokens. Search button didn't align with selects
    because it had no label (flex `align-items: stretch` caused misalignment).
    Expanded question content (Quill HTML in `rich-content` div) had
    inconsistent bullet/paragraph indentation — no styling was applied to it.
@@ -264,17 +264,17 @@ independently when you're ready.
 **`company-detail-component.scss`**
 - Card head: added `min-height: 24px` so index and count badge share
   a clear baseline. Added `line-height: 1` to both.
-- "INTERVIEW TRACKS" label: bumped from `--cs-ink-muted` to
-  `--cs-ink-soft` for better contrast.
+- "INTERVIEW TRACKS" label: bumped from `--xo-ink-muted` to
+  `--xo-ink-soft` for better contrast.
 - Count badge: tightened `min-width` from 28px to 24px.
 
 **`section-filter.scss`** — full premium rewrite
-- Replaced all hardcoded `rgba(255,255,255,...)` with `--cs-*` tokens.
+- Replaced all hardcoded `rgba(255,255,255,...)` with `--xo-*` tokens.
 - Changed `align-items: stretch` to `align-items: flex-end` so the
   Search button (which has no label) aligns with the select baselines.
 - Added `flex: 1` and `min-width: 160px` to filter groups so they
   share width evenly.
-- Refined selects: `--cs-bg-elevated` background, cyan focus ring,
+- Refined selects: `--xo-bg-elevated` background, cyan focus ring,
   consistent 38px height, custom dropdown arrow with muted ink color.
 - Search button: cyan gradient, 38px height to match selects.
 
@@ -285,7 +285,7 @@ independently when you're ready.
   and `white-space: nowrap`.
 - Nav items: increased padding from 9px to 10px, added `line-height: 1.4`.
 - Question list items: added `padding: 6px 0` and a subtle
-  `border-top: 1px solid var(--cs-border)` between items so they
+  `border-top: 1px solid var(--xo-border)` between items so they
   don't run together.
 
 **`interview-vault.html`**
@@ -302,29 +302,29 @@ independently when you're ready.
 - The Question Explorer's expanded rows also render Quill HTML via
   a `rich-content` div. Added the same normalization rules so both
   surfaces render rich content consistently.
-- Bumped table header background from `--cs-border` to
-  `--cs-surface-hover` so the header row reads as distinct.
+- Bumped table header background from `--xo-border` to
+  `--xo-surface-hover` so the header row reads as distinct.
 
 ## Round 5 — Splitwise + Add Question modal + Topic-wise legacy upgrade
 
 ### What changed
-All three remaining CoreStack surfaces migrated to the `--cs-*` design
-system. Zero blue/indigo references remain across the entire CoreStack
+All three remaining Xora surfaces migrated to the `--xo-*` design
+system. Zero blue/indigo references remain across the entire Xora
 surface — every page now uses the cyan accent, Geist Sans, and the
 unified radius/spacing scale.
 
 ### Files upgraded
 
 **`src/app/home/splitwise/splitwise.scss`** — full premium rewrite
-- All `--sw-*` token definitions now map to `--cs-*` values (e.g.
-  `--sw-primary: var(--cs-accent)`, `--sw-bg: var(--cs-surface)`).
+- All `--sw-*` token definitions now map to `--xo-*` values (e.g.
+  `--sw-primary: var(--xo-accent)`, `--sw-bg: var(--xo-surface)`).
   This preserves the existing class structure while pulling in the
   new design system.
 - Title: Geist Sans display font, 600 weight, tightened letter-spacing.
 - Section titles: Geist Sans, refined size hierarchy.
 - Labels: JetBrains Mono, uppercase, 0.12em tracking.
 - Buttons: cyan gradient primary, refined ghost/text variants.
-- Inputs/selects: `--cs-bg-elevated` background, cyan focus ring.
+- Inputs/selects: `--xo-bg-elevated` background, cyan focus ring.
 - Group items: cyan-soft active state, refined hover.
 - Balance rows: monospace amounts, cyan positive / red negative.
 - Settlement status badges: token-based semantic colors with borders.
@@ -334,19 +334,19 @@ unified radius/spacing scale.
 - Chip-check (participant selection): cyan-soft when checked.
 
 **`src/app/home/interview/add-question/add-question.scss`** — full premium rewrite
-- Container: `--cs-bg-elevated` background, `--cs-radius-lg`, refined shadow.
+- Container: `--xo-bg-elevated` background, `--xo-radius-lg`, refined shadow.
 - Header: Geist Sans 600 title, refined close button (surface bg, subtle
   border, hover state instead of gradient).
 - Form labels: JetBrains Mono, uppercase, 0.1em tracking.
-- Inputs/textarea: `--cs-bg` background, cyan focus ring, consistent
+- Inputs/textarea: `--xo-bg` background, cyan focus ring, consistent
   radius.
 - Select: custom cyan-tinted dropdown arrow, dark option styling.
 - Save button: cyan gradient with accent shadow.
 - Cancel button: surface ghost style.
 - Tag chips: surface default, cyan-soft on hover, cyan-filled when
-  selected — consistent with the chip language across CoreStack.
+  selected — consistent with the chip language across Xora.
 - **Quill editor overrides**: added `::ng-deep` rules to theme the
-  Quill `.ql-snow` toolbar/editor to match the CoreStack dark theme
+  Quill `.ql-snow` toolbar/editor to match the Xora dark theme
   (toolbar surface bg, editor dark bg, cyan active states on
   toolbar buttons). Previously the Quill editor rendered with its
   default white snow theme, clashing with the dark modal.
@@ -355,7 +355,7 @@ unified radius/spacing scale.
 
 **`src/app/home/interview/topic-wise/topic-wise.scss`** — full premium rewrite
 - All hardcoded `rgba(15, 23, 42, ...)` / `rgba(30, 41, 59, ...)` /
-  `rgba(148, 163, 184, ...)` colors replaced with `--cs-*` tokens.
+  `rgba(148, 163, 184, ...)` colors replaced with `--xo-*` tokens.
 - Header: Geist Sans title, cyan eyebrow, cyan-soft stats card with
   accent border.
 - Area tabs: surface default, cyan-soft active with accent shadow.
@@ -363,7 +363,7 @@ unified radius/spacing scale.
 - Topic buttons: surface default, cyan-soft active.
 - Question rows: surface default, cyan-soft active, mono small meta.
 - Difficulty/answer tabs: pill-shaped, cyan-soft active.
-- Answer body: `--cs-bg-elevated` background, monospace code in
+- Answer body: `--xo-bg-elevated` background, monospace code in
   cyan-bright.
 - Tag list: cyan-soft pills with accent border (matches question-card
   tag styling).
@@ -378,10 +378,10 @@ unified radius/spacing scale.
 - Topic-wise-v2 docs area also clean — no blue/indigo refs.
 
 ### Visual consistency check
-Every CoreStack page now shares:
-- Cyan accent (`--cs-accent: #22d3ee`)
+Every Xora page now shares:
+- Cyan accent (`--xo-accent: #22d3ee`)
 - Geist Sans display + body, JetBrains Mono for labels/meta
-- Same radius scale (`--cs-radius-sm/md/lg/pill`)
+- Same radius scale (`--xo-radius-sm/md/lg/pill`)
 - Same surface/border tokens
 - Same entrance animation pattern (`cs-rise` where applicable)
 - Same hover language (surface-hover bg + border-strong)
@@ -401,7 +401,7 @@ calls Z.ai's GLM-4.6 model.
 
 ### Architecture
 ```
-Angular frontend (CoreStack)
+Angular frontend (Xora)
    │
    ├── POST /api/ai/mock-interview/start
    ├── POST /api/ai/mock-interview/answer
@@ -428,10 +428,10 @@ Z.ai GLM-4.6
 - `ai-proxy/server.js` — 5 endpoints + health check, lazy ZAI client
 - `ai-proxy/prompts.js` — system prompts per endpoint (engineered to
   return pure JSON)
-- `ai-proxy/.env.example` — ZAI_API_KEY, PORT, CORESTACK_API_URL
+- `ai-proxy/.env.example` — ZAI_API_KEY, PORT, XORA_API_URL
 - `ai-proxy/README.md` — setup, deploy, and integration docs
 
-**Angular frontend (paste into corestack-frontend):**
+**Angular frontend (paste into xora-frontend):**
 - `src/app/home/interview/ai-prep/ai-prep.models.ts` — TypeScript
   interfaces matching the proxy's JSON contract + option lists
 - `src/app/home/interview/ai-prep/ai-prep.service.ts` — HTTP client
@@ -469,9 +469,9 @@ Z.ai GLM-4.6
 
 2. **Start the Angular frontend** (as usual):
    ```bash
-   cd corestack-frontend
+   cd xora-frontend
    npm start
-   # Visit http://localhost:4200/corestack/interview
+   # Visit http://localhost:4200/xora/interview
    # Click the "AI Prep" tab
    ```
 
@@ -496,8 +496,8 @@ All 5 proxy endpoints tested end-to-end with real GLM-4.6 calls:
   JPA N+1 problem)
 
 ### Design system
-All AI Prep components use the same `--cs-*` tokens as the rest of
-CoreStack — cyan accent, Geist Sans, JetBrains Mono for labels/meta,
+All AI Prep components use the same `--xo-*` tokens as the rest of
+Xora — cyan accent, Geist Sans, JetBrains Mono for labels/meta,
 refined glass surfaces. Visually consistent with the existing
 interview workspace.
 

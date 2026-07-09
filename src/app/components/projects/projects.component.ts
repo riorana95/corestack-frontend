@@ -25,7 +25,7 @@ gsap.registerPlugin(ScrollTrigger);
     <section id="projects" class="proj" #proj>
       <div class="container proj__head">
         <header class="section-head">
-          <span class="label">04 — CoreStack</span>
+          <span class="label">04 — Xora</span>
           <h2 class="section-head__title display">
             Selected <em class="serif-italic text-accent">work</em> — scroll horizontally.
           </h2>
@@ -72,10 +72,10 @@ gsap.registerPlugin(ScrollTrigger);
                       <span class="chip">{{ tech }}</span>
                     }
                   </div>
-                  @if (project.title === 'CoreStack') {
+                  @if (project.title === 'Xora') {
                     <button
                       class="proj__view-live"
-                      (click)="enterCoreStack($event)"
+                      (click)="enterXora($event)"
                       data-cursor="hover"
                       data-cursor-label="Enter"
                     >
@@ -125,14 +125,14 @@ export class ProjectsComponent {
   private readonly progressFillRef = viewChild<ElementRef<HTMLElement>>('progressFill');
 
   /**
-   * "View live" CTA on the CoreStack project card. Stops propagation so
+   * "View live" CTA on the Xora project card. Stops propagation so
    * the click doesn't bubble into the card's tilt/scroll handlers, then
-   * hands off to `/corestack` (auth-guarded — unauthenticated users
+   * hands off to `/xora` (auth-guarded — unauthenticated users
    * will be bounced to login with returnUrl set).
    */
-  enterCoreStack(event: Event): void {
+  enterXora(event: Event): void {
     event.stopPropagation();
-    this.router.navigate(['/corestack']);
+    this.router.navigate(['/xora']);
   }
 
   constructor() {

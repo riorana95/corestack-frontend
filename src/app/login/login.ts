@@ -65,17 +65,17 @@ export class Login implements OnInit, AfterViewInit {
    * Where to send the user after a successful auth.
    *
    * Prefers a `?returnUrl=` query param (set by `authGuard` when a deep
-   * link was hit unauthenticated); otherwise defaults to the CoreStack
+   * link was hit unauthenticated); otherwise defaults to the Xora
    * dashboard. Strips leading slashes defensively so a crafted
    * `?returnUrl=//evil.com` cannot perform an open redirect.
    */
   private resolveReturnUrl(): string {
     const raw = this.route.snapshot.queryParamMap.get('returnUrl');
     if (!raw) {
-      return '/corestack';
+      return '/xora';
     }
     const safe = raw.replace(/^\/+/, '/');
-    return safe.startsWith('/') ? safe : '/corestack';
+    return safe.startsWith('/') ? safe : '/xora';
   }
 
   private initGoogleButton(retryCount = 0): void {

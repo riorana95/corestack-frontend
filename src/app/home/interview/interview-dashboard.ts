@@ -12,15 +12,15 @@ export class InterviewDashboard {
   constructor(private routes : Router){}
 
   /**
-   * Navigate to a CoreStack product sub-route from the interview
+   * Navigate to a Xora product sub-route from the interview
    * dashboard. Same prefix logic as `Home.routeTo` — keeps the
    * template path-agnostic while routing everything under
-   * `/corestack/*`. Optionally carries a `view` query param used
+   * `/xora/*`. Optionally carries a `view` query param used
    * by the interview workspace to switch between 'companies' and
    * 'explorer' modes.
    */
   routeTo(path: string, view?: 'companies' | 'explorer') {
-    this.routes.navigate(['/corestack', ...path.split('/')], {
+    this.routes.navigate(['/xora', ...path.split('/')], {
       queryParams: view ? { view } : undefined
     })
   }

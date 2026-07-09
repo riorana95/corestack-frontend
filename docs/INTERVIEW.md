@@ -65,7 +65,7 @@ These files support local section/company views and can be replaced or expanded 
 ## Related Backend Docs
 
 ```text
-../../corestack-backend/docs/INTERVIEW.md
+../../xora-backend/docs/INTERVIEW.md
 ```
 
 ## Notes

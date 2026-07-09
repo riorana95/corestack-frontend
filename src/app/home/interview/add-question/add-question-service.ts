@@ -1,25 +1,28 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 
-@Injectable({
-  providedIn: 'root',
-})
+/**
+ * AddQuestionService — used by the Add Question modal to create new
+ * questions and companies in the Interview Prep backend.
+ *
+ * Routes through `/api/v1/interview`. Errors are surfaced globally by the
+ * httpErrorInterceptor + ToastService.
+ */
+@Injectable({ providedIn: 'root' })
 export class AddQuestionService {
+  private readonly apiUrl = `${environment.apiUrl}/api/v1/interview`;
+  private readonly http = inject(HttpClient);
 
-  private apiUrl = environment.apiUrl;
-
-  constructor(private http: HttpClient) {}
-
-  addQuestion(data: any) {
-    return this.http.post(`${this.apiUrl}/question`, data);
+  addQuestion(data: unknown) {
+    return this.http.post(`${this.apiUrl}/questions`, data);
   }
 
-  addCompnay(data: object){
-    return this.http.post(`${this.apiUrl}/company/add`, data)
+  addCompany(data: unknown) {
+    return this.http.post(`${this.apiUrl}/companies`, data);
   }
 
-  UpdateQuestion(data: any) {
-    return this.http.put(`${this.apiUrl}/question/${data.id}`, data);
+  updateQuestion(id: number | string, data: unknown) {
+    return this.http.put(`${this.apiUrl}/questions/${id}`, data);
   }
 }

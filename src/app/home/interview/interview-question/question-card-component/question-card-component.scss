@@ -1,5 +1,5 @@
 /* =========================================================
-   CORESTACK — QUESTION CARD
+   XORA — QUESTION CARD
    Expandable Q&A card. Most-shown element in the workspace.
    Premium polish: refined border, accent hover bar, smooth
    expand, better code block.
@@ -7,16 +7,16 @@
 
 .question-card {
   position: relative;
-  border-radius: var(--cs-radius-md);
+  border-radius: var(--xo-radius-md);
   overflow: hidden;
 
-  background: var(--cs-surface);
-  border: 1px solid var(--cs-border);
+  background: var(--xo-surface);
+  border: 1px solid var(--xo-border);
 
   transition:
-    border-color var(--cs-dur) var(--cs-ease),
-    background var(--cs-dur) var(--cs-ease),
-    box-shadow var(--cs-dur) var(--cs-ease);
+    border-color var(--xo-dur) var(--xo-ease),
+    background var(--xo-dur) var(--xo-ease),
+    box-shadow var(--xo-dur) var(--xo-ease);
 }
 
 /* Left accent bar on hover — Linear-style */
@@ -27,14 +27,14 @@
   top: 0;
   bottom: 0;
   width: 2px;
-  background: var(--cs-accent);
+  background: var(--xo-accent);
   opacity: 0;
-  transition: opacity var(--cs-dur) var(--cs-ease);
+  transition: opacity var(--xo-dur) var(--xo-ease);
 }
 
 .question-card:hover {
-  border-color: var(--cs-border-strong);
-  background: var(--cs-surface-hover);
+  border-color: var(--xo-border-strong);
+  background: var(--xo-surface-hover);
 }
 
 .question-card:hover::before,
@@ -53,10 +53,10 @@
 
   font-size: 14px;
   font-weight: 500;
-  color: var(--cs-ink);
+  color: var(--xo-ink);
   line-height: 1.5;
 
-  transition: color var(--cs-dur) var(--cs-ease);
+  transition: color var(--xo-dur) var(--xo-ease);
 }
 
 .question-text {
@@ -66,8 +66,8 @@
 .question-text > span:first-child {
   display: inline-block;
   min-width: 22px;
-  color: var(--cs-ink-faint);
-  font-family: var(--cs-font-mono);
+  color: var(--xo-ink-faint);
+  font-family: var(--xo-font-mono);
   font-size: 12px;
   margin-right: 4px;
 }
@@ -95,34 +95,34 @@ summary::-webkit-details-marker {
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: var(--cs-surface-hover);
-  color: var(--cs-ink-muted);
+  background: var(--xo-surface-hover);
+  color: var(--xo-ink-muted);
   font-size: 16px;
   font-weight: 300;
   line-height: 1;
-  transition: all var(--cs-dur) var(--cs-ease);
+  transition: all var(--xo-dur) var(--xo-ease);
 }
 
 .question-card:hover .icon {
-  background: var(--cs-accent-soft);
-  color: var(--cs-accent);
+  background: var(--xo-accent-soft);
+  color: var(--xo-accent);
 }
 
 details[open] .icon {
   transform: rotate(45deg);
-  background: var(--cs-accent);
-  color: var(--cs-bg);
+  background: var(--xo-accent);
+  color: var(--xo-bg);
 }
 
 /* ---------- ANSWER BLOCK ---------- */
 .answer-block {
   padding: 18px;
-  border-top: 1px solid var(--cs-border);
-  background: var(--cs-bg-elevated);
-  animation: cs-q-fade 0.3s var(--cs-ease-out);
+  border-top: 1px solid var(--xo-border);
+  background: var(--xo-bg-elevated);
+  animation: xo-q-fade 0.3s var(--xo-ease-out);
 }
 
-@keyframes cs-q-fade {
+@keyframes xo-q-fade {
   from {
     opacity: 0;
     transform: translateY(-4px);
@@ -136,7 +136,7 @@ details[open] .icon {
 /* ---------- TEXT ---------- */
 .answer-text {
   margin-bottom: 14px;
-  color: var(--cs-ink-soft);
+  color: var(--xo-ink-soft);
   line-height: 1.65;
   font-size: 14px;
 }
@@ -145,7 +145,7 @@ details[open] .icon {
   margin: 0;
   font-size: 14px;
   font-weight: 600;
-  color: var(--cs-ink);
+  color: var(--xo-ink);
 }
 
 /* ---------- RICH CONTENT (Quill HTML) ----------
@@ -154,7 +154,7 @@ details[open] .icon {
    which causes inconsistent indentation for lists, paragraphs,
    and headings. This normalizes the most common elements. */
 .rich-content {
-  color: var(--cs-ink-soft);
+  color: var(--xo-ink-soft);
   font-size: 14px;
   line-height: 1.65;
 
@@ -168,9 +168,9 @@ details[open] .icon {
 
   h3, h4 {
     margin: 16px 0 8px;
-    font-family: var(--cs-font-display);
+    font-family: var(--xo-font-display);
     font-weight: 600;
-    color: var(--cs-ink);
+    color: var(--xo-ink);
   }
 
   h3 { font-size: 16px; }
@@ -192,33 +192,33 @@ details[open] .icon {
   }
 
   strong {
-    color: var(--cs-ink);
+    color: var(--xo-ink);
     font-weight: 600;
   }
 
   em {
-    color: var(--cs-ink-soft);
+    color: var(--xo-ink-soft);
   }
 
   code {
-    font-family: var(--cs-font-mono);
+    font-family: var(--xo-font-mono);
     font-size: 13px;
-    background: var(--cs-surface-hover);
+    background: var(--xo-surface-hover);
     padding: 2px 6px;
-    border-radius: var(--cs-radius-sm);
-    color: var(--cs-accent-bright);
+    border-radius: var(--xo-radius-sm);
+    color: var(--xo-accent-bright);
   }
 
   pre {
     margin: 12px 0;
     padding: 14px;
-    background: var(--cs-bg);
-    border: 1px solid var(--cs-border);
-    border-radius: var(--cs-radius-sm);
+    background: var(--xo-bg);
+    border: 1px solid var(--xo-border);
+    border-radius: var(--xo-radius-sm);
     overflow-x: auto;
-    font-family: var(--cs-font-mono);
+    font-family: var(--xo-font-mono);
     font-size: 13px;
-    color: var(--cs-ink-soft);
+    color: var(--xo-ink-soft);
     line-height: 1.6;
   }
 
@@ -231,9 +231,9 @@ details[open] .icon {
   blockquote {
     margin: 12px 0;
     padding: 8px 16px;
-    border-left: 3px solid var(--cs-accent);
-    background: var(--cs-surface);
-    color: var(--cs-ink-muted);
+    border-left: 3px solid var(--xo-accent);
+    background: var(--xo-surface);
+    color: var(--xo-ink-muted);
     font-style: italic;
   }
 }
@@ -246,7 +246,7 @@ details[open] .icon {
 
 .answer-list li {
   margin-bottom: 8px;
-  color: var(--cs-ink-soft);
+  color: var(--xo-ink-soft);
   line-height: 1.55;
   font-size: 14px;
 }
@@ -255,8 +255,8 @@ details[open] .icon {
 .answer-table {
   margin: 14px 0;
   overflow-x: auto;
-  border-radius: var(--cs-radius-sm);
-  border: 1px solid var(--cs-border);
+  border-radius: var(--xo-radius-sm);
+  border: 1px solid var(--xo-border);
 }
 
 .answer-table table {
@@ -269,22 +269,22 @@ details[open] .icon {
 .answer-table th,
 .answer-table td {
   padding: 10px 14px;
-  border-bottom: 1px solid var(--cs-border);
+  border-bottom: 1px solid var(--xo-border);
   text-align: left;
 }
 
 .answer-table th {
-  background: var(--cs-surface-hover);
+  background: var(--xo-surface-hover);
   font-weight: 600;
-  color: var(--cs-ink);
-  font-family: var(--cs-font-mono);
+  color: var(--xo-ink);
+  font-family: var(--xo-font-mono);
   font-size: 11px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
 .answer-table td {
-  color: var(--cs-ink-soft);
+  color: var(--xo-ink-soft);
 }
 
 .answer-table tr:last-child td {
@@ -297,13 +297,13 @@ details[open] .icon {
 }
 
 .answer-code pre {
-  background: var(--cs-bg);
-  border: 1px solid var(--cs-border);
-  border-radius: var(--cs-radius-sm);
+  background: var(--xo-bg);
+  border: 1px solid var(--xo-border);
+  border-radius: var(--xo-radius-sm);
   padding: 16px;
   overflow-x: auto;
-  color: var(--cs-ink-soft);
-  font-family: var(--cs-font-mono);
+  color: var(--xo-ink-soft);
+  font-family: var(--xo-font-mono);
   font-size: 13px;
   line-height: 1.6;
 }
@@ -314,15 +314,15 @@ details[open] .icon {
   border: none;
   cursor: pointer;
   font-size: 14px;
-  color: var(--cs-ink-muted);
+  color: var(--xo-ink-muted);
   padding: 4px;
-  border-radius: var(--cs-radius-sm);
-  transition: all var(--cs-dur) var(--cs-ease);
+  border-radius: var(--xo-radius-sm);
+  transition: all var(--xo-dur) var(--xo-ease);
 }
 
 .edit-btn:hover {
-  background: var(--cs-surface-hover);
-  color: var(--cs-ink);
+  background: var(--xo-surface-hover);
+  color: var(--xo-ink);
 }
 
 /* ---------- COPY BUTTON ---------- */
@@ -336,21 +336,21 @@ details[open] .icon {
   right: 10px;
   padding: 5px 10px;
   font-size: 11px;
-  font-family: var(--cs-font-mono);
+  font-family: var(--xo-font-mono);
   letter-spacing: 0.04em;
-  border-radius: var(--cs-radius-sm);
-  border: 1px solid var(--cs-border);
-  background: var(--cs-glass);
-  color: var(--cs-ink-soft);
+  border-radius: var(--xo-radius-sm);
+  border: 1px solid var(--xo-border);
+  background: var(--xo-glass);
+  color: var(--xo-ink-soft);
   backdrop-filter: blur(8px);
   cursor: pointer;
-  transition: all var(--cs-dur) var(--cs-ease);
+  transition: all var(--xo-dur) var(--xo-ease);
 }
 
 .copy-btn:hover {
-  background: var(--cs-accent-soft);
-  border-color: var(--cs-border-accent);
-  color: var(--cs-accent-bright);
+  background: var(--xo-accent-soft);
+  border-color: var(--xo-border-accent);
+  color: var(--xo-accent-bright);
 }
 
 /* ---------- MOBILE ---------- */

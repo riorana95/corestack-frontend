@@ -19,9 +19,9 @@ import { InterviewVault } from './home/interview/interview-vault/interview-vault
  *   /                        → PortfolioLayout  (public, cinematic)
  *     └── ''                  → Portfolio page (hero/about/experience/…)
  *
- *   /corestack              → AuthLayout / CoreStackLayout (auth-gated)
+ *   /xora              → AuthLayout / XoraLayout (auth-gated)
  *     ├── login              → AuthLayout → Login page (no navbar)
- *     └── (everything else)  → CoreStackLayout → product child routes
+ *     └── (everything else)  → XoraLayout → product child routes
  *         ├── ''               → Home (product dashboard cards)
  *         ├── interview-dashboard
  *         ├── interview
@@ -31,9 +31,9 @@ import { InterviewVault } from './home/interview/interview-vault/interview-vault
  *         ├── docs             → lazy-loaded topic-wise-v2 routes
  *         └── splitwise
  *
- * The portfolio is fully public. Only `/corestack/*` (excluding login)
+ * The portfolio is fully public. Only `/xora/*` (excluding login)
  * is guarded — unauthenticated users get redirected to
- * `/corestack/login?returnUrl=…` so deep links survive the auth flow.
+ * `/xora/login?returnUrl=…` so deep links survive the auth flow.
  *
  * `**` falls back to the portfolio so unknown URLs don't 404 the SPA.
  */
@@ -54,9 +54,9 @@ export const routes: Routes = [
     ],
   },
 
-  // ---------- Authenticated CoreStack surface ----------
+  // ---------- Authenticated Xora surface ----------
   {
-    path: 'corestack',
+    path: 'xora',
     children: [
       // Login: own minimal layout (no navbar), no auth guard
       {
@@ -68,13 +68,13 @@ export const routes: Routes = [
         ],
       },
 
-      // Everything else under /corestack: guarded, CoreStack chrome
+      // Everything else under /xora: guarded, Xora chrome
       {
         path: '',
         canActivate: [authGuard],
         loadComponent: () =>
-          import('./layouts/corestack-layout/corestack-layout').then(
-            (m) => m.CoreStackLayout,
+          import('./layouts/xora-layout/xora-layout').then(
+            (m) => m.XoraLayout,
           ),
         children: [
           { path: '', component: Home },

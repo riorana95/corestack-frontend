@@ -54,9 +54,9 @@ export class SectionFilter implements OnInit {
     })
   }
 
-  filterQuestions(currentPage? : Number, pageSize?: Number) {
-    // this.loaderService.display(true);    
-    let reqBody = {
+  filterQuestions(currentPage? : number, pageSize?: number) {
+    // this.loaderService.display(true);
+    const reqBody = {
       companyName : this.selectedCompany === "All"?"":this.selectedCompany,
       tag : this.selectedTag === "All"?"":this.selectedTag,
       sortBy: this.sortBy,
@@ -76,11 +76,9 @@ export class SectionFilter implements OnInit {
           }
           // this.loaderService.display(false);
           this.questionSet.emit(res);
-          console.log('Filtered Questions:', res);
         },
-        (error:any) => {
-          // this.loaderService.display(false);
-          console.error('Error fetching questions:', error);
+        () => {
+          // Errors are surfaced globally by httpErrorInterceptor + ToastService.
         }
       );
   }

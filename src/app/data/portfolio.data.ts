@@ -95,7 +95,7 @@ export const EXPERIENCE: ExperienceItem[] = [
 export const PROJECTS: ProjectItem[] = [
   {
     index: '01',
-    title: 'CoreStack',
+    title: 'Xora',
     tagline: 'Multi-Product Full-Stack Platform',
     description:
       'A modular full-stack platform hosting multiple technical products with shared authentication, reusable frontend architecture, REST APIs, and PostgreSQL persistence.',

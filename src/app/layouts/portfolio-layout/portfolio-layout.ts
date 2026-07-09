@@ -13,7 +13,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { LoaderComponent } from '../../components/loader/loader.component';
 import { CustomCursorComponent } from '../../components/custom-cursor/custom-cursor.component';
 import { NavigationComponent } from '../../components/navigation/navigation.component';
-import { FloatingCorestackCta } from '../../shared/components/floating-corestack-cta/floating-corestack-cta';
+import { FloatingXoraCta } from '../../shared/components/floating-xora-cta/floating-xora-cta';
 import { SmoothScrollService } from '../../services/smooth-scroll.service';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -23,7 +23,7 @@ gsap.registerPlugin(ScrollTrigger);
  *
  * Owns the cinematic surface chrome — intro loader, custom cursor, ambient
  * gradient layers, film grain, the portfolio's `NavigationComponent`, and
- * the floating "Enter CoreStack" CTA. Child routes render into the inner
+ * the floating "Enter Xora" CTA. Child routes render into the inner
  * `<router-outlet>` (currently just the `Portfolio` page, but structured
  * this way so future public routes like `/contact` or `/blog` can sit
  * alongside it).
@@ -39,7 +39,7 @@ gsap.registerPlugin(ScrollTrigger);
     LoaderComponent,
     CustomCursorComponent,
     NavigationComponent,
-    FloatingCorestackCta,
+    FloatingXoraCta,
   ],
   templateUrl: './portfolio-layout.html',
   styleUrl: './portfolio-layout.scss',

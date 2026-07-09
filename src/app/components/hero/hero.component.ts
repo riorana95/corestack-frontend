@@ -67,11 +67,11 @@ gsap.registerPlugin(ScrollTrigger);
           </button>
           <button
             class="btn btn--ghost"
-            (click)="enterCoreStack()"
+            (click)="enterXora()"
             data-cursor="hover"
             data-cursor-label="Enter"
           >
-            <span>Enter CoreStack</span>
+            <span>Enter Xora</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M5 12h14M13 5l7 7-7 7" />
             </svg>
@@ -124,14 +124,14 @@ export class HeroComponent {
   private readonly cueRef = viewChild<ElementRef<HTMLElement>>('cue');
 
   /**
-   * Hand off from the public portfolio into the protected CoreStack
+   * Hand off from the public portfolio into the protected Xora
    * surface. If the user is already authenticated they'll land on the
    * dashboard; otherwise `authGuard` will bounce them to login and
-   * preserve `/corestack` as the `returnUrl` so they flow straight
+   * preserve `/xora` as the `returnUrl` so they flow straight
    * back after signing in.
    */
-  enterCoreStack(): void {
-    this.router.navigate(['/corestack']);
+  enterXora(): void {
+    this.router.navigate(['/xora']);
   }
 
   constructor() {

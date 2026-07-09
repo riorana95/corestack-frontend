@@ -1,5 +1,5 @@
 /* =========================================================
-   CORESTACK — ANSWER COACH
+   XORA — ANSWER COACH
    Two-column layout: input on the left, AI feedback on the right.
    ========================================================= */
 
@@ -7,22 +7,22 @@
   display: block;
 }
 
-.cs-coach {
+.xo-coach {
   display: flex;
   flex-direction: column;
   gap: 18px;
 }
 
-.cs-coach__error {
+.xo-coach__error {
   padding: 12px 16px;
-  border-radius: var(--cs-radius-md);
+  border-radius: var(--xo-radius-md);
   background: rgba(248, 113, 113, 0.1);
   border: 1px solid rgba(248, 113, 113, 0.3);
   color: #fca5a5;
   font-size: 13px;
 }
 
-.cs-coach__grid {
+.xo-coach__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 18px;
@@ -30,35 +30,35 @@
 }
 
 /* ---------- SECTIONS ---------- */
-.cs-coach__input,
-.cs-coach__result {
+.xo-coach__input,
+.xo-coach__result {
   padding: 22px;
-  border-radius: var(--cs-radius-lg);
-  background: var(--cs-surface);
-  border: 1px solid var(--cs-border);
+  border-radius: var(--xo-radius-lg);
+  background: var(--xo-surface);
+  border: 1px solid var(--xo-border);
   min-height: 480px;
 }
 
-.cs-coach__section-title {
+.xo-coach__section-title {
   margin: 0 0 18px;
-  font-family: var(--cs-font-display);
+  font-family: var(--xo-font-display);
   font-size: 16px;
   font-weight: 600;
-  color: var(--cs-ink);
+  color: var(--xo-ink);
 }
 
 /* ---------- FIELDS ---------- */
-.cs-coach__field {
+.xo-coach__field {
   display: flex;
   flex-direction: column;
   gap: 6px;
   margin-bottom: 14px;
 
   label {
-    font-family: var(--cs-font-mono);
+    font-family: var(--xo-font-mono);
     font-size: 11px;
     font-weight: 500;
-    color: var(--cs-ink-muted);
+    color: var(--xo-ink-muted);
     text-transform: uppercase;
     letter-spacing: 0.1em;
   }
@@ -66,59 +66,59 @@
   textarea {
     width: 100%;
     padding: 11px 13px;
-    border: 1px solid var(--cs-border);
-    border-radius: var(--cs-radius-md);
-    background: var(--cs-bg-elevated);
-    color: var(--cs-ink);
-    font-family: var(--cs-font-sans);
+    border: 1px solid var(--xo-border);
+    border-radius: var(--xo-radius-md);
+    background: var(--xo-bg-elevated);
+    color: var(--xo-ink);
+    font-family: var(--xo-font-sans);
     font-size: 13px;
     line-height: 1.55;
     resize: vertical;
     outline: none;
-    transition: border-color var(--cs-dur-fast) var(--cs-ease),
-                box-shadow var(--cs-dur-fast) var(--cs-ease);
+    transition: border-color var(--xo-dur-fast) var(--xo-ease),
+                box-shadow var(--xo-dur-fast) var(--xo-ease);
 
     &::placeholder {
-      color: var(--cs-ink-faint);
+      color: var(--xo-ink-faint);
     }
 
     &:focus {
-      border-color: var(--cs-accent);
-      box-shadow: 0 0 0 2px var(--cs-accent-soft);
+      border-color: var(--xo-accent);
+      box-shadow: 0 0 0 2px var(--xo-accent-soft);
     }
   }
 }
 
 /* ---------- SEGMENTED ---------- */
-.cs-coach__seg {
+.xo-coach__seg {
   display: flex;
   gap: 4px;
   padding: 4px;
-  border-radius: var(--cs-radius-md);
-  background: var(--cs-bg-elevated);
-  border: 1px solid var(--cs-border);
+  border-radius: var(--xo-radius-md);
+  background: var(--xo-bg-elevated);
+  border: 1px solid var(--xo-border);
 
   button {
     flex: 1;
     padding: 7px 12px;
     border: none;
-    border-radius: var(--cs-radius-sm);
+    border-radius: var(--xo-radius-sm);
     background: transparent;
-    color: var(--cs-ink-muted);
-    font-family: var(--cs-font-sans);
+    color: var(--xo-ink-muted);
+    font-family: var(--xo-font-sans);
     font-size: 12px;
     font-weight: 500;
     cursor: pointer;
-    transition: all var(--cs-dur-fast) var(--cs-ease);
+    transition: all var(--xo-dur-fast) var(--xo-ease);
     text-transform: capitalize;
 
     &:hover:not(:disabled) {
-      color: var(--cs-ink-soft);
+      color: var(--xo-ink-soft);
     }
 
     &.is-active {
-      background: var(--cs-accent-soft);
-      color: var(--cs-accent-bright);
+      background: var(--xo-accent-soft);
+      color: var(--xo-accent-bright);
     }
 
     &:disabled {
@@ -129,26 +129,26 @@
 }
 
 /* ---------- ACTIONS ---------- */
-.cs-coach__actions {
+.xo-coach__actions {
   display: flex;
   gap: 10px;
   margin-top: 6px;
 }
 
-.cs-coach__eval {
+.xo-coach__eval {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   padding: 10px 18px;
   border: none;
-  border-radius: var(--cs-radius-md);
-  background: linear-gradient(135deg, var(--cs-accent), var(--cs-accent-deep));
-  color: var(--cs-bg);
-  font-family: var(--cs-font-sans);
+  border-radius: var(--xo-radius-md);
+  background: linear-gradient(135deg, var(--xo-accent), var(--xo-accent-deep));
+  color: var(--xo-bg);
+  font-family: var(--xo-font-sans);
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  transition: all var(--cs-dur) var(--cs-ease);
+  transition: all var(--xo-dur) var(--xo-ease);
 
   svg {
     width: 14px;
@@ -157,7 +157,7 @@
 
   &:hover:not(:disabled) {
     transform: translateY(-1px);
-    box-shadow: var(--cs-shadow-accent);
+    box-shadow: var(--xo-shadow-accent);
   }
 
   &:disabled {
@@ -166,22 +166,22 @@
   }
 }
 
-.cs-coach__reset {
+.xo-coach__reset {
   padding: 10px 16px;
-  border: 1px solid var(--cs-border);
-  border-radius: var(--cs-radius-md);
+  border: 1px solid var(--xo-border);
+  border-radius: var(--xo-radius-md);
   background: transparent;
-  color: var(--cs-ink-muted);
-  font-family: var(--cs-font-sans);
+  color: var(--xo-ink-muted);
+  font-family: var(--xo-font-sans);
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
-  transition: all var(--cs-dur-fast) var(--cs-ease);
+  transition: all var(--xo-dur-fast) var(--xo-ease);
 
   &:hover:not(:disabled) {
-    background: var(--cs-surface-hover);
-    border-color: var(--cs-border-strong);
-    color: var(--cs-ink);
+    background: var(--xo-surface-hover);
+    border-color: var(--xo-border-strong);
+    color: var(--xo-ink);
   }
 
   &:disabled {
@@ -191,7 +191,7 @@
 }
 
 /* ---------- EMPTY STATE ---------- */
-.cs-coach__empty {
+.xo-coach__empty {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -203,29 +203,29 @@
 
   h3 {
     margin: 8px 0 0;
-    font-family: var(--cs-font-display);
+    font-family: var(--xo-font-display);
     font-size: 16px;
     font-weight: 600;
-    color: var(--cs-ink);
+    color: var(--xo-ink);
   }
 
   p {
     margin: 0;
     font-size: 13px;
-    color: var(--cs-ink-muted);
+    color: var(--xo-ink-muted);
     max-width: 280px;
     line-height: 1.5;
   }
 }
 
-.cs-coach__empty-icon {
+.xo-coach__empty-icon {
   font-size: 32px;
-  color: var(--cs-ink-faint);
+  color: var(--xo-ink-faint);
   opacity: 0.5;
 }
 
 /* ---------- LOADING ---------- */
-.cs-coach__loading {
+.xo-coach__loading {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -236,73 +236,73 @@
 
   p {
     font-size: 13px;
-    color: var(--cs-ink-muted);
+    color: var(--xo-ink-muted);
   }
 }
 
-.cs-coach__spinner {
+.xo-coach__spinner {
   width: 32px;
   height: 32px;
-  border: 2px solid var(--cs-border);
-  border-top-color: var(--cs-accent);
+  border: 2px solid var(--xo-border);
+  border-top-color: var(--xo-accent);
   border-radius: 50%;
-  animation: cs-coach-spin 0.8s linear infinite;
+  animation: xo-coach-spin 0.8s linear infinite;
 }
 
-@keyframes cs-coach-spin {
+@keyframes xo-coach-spin {
   to { transform: rotate(360deg); }
 }
 
 /* ---------- EVALUATION RESULT ---------- */
-.cs-coach__eval {
+.xo-coach__eval {
   display: flex;
   flex-direction: column;
   gap: 14px;
 }
 
-.cs-coach__eval-header {
+.xo-coach__eval-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding-bottom: 12px;
-  border-bottom: 1px solid var(--cs-border);
+  border-bottom: 1px solid var(--xo-border);
 }
 
-.cs-coach__eval-title {
-  font-family: var(--cs-font-display);
+.xo-coach__eval-title {
+  font-family: var(--xo-font-display);
   font-size: 15px;
   font-weight: 600;
-  color: var(--cs-ink);
+  color: var(--xo-ink);
 }
 
-.cs-coach__eval-score {
-  font-family: var(--cs-font-mono);
+.xo-coach__eval-score {
+  font-family: var(--xo-font-mono);
   font-size: 22px;
   font-weight: 600;
 
   small {
     font-size: 12px;
-    color: var(--cs-ink-muted);
+    color: var(--xo-ink-muted);
   }
 }
 
-.score--high { color: var(--cs-success); }
-.score--mid { color: var(--cs-warning); }
+.score--high { color: var(--xo-success); }
+.score--mid { color: var(--xo-warning); }
 .score--low { color: #f87171; }
 
 /* ---------- FEEDBACK ROWS ---------- */
-.cs-coach__feedback {
+.xo-coach__feedback {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.cs-coach__fb-row {
+.xo-coach__fb-row {
   display: grid;
   grid-template-columns: 80px 1fr;
   gap: 12px;
   padding: 10px 0;
-  border-bottom: 1px solid var(--cs-border);
+  border-bottom: 1px solid var(--xo-border);
 
   &:last-child {
     border-bottom: none;
@@ -310,49 +310,49 @@
 
   span:last-child {
     font-size: 13px;
-    color: var(--cs-ink-soft);
+    color: var(--xo-ink-soft);
     line-height: 1.55;
   }
 }
 
-.cs-coach__fb-label {
-  font-family: var(--cs-font-mono);
+.xo-coach__fb-label {
+  font-family: var(--xo-font-mono);
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
-.cs-coach__fb-label--accent {
-  color: var(--cs-accent);
+.xo-coach__fb-label--accent {
+  color: var(--xo-accent);
 }
 
-.cs-coach__fb--good .cs-coach__fb-label { color: var(--cs-success); }
-.cs-coach__fb--missing .cs-coach__fb-label { color: var(--cs-warning); }
-.cs-coach__fb--wrong .cs-coach__fb-label { color: #f87171; }
+.xo-coach__fb--good .xo-coach__fb-label { color: var(--xo-success); }
+.xo-coach__fb--missing .xo-coach__fb-label { color: var(--xo-warning); }
+.xo-coach__fb--wrong .xo-coach__fb-label { color: #f87171; }
 
 /* ---------- IDEAL + TIP ---------- */
-.cs-coach__ideal,
-.cs-coach__tip {
+.xo-coach__ideal,
+.xo-coach__tip {
   display: flex;
   flex-direction: column;
   gap: 6px;
   padding: 12px;
-  border-radius: var(--cs-radius-sm);
-  background: var(--cs-bg-elevated);
-  border-left: 3px solid var(--cs-accent);
+  border-radius: var(--xo-radius-sm);
+  background: var(--xo-bg-elevated);
+  border-left: 3px solid var(--xo-accent);
 
   p {
     margin: 0;
     font-size: 13px;
-    color: var(--cs-ink-soft);
+    color: var(--xo-ink-soft);
     line-height: 1.6;
   }
 }
 
 /* ---------- MOBILE ---------- */
 @media (max-width: 900px) {
-  .cs-coach__grid {
+  .xo-coach__grid {
     grid-template-columns: 1fr;
   }
 }

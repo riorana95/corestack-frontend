@@ -94,7 +94,7 @@ close() {
   save() {
     if(this.receivedData){
       if(this.receivedData.isEditMode){
-      this.addService.UpdateQuestion(this.newQuestion).subscribe((res:any) => {
+      this.addService.updateQuestion(this.newQuestion.id, this.newQuestion).subscribe((res:any) => {
         this.questionAdded.emit(res);
         this.close();
       });
@@ -106,7 +106,7 @@ close() {
       }
     }else{
       this.newCompanyReq.date = formatDate(this.newCompanyReq.date, 'dd-MM-yyyy', 'en-US');
-      this.addService.addCompnay(this.newCompanyReq).subscribe((res:any)=>{
+      this.addService.addCompany(this.newCompanyReq).subscribe((res:any)=>{
         this.close();
       })
     }

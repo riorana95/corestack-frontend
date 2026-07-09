@@ -19,7 +19,7 @@ interface JwtPayload {
  * Note: this does NOT validate the signature — it only checks the
  * expiry claim. The backend is still the source of truth for auth;
  * this is purely a client-side UX optimization to avoid the
- * "load /corestack → 401 → logout → land on portfolio" loop that
+ * "load /xora → 401 → logout → land on portfolio" loop that
  * otherwise happens when a stale token lingers in localStorage.
  */
 function isTokenStillValid(token: string): boolean {
@@ -38,10 +38,10 @@ function isTokenStillValid(token: string): boolean {
 }
 
 /**
- * Guards every `/corestack/*` route (except `/corestack/login`).
+ * Guards every `/xora/*` route (except `/xora/login`).
  *
  * Behaviour:
- * 1. No token at all → redirect to `/corestack/login` with `returnUrl`.
+ * 1. No token at all → redirect to `/xora/login` with `returnUrl`.
  * 2. Token present but expired (per JWT `exp` claim) → proactively
  *    clear the stale session and redirect to login. This prevents the
  *    "lands on portfolio" loop where a stale token passes the guard,
@@ -59,7 +59,7 @@ export const authGuard: CanActivateFn = (_route, state: RouterStateSnapshot) => 
 
   // Not authenticated at all — send to login.
   if (!authService.isAuthenticated()) {
-    return router.createUrlTree(['/corestack/login'], {
+    return router.createUrlTree(['/xora/login'], {
       queryParams: { returnUrl: state.url },
     });
   }
@@ -71,7 +71,7 @@ export const authGuard: CanActivateFn = (_route, state: RouterStateSnapshot) => 
     // flow instead of a flash of the dashboard followed by a 401
     // bounce back to the portfolio.
     tokenStorage.clearSession();
-    return router.createUrlTree(['/corestack/login'], {
+    return router.createUrlTree(['/xora/login'], {
       queryParams: { returnUrl: state.url },
     });
   }

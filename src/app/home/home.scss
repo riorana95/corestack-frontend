@@ -1,58 +1,58 @@
 /* =========================================================
-   CORESTACK — HOME DASHBOARD
+   XORA — HOME DASHBOARD
    Premium product card grid with cyan accent, Geist Sans,
    SVG line icons, entrance stagger, hover lift.
    ========================================================= */
 
-.cs-home {
+.xo-home {
   display: flex;
   flex-direction: column;
   gap: 40px;
 }
 
 /* ---------- PAGE HEADER ---------- */
-.cs-home__header {
+.xo-home__header {
   display: flex;
   flex-direction: column;
   gap: 12px;
   max-width: 640px;
 }
 
-.cs-home__title {
+.xo-home__title {
   margin: 0;
-  font-family: var(--cs-font-display);
+  font-family: var(--xo-font-display);
   font-size: clamp(28px, 4vw, 40px);
   font-weight: 600;
   letter-spacing: -0.02em;
   line-height: 1.1;
-  color: var(--cs-ink);
+  color: var(--xo-ink);
 }
 
-.cs-home__subtitle {
+.xo-home__subtitle {
   margin: 0;
   font-size: 15px;
   line-height: 1.6;
-  color: var(--cs-ink-muted);
+  color: var(--xo-ink-muted);
   max-width: 540px;
 }
 
 /* ---------- CARD GRID ---------- */
-.cs-home__grid {
+.xo-home__grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px;
 }
 
 /* ---------- PRODUCT CARD ---------- */
-.cs-card {
-  --card-status-color: var(--cs-ink-muted);
-  --card-status-soft: var(--cs-surface);
+.xo-card {
+  --card-status-color: var(--xo-ink-muted);
+  --card-status-soft: var(--xo-surface);
 
   position: relative;
   padding: 28px;
-  border-radius: var(--cs-radius-lg);
-  background: var(--cs-surface);
-  border: 1px solid var(--cs-border);
+  border-radius: var(--xo-radius-lg);
+  background: var(--xo-surface);
+  border: 1px solid var(--xo-border);
   overflow: hidden;
 
   display: flex;
@@ -61,92 +61,92 @@
 
   min-height: 280px;
   transition:
-    transform var(--cs-dur) var(--cs-ease),
-    border-color var(--cs-dur) var(--cs-ease),
-    background var(--cs-dur) var(--cs-ease),
-    box-shadow var(--cs-dur) var(--cs-ease);
+    transform var(--xo-dur) var(--xo-ease),
+    border-color var(--xo-dur) var(--xo-ease),
+    background var(--xo-dur) var(--xo-ease),
+    box-shadow var(--xo-dur) var(--xo-ease);
 }
 
-.cs-card:focus-visible {
-  outline: 2px solid var(--cs-accent);
+.xo-card:focus-visible {
+  outline: 2px solid var(--xo-accent);
   outline-offset: 2px;
 }
 
 /* Status-tinted variants */
-.cs-card--live {
-  --card-status-color: var(--cs-success);
-  --card-status-soft: var(--cs-success-soft);
+.xo-card--live {
+  --card-status-color: var(--xo-success);
+  --card-status-soft: var(--xo-success-soft);
 }
 
-.cs-card--beta {
-  --card-status-color: var(--cs-warning);
-  --card-status-soft: var(--cs-warning-soft);
+.xo-card--beta {
+  --card-status-color: var(--xo-warning);
+  --card-status-soft: var(--xo-warning-soft);
 }
 
-.cs-card--soon {
-  --card-status-color: var(--cs-info);
-  --card-status-soft: var(--cs-info-soft);
+.xo-card--soon {
+  --card-status-color: var(--xo-info);
+  --card-status-soft: var(--xo-info-soft);
   opacity: 0.85;
 }
 
 /* Hover lift (only on interactive cards) */
-.cs-card[role="button"]:hover {
+.xo-card[role="button"]:hover {
   transform: translateY(-4px);
-  background: var(--cs-surface-hover);
-  border-color: var(--cs-border-strong);
-  box-shadow: var(--cs-shadow-lg);
+  background: var(--xo-surface-hover);
+  border-color: var(--xo-border-strong);
+  box-shadow: var(--xo-shadow-lg);
 }
 
 /* Top-right corner accent glow on hover — same direction as the
    card-index number, creates a subtle "selected" feel */
-.cs-card[role="button"]::before {
+.xo-card[role="button"]::before {
   content: '';
   position: absolute;
   top: -40%;
   right: -20%;
   width: 60%;
   height: 80%;
-  background: radial-gradient(circle, var(--cs-accent-soft), transparent 70%);
+  background: radial-gradient(circle, var(--xo-accent-soft), transparent 70%);
   opacity: 0;
-  transition: opacity var(--cs-dur) var(--cs-ease);
+  transition: opacity var(--xo-dur) var(--xo-ease);
   pointer-events: none;
 }
 
-.cs-card[role="button"]:hover::before {
+.xo-card[role="button"]:hover::before {
   opacity: 1;
 }
 
 /* ---------- CARD TOP ROW ---------- */
-.cs-card__top {
+.xo-card__top {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.cs-card__index {
+.xo-card__index {
   font-size: 12px;
-  color: var(--cs-ink-faint);
+  color: var(--xo-ink-faint);
   letter-spacing: 0.08em;
 }
 
 /* ---------- STATUS BADGE ---------- */
-.cs-status {
+.xo-status {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   padding: 4px 10px;
-  border-radius: var(--cs-radius-pill);
+  border-radius: var(--xo-radius-pill);
   background: var(--card-status-soft);
   color: var(--card-status-color);
 
-  font-family: var(--cs-font-mono);
+  font-family: var(--xo-font-mono);
   font-size: 10px;
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
-.cs-status__dot {
+.xo-status__dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
@@ -154,115 +154,115 @@
   box-shadow: 0 0 8px var(--card-status-color);
 }
 
-.cs-card--live .cs-status__dot {
-  animation: cs-status-pulse 2s ease-in-out infinite;
+.xo-card--live .xo-status__dot {
+  animation: xo-status-pulse 2s ease-in-out infinite;
 }
 
-@keyframes cs-status-pulse {
+@keyframes xo-status-pulse {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.6; transform: scale(0.85); }
 }
 
 /* ---------- ICON ---------- */
-.cs-card__icon {
+.xo-card__icon {
   width: 44px;
   height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--cs-radius-md);
-  background: var(--cs-surface-hover);
-  border: 1px solid var(--cs-border);
-  color: var(--cs-accent);
-  transition: all var(--cs-dur) var(--cs-ease);
+  border-radius: var(--xo-radius-md);
+  background: var(--xo-surface-hover);
+  border: 1px solid var(--xo-border);
+  color: var(--xo-accent);
+  transition: all var(--xo-dur) var(--xo-ease);
 }
 
-.cs-card__icon svg {
+.xo-card__icon svg {
   width: 22px;
   height: 22px;
 }
 
-.cs-card[role="button"]:hover .cs-card__icon {
-  background: var(--cs-accent-soft);
-  border-color: var(--cs-border-accent);
-  color: var(--cs-accent-bright);
+.xo-card[role="button"]:hover .xo-card__icon {
+  background: var(--xo-accent-soft);
+  border-color: var(--xo-border-accent);
+  color: var(--xo-accent-bright);
   transform: scale(1.05);
 }
 
 /* ---------- TITLE + DESCRIPTION ---------- */
-.cs-card__title {
+.xo-card__title {
   margin: 0;
-  font-family: var(--cs-font-display);
+  font-family: var(--xo-font-display);
   font-size: 22px;
   font-weight: 600;
   letter-spacing: -0.01em;
-  color: var(--cs-ink);
+  color: var(--xo-ink);
 }
 
-.cs-card__desc {
+.xo-card__desc {
   margin: 0;
   font-size: 14px;
   line-height: 1.55;
-  color: var(--cs-ink-muted);
+  color: var(--xo-ink-muted);
   flex: 1;
 }
 
 /* ---------- FOOTER ---------- */
-.cs-card__footer {
+.xo-card__footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding-top: 16px;
-  border-top: 1px solid var(--cs-border);
+  border-top: 1px solid var(--xo-border);
 }
 
-.cs-card__cta {
+.xo-card__cta {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   font-size: 13px;
   font-weight: 500;
-  color: var(--cs-ink-soft);
-  transition: color var(--cs-dur) var(--cs-ease);
+  color: var(--xo-ink-soft);
+  transition: color var(--xo-dur) var(--xo-ease);
 }
 
-.cs-card__cta svg {
+.xo-card__cta svg {
   width: 14px;
   height: 14px;
-  transition: transform var(--cs-dur) var(--cs-ease);
+  transition: transform var(--xo-dur) var(--xo-ease);
 }
 
-.cs-card[role="button"]:hover .cs-card__cta {
-  color: var(--cs-accent);
+.xo-card[role="button"]:hover .xo-card__cta {
+  color: var(--xo-accent);
 }
 
-.cs-card[role="button"]:hover .cs-card__cta svg {
+.xo-card[role="button"]:hover .xo-card__cta svg {
   transform: translateX(3px);
 }
 
-.cs-card__cta--disabled {
-  color: var(--cs-ink-faint);
+.xo-card__cta--disabled {
+  color: var(--xo-ink-faint);
   cursor: not-allowed;
 }
 
-.cs-card__meta {
+.xo-card__meta {
   font-size: 11px;
   letter-spacing: 0.04em;
-  color: var(--cs-ink-faint);
+  color: var(--xo-ink-faint);
 }
 
 /* ---------- MOBILE ---------- */
 @media (max-width: 768px) {
-  .cs-home {
+  .xo-home {
     gap: 28px;
   }
 
-  .cs-home__grid {
+  .xo-home__grid {
     grid-template-columns: 1fr;
     gap: 16px;
   }
 
-  .cs-card {
+  .xo-card {
     padding: 22px;
     min-height: 240px;
   }

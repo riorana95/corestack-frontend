@@ -1,5 +1,5 @@
 /* =========================================================
-   CORESTACK — SECTION FILTER
+   XORA — SECTION FILTER
    Filter card for the Question Explorer view.
    Premium polish: tokens, consistent alignment, refined
    selects, button aligned with select baseline.
@@ -13,9 +13,9 @@
   flex-wrap: wrap;
 
   padding: 18px;
-  border-radius: var(--cs-radius-md);
-  background: var(--cs-surface);
-  border: 1px solid var(--cs-border);
+  border-radius: var(--xo-radius-md);
+  background: var(--xo-surface);
+  border: 1px solid var(--xo-border);
 
   margin-top: 16px;
 }
@@ -30,11 +30,11 @@
 }
 
 .filter-group label {
-  font-family: var(--cs-font-mono);
+  font-family: var(--xo-font-mono);
   font-size: 10px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--cs-ink-muted);
+  color: var(--xo-ink-muted);
 }
 
 /* ---------- SELECT ---------- */
@@ -43,12 +43,12 @@
   padding: 9px 32px 9px 12px;
   min-height: 38px;
 
-  border-radius: var(--cs-radius-sm);
-  border: 1px solid var(--cs-border);
-  background: var(--cs-bg-elevated);
-  color: var(--cs-ink);
+  border-radius: var(--xo-radius-sm);
+  border: 1px solid var(--xo-border);
+  background: var(--xo-bg-elevated);
+  color: var(--xo-ink);
 
-  font-family: var(--cs-font-sans);
+  font-family: var(--xo-font-sans);
   font-size: 13px;
 
   outline: none;
@@ -65,23 +65,23 @@
   background-position: right 10px center;
   background-size: 14px;
 
-  transition: border-color var(--cs-dur-fast) var(--cs-ease),
-              box-shadow var(--cs-dur-fast) var(--cs-ease);
+  transition: border-color var(--xo-dur-fast) var(--xo-ease),
+              box-shadow var(--xo-dur-fast) var(--xo-ease);
 }
 
 .filter-group select:hover {
-  border-color: var(--cs-border-strong);
+  border-color: var(--xo-border-strong);
 }
 
 .filter-group select:focus {
-  border-color: var(--cs-accent);
-  box-shadow: 0 0 0 2px var(--cs-accent-soft);
+  border-color: var(--xo-accent);
+  box-shadow: 0 0 0 2px var(--xo-accent-soft);
 }
 
 /* OPTION (dropdown options render with OS styling — keep dark) */
 .filter-group select option {
-  background: var(--cs-bg-elevated);
-  color: var(--cs-ink);
+  background: var(--xo-bg-elevated);
+  color: var(--xo-ink);
 }
 
 /* ---------- SEARCH BUTTON ---------- */
@@ -92,22 +92,22 @@
 .filter-action button {
   padding: 0 18px;
   min-height: 38px;
-  border-radius: var(--cs-radius-sm);
-  border: 1px solid var(--cs-border-accent);
-  background: linear-gradient(135deg, var(--cs-accent), var(--cs-accent-deep));
-  color: var(--cs-bg);
+  border-radius: var(--xo-radius-sm);
+  border: 1px solid var(--xo-border-accent);
+  background: linear-gradient(135deg, var(--xo-accent), var(--xo-accent-deep));
+  color: var(--xo-bg);
 
-  font-family: var(--cs-font-sans);
+  font-family: var(--xo-font-sans);
   font-size: 13px;
   font-weight: 600;
 
   cursor: pointer;
-  transition: all var(--cs-dur-fast) var(--cs-ease);
+  transition: all var(--xo-dur-fast) var(--xo-ease);
 }
 
 .filter-action button:hover {
   transform: translateY(-1px);
-  box-shadow: var(--cs-shadow-accent);
+  box-shadow: var(--xo-shadow-accent);
 }
 
 .filter-action button:active {

@@ -16,9 +16,9 @@ export class Navbar {
 
   }
 
-  /** CoreStack dashboard — the `/corestack` index route. */
+  /** Xora dashboard — the `/xora` index route. */
   goHome() {
-    this.routes.navigate(['/corestack']);
+    this.routes.navigate(['/xora']);
   }
 
   /** Back to the public portfolio at `/`. */

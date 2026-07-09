@@ -12,13 +12,13 @@ export class Home {
   constructor(private routes : Router){}
 
   /**
-   * Navigate to a CoreStack product sub-route.
+   * Navigate to a Xora product sub-route.
    *
    * Accepts single- or multi-segment paths (e.g. `'interview-dashboard'`
    * or `'docs/backend/java/java-basics'`) and prefixes them with the
-   * `/corestack` namespace so the HTML template can stay path-agnostic.
+   * `/xora` namespace so the HTML template can stay path-agnostic.
    */
   routeTo(path: string){
-    this.routes.navigate(['/corestack', ...path.split('/')]);
+    this.routes.navigate(['/xora', ...path.split('/')]);
   }
 }

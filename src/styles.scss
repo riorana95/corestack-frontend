@@ -3,10 +3,10 @@
    Global stylesheet / design tokens
    ========================================================= */
 
-/* CoreStack product surface tokens (scoped to .corestack-shell).
-   Imported here so the --cs-* vars are available everywhere; they
-   only take effect inside the CoreStack layout. */
-@import './styles/corestack-tokens.scss';
+/* Xora product surface tokens (scoped to .xora-shell).
+   Imported here so the --xo-* vars are available everywhere; they
+   only take effect inside the Xora layout. */
+@import './styles/xora-tokens.scss';
 
 /* ---------- DESIGN TOKENS ---------- */
 :root {

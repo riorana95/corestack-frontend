@@ -6,12 +6,12 @@ import { RouterOutlet } from '@angular/router';
  * Minimal auth surface.
  *
  * No navbar, no app-shell chrome — just a branded background and a
- * `<router-outlet>` for the auth flow. Used by `/corestack/login`.
+ * `<router-outlet>` for the auth flow. Used by `/xora/login`.
  * Keeping this surface bare prevents the previous bug where the
- * CoreStack `Navbar` (with logout button) was visible on the login
+ * Xora `Navbar` (with logout button) was visible on the login
  * screen before the user was even authenticated.
  *
- * Route group: `/corestack/login`
+ * Route group: `/xora/login`
  */
 @Component({
   selector: 'app-auth-layout',

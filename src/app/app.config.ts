@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChangeDetection, ErrorHandler } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -8,6 +8,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { provideHttpClient, withInterceptors, withFetch } from '@angular/common/http';
 import { loadingInterceptor } from './interceptor/loading-interceptor';
 import { authInterceptor } from './core/auth/interceptors/auth.interceptor';
+import { httpErrorInterceptor } from './core/xora-common/interceptors/http-error.interceptor';
+import { GlobalErrorHandler } from './core/xora-common/handlers/global-error.handler';
 import { provideMarkdown } from 'ngx-markdown';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
@@ -20,8 +22,12 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(MatDialogModule),
     provideHttpClient(withFetch(), withInterceptors([
       authInterceptor,
+      httpErrorInterceptor,
       loadingInterceptor,
     ])),
-    provideRouter(routes), provideAnimations(), provideClientHydration(withEventReplay())
+    provideRouter(routes),
+    provideAnimations(),
+    provideClientHydration(withEventReplay()),
+    { provide: ErrorHandler, useClass: GlobalErrorHandler },
   ]
 };

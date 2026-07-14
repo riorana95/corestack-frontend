@@ -1,16 +1,16 @@
-<div class="cs-coach">
+<div class="xo-coach">
 
   @if (error()) {
-    <div class="cs-coach__error" role="alert">{{ error() }}</div>
+    <div class="xo-coach__error" role="alert">{{ error() }}</div>
   }
 
-  <div class="cs-coach__grid">
+  <div class="xo-coach__grid">
 
     <!-- INPUT -->
-    <section class="cs-coach__input">
-      <h2 class="cs-coach__section-title">Your answer</h2>
+    <section class="xo-coach__input">
+      <h2 class="xo-coach__section-title">Your answer</h2>
 
-      <div class="cs-coach__field">
+      <div class="xo-coach__field">
         <label>Question</label>
         <textarea
           [(ngModel)]="question"
@@ -20,7 +20,7 @@
         ></textarea>
       </div>
 
-      <div class="cs-coach__field">
+      <div class="xo-coach__field">
         <label>Your answer</label>
         <textarea
           [(ngModel)]="userAnswer"
@@ -30,7 +30,7 @@
         ></textarea>
       </div>
 
-      <div class="cs-coach__field">
+      <div class="xo-coach__field">
         <label>Reference answer (optional)</label>
         <textarea
           [(ngModel)]="idealAnswer"
@@ -40,9 +40,9 @@
         ></textarea>
       </div>
 
-      <div class="cs-coach__field">
+      <div class="xo-coach__field">
         <label>Difficulty</label>
-        <div class="cs-coach__seg">
+        <div class="xo-coach__seg">
           @for (d of difficulties; track d) {
             <button
               type="button"
@@ -54,10 +54,10 @@
         </div>
       </div>
 
-      <div class="cs-coach__actions">
+      <div class="xo-coach__actions">
         <button
           type="button"
-          class="cs-coach__eval"
+          class="xo-coach__eval"
           [disabled]="loading() || !question().trim() || !userAnswer().trim()"
           (click)="evaluate()"
         >
@@ -70,60 +70,60 @@
             </svg>
           }
         </button>
-        <button type="button" class="cs-coach__reset" (click)="reset()" [disabled]="loading()">
+        <button type="button" class="xo-coach__reset" (click)="reset()" [disabled]="loading()">
           Clear
         </button>
       </div>
     </section>
 
     <!-- RESULT -->
-    <section class="cs-coach__result">
+    <section class="xo-coach__result">
       @if (!evaluation() && !loading()) {
-        <div class="cs-coach__empty">
-          <div class="cs-coach__empty-icon">◆</div>
+        <div class="xo-coach__empty">
+          <div class="xo-coach__empty-icon">◆</div>
           <h3>AI feedback appears here</h3>
           <p>Type a question and your answer on the left, then click "Evaluate answer".</p>
         </div>
       }
 
       @if (loading()) {
-        <div class="cs-coach__loading">
-          <div class="cs-coach__spinner"></div>
+        <div class="xo-coach__loading">
+          <div class="xo-coach__spinner"></div>
           <p>GLM-4.6 is reviewing your answer…</p>
         </div>
       }
 
       @if (evaluation(); as eval) {
-        <div class="cs-coach__eval cs-rise" style="--cs-i: 0">
-          <div class="cs-coach__eval-header">
-            <span class="cs-coach__eval-title">AI evaluation</span>
-            <span class="cs-coach__eval-score" [class]="scoreClass(eval.score)">
+        <div class="xo-coach__eval xo-rise" style="--xo-i: 0">
+          <div class="xo-coach__eval-header">
+            <span class="xo-coach__eval-title">AI evaluation</span>
+            <span class="xo-coach__eval-score" [class]="scoreClass(eval.score)">
               {{ eval.score }}<small>/100</small>
             </span>
           </div>
 
-          <div class="cs-coach__feedback">
-            <div class="cs-coach__fb-row cs-coach__fb--good">
-              <span class="cs-coach__fb-label">Good</span>
+          <div class="xo-coach__feedback">
+            <div class="xo-coach__fb-row xo-coach__fb--good">
+              <span class="xo-coach__fb-label">Good</span>
               <span>{{ eval.feedback.good }}</span>
             </div>
-            <div class="cs-coach__fb-row cs-coach__fb--missing">
-              <span class="cs-coach__fb-label">Missing</span>
+            <div class="xo-coach__fb-row xo-coach__fb--missing">
+              <span class="xo-coach__fb-label">Missing</span>
               <span>{{ eval.feedback.missing }}</span>
             </div>
-            <div class="cs-coach__fb-row cs-coach__fb--wrong">
-              <span class="cs-coach__fb-label">Wrong</span>
+            <div class="xo-coach__fb-row xo-coach__fb--wrong">
+              <span class="xo-coach__fb-label">Wrong</span>
               <span>{{ eval.feedback.wrong }}</span>
             </div>
           </div>
 
-          <div class="cs-coach__ideal">
-            <span class="cs-coach__fb-label cs-coach__fb-label--accent">Model answer</span>
+          <div class="xo-coach__ideal">
+            <span class="xo-coach__fb-label xo-coach__fb-label--accent">Model answer</span>
             <p>{{ eval.idealAnswer }}</p>
           </div>
 
-          <div class="cs-coach__tip">
-            <span class="cs-coach__fb-label cs-coach__fb-label--accent">Tip</span>
+          <div class="xo-coach__tip">
+            <span class="xo-coach__fb-label xo-coach__fb-label--accent">Tip</span>
             <p>{{ eval.followUpTip }}</p>
           </div>
         </div>

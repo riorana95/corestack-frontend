@@ -106,7 +106,7 @@ export class DocsPagination {
     }
 
     this.router.navigate([
-      '/corestack/docs/backend',
+      '/xora/docs/backend',
       parent.id,
       sectionId,
     ]);

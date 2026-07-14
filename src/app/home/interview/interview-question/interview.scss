@@ -1,10 +1,10 @@
 /* =========================================================
-   CORESTACK — INTERVIEW WORKSPACE
+   XORA — INTERVIEW WORKSPACE
    Main interview prep page with view switcher, company grid,
    and question explorer. Premium product polish.
    ========================================================= */
 
-.cs-workspace {
+.xo-workspace {
   max-width: 1220px;
   margin: 0 auto;
   display: flex;
@@ -13,166 +13,166 @@
 }
 
 /* ---------- PAGE HEADER ---------- */
-.cs-workspace__header {
+.xo-workspace__header {
   display: flex;
   flex-direction: column;
   gap: 8px;
   max-width: 680px;
 }
 
-.cs-workspace__title {
+.xo-workspace__title {
   margin: 0;
-  font-family: var(--cs-font-display);
+  font-family: var(--xo-font-display);
   font-size: clamp(24px, 3.2vw, 32px);
   font-weight: 600;
   letter-spacing: -0.02em;
   line-height: 1.1;
-  color: var(--cs-ink);
+  color: var(--xo-ink);
 }
 
-.cs-workspace__subtitle {
+.xo-workspace__subtitle {
   margin: 0;
   font-size: 14px;
   line-height: 1.6;
-  color: var(--cs-ink-muted);
+  color: var(--xo-ink-muted);
 }
 
 /* ---------- SEGMENTED CONTROL ---------- */
-.cs-segmented {
+.xo-segmented {
   display: inline-flex;
   align-self: flex-start;
   padding: 4px;
   gap: 4px;
-  border-radius: var(--cs-radius-pill);
-  background: var(--cs-surface);
-  border: 1px solid var(--cs-border);
+  border-radius: var(--xo-radius-pill);
+  background: var(--xo-surface);
+  border: 1px solid var(--xo-border);
 }
 
-.cs-segmented button {
+.xo-segmented button {
   /* Equal-width buttons so "Company Interviews" and "Question
      Explorer" don't look lopsided despite different text lengths. */
   flex: 1;
   min-width: 160px;
   padding: 9px 22px;
-  border-radius: var(--cs-radius-pill);
+  border-radius: var(--xo-radius-pill);
   border: none;
   background: transparent;
   text-align: center;
   white-space: nowrap;
 
-  font-family: var(--cs-font-sans);
+  font-family: var(--xo-font-sans);
   font-size: 13px;
   font-weight: 500;
-  color: var(--cs-ink-muted);
+  color: var(--xo-ink-muted);
   cursor: pointer;
-  transition: all var(--cs-dur) var(--cs-ease);
+  transition: all var(--xo-dur) var(--xo-ease);
 }
 
-.cs-segmented button:hover {
-  color: var(--cs-ink-soft);
+.xo-segmented button:hover {
+  color: var(--xo-ink-soft);
 }
 
-.cs-segmented button.is-active {
-  background: var(--cs-accent-soft);
-  color: var(--cs-accent-bright);
-  box-shadow: 0 0 0 1px var(--cs-border-accent) inset;
+.xo-segmented button.is-active {
+  background: var(--xo-accent-soft);
+  color: var(--xo-accent-bright);
+  box-shadow: 0 0 0 1px var(--xo-border-accent) inset;
 }
 
 /* ---------- CONTENT PANEL ---------- */
-.cs-workspace__panel {
+.xo-workspace__panel {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.cs-workspace__panel--explorer {
+.xo-workspace__panel--explorer {
   padding: 28px;
-  border-radius: var(--cs-radius-lg);
-  background: var(--cs-surface);
-  border: 1px solid var(--cs-border);
+  border-radius: var(--xo-radius-lg);
+  background: var(--xo-surface);
+  border: 1px solid var(--xo-border);
 }
 
-.cs-workspace__panel-head {
+.xo-workspace__panel-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 18px;
   padding-bottom: 16px;
-  border-bottom: 1px solid var(--cs-border);
+  border-bottom: 1px solid var(--xo-border);
 }
 
-.cs-workspace__panel-title {
+.xo-workspace__panel-title {
   margin: 0;
-  font-family: var(--cs-font-display);
+  font-family: var(--xo-font-display);
   font-size: 20px;
   font-weight: 600;
-  color: var(--cs-ink);
+  color: var(--xo-ink);
 }
 
-.cs-workspace__panel-sub {
+.xo-workspace__panel-sub {
   margin: 4px 0 0;
   font-size: 13px;
-  color: var(--cs-ink-muted);
+  color: var(--xo-ink-muted);
 }
 
 /* ---------- PAGINATION ---------- */
-.cs-pagination {
+.xo-pagination {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   gap: 14px;
   padding-top: 16px;
-  border-top: 1px solid var(--cs-border);
+  border-top: 1px solid var(--xo-border);
   margin-top: 4px;
 }
 
-.cs-pagination button {
+.xo-pagination button {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   padding: 8px 14px;
-  border-radius: var(--cs-radius-md);
-  border: 1px solid var(--cs-border);
-  background: var(--cs-surface);
-  color: var(--cs-ink-soft);
+  border-radius: var(--xo-radius-md);
+  border: 1px solid var(--xo-border);
+  background: var(--xo-surface);
+  color: var(--xo-ink-soft);
 
-  font-family: var(--cs-font-sans);
+  font-family: var(--xo-font-sans);
   font-size: 13px;
   font-weight: 500;
 
   cursor: pointer;
-  transition: all var(--cs-dur) var(--cs-ease);
+  transition: all var(--xo-dur) var(--xo-ease);
 }
 
-.cs-pagination button svg {
+.xo-pagination button svg {
   width: 14px;
   height: 14px;
 }
 
-.cs-pagination button:hover:not(:disabled) {
-  background: var(--cs-surface-hover);
-  border-color: var(--cs-border-strong);
-  color: var(--cs-ink);
+.xo-pagination button:hover:not(:disabled) {
+  background: var(--xo-surface-hover);
+  border-color: var(--xo-border-strong);
+  color: var(--xo-ink);
 }
 
-.cs-pagination button:disabled {
+.xo-pagination button:disabled {
   opacity: 0.4;
   cursor: not-allowed;
 }
 
-.cs-pagination__count {
+.xo-pagination__count {
   font-size: 12px;
-  color: var(--cs-ink-muted);
+  color: var(--xo-ink-muted);
   letter-spacing: 0.04em;
 }
 
 /* ---------- MOBILE ---------- */
 @media (max-width: 680px) {
-  .cs-workspace {
+  .xo-workspace {
     gap: 20px;
   }
 
-  .cs-segmented {
+  .xo-segmented {
     align-self: stretch;
     display: flex;
     overflow-x: auto;
@@ -184,7 +184,7 @@
     }
   }
 
-  .cs-segmented button {
+  .xo-segmented button {
     flex: 1 0 auto;
     min-width: 120px;
     padding: 10px 14px;
@@ -192,15 +192,15 @@
     white-space: nowrap;
   }
 
-  .cs-workspace__panel--explorer {
+  .xo-workspace__panel--explorer {
     padding: 18px;
   }
 
-  .cs-pagination {
+  .xo-pagination {
     justify-content: stretch;
   }
 
-  .cs-pagination button {
+  .xo-pagination button {
     flex: 1;
     justify-content: center;
   }

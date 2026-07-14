@@ -48,7 +48,7 @@ gsap.registerPlugin(ScrollTrigger);
             </p>
 
             <p class="about__body" appReveal="rise" [delay]="0.15">
-              Beyond the day job, I'm building <span class="text-accent">CoreStack</span> — a
+              Beyond the day job, I'm building <span class="text-accent">Xora</span> — a
               modular full-stack platform hosting multiple products (Interview Prep,
               Splitwise-style expense sharing, AI-driven commerce) with shared auth, reusable
               frontend architecture, and Flyway-managed PostgreSQL persistence.

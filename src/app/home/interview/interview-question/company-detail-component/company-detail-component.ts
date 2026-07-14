@@ -57,7 +57,7 @@ const grouped = Object.values(
 );
 
 this.groupedCompanies.set(grouped);
-      },error : (err) =>{
+      },error : (err: unknown) =>{
 
       },complete : ()=>{
 

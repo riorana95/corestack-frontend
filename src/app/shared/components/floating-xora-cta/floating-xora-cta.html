@@ -1,0 +1,16 @@
+<button
+  type="button"
+  class="xo-cta"
+  [class.xo-cta--visible]="visible()"
+  [class.xo-cta--dimmed]="dimmed()"
+  (click)="enterXora()"
+  aria-label="Enter Xora"
+  data-cursor="hover"
+  data-cursor-label="Enter"
+>
+  <span class="xo-cta__dot" aria-hidden="true"></span>
+  <span class="xo-cta__label">Enter Xora</span>
+  <svg class="xo-cta__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+    <path d="M5 12h14M13 5l7 7-7 7" />
+  </svg>
+</button>

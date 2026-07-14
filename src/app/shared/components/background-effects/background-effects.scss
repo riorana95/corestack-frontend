@@ -1,5 +1,5 @@
 /* =========================================================
-   BACKGROUND EFFECTS — CoreStack
+   BACKGROUND EFFECTS — Xora
    Refined from the old blue/purple glows to cyan-tinted,
    far less saturated. Matches the new premium product surface.
    ========================================================= */
@@ -24,7 +24,7 @@
 .glow-1 {
   width: 520px;
   height: 520px;
-  background: var(--cs-accent, #22d3ee);
+  background: var(--xo-accent, #22d3ee);
   top: -160px;
   left: -120px;
   animation: floatOne 12s ease-in-out infinite;
@@ -33,7 +33,7 @@
 .glow-2 {
   width: 460px;
   height: 460px;
-  background: var(--cs-accent-deep, #0e7490);
+  background: var(--xo-accent-deep, #0e7490);
   bottom: -140px;
   right: -120px;
   opacity: 0.16;

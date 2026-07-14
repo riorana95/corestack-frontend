@@ -1,62 +1,34 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Observable, of } from "rxjs";
+import { HttpClient } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
 import { signal } from '@angular/core';
-import { environment } from "../../../environments/environment";
+import { environment } from '../../../environments/environment';
 
-@Injectable({
-    providedIn: 'root',
-})
+/**
+ * InterviewService — talks to the Xora Interview Prep backend
+ * (/api/v1/interview/**). All HTTP errors are surfaced globally by the
+ * httpErrorInterceptor + ToastService; this service just returns the
+ * streams and lets the caller decide what to do with the data.
+ */
+@Injectable({ providedIn: 'root' })
+export class InterviewService {
+  private readonly baseUrl = `${environment.apiUrl}/api/v1/interview`;
+  private readonly http = inject(HttpClient);
 
-export class InterviewService{
-  private baseUrl = environment.apiUrl;
+  /** Latest question batch (signal-friendly for template use). */
+  readonly questions = signal<any[]>([]);
 
-  question = signal<any[]>([]);
-    constructor(
-        private https : HttpClient,
-    ){
-      
-    }
+  /** Questions for a single company. */
+  getQuestionByCompanyId(companyId: string | number) {
+    return this.http.get(`${this.baseUrl}/questions/by-company?companyId=${companyId}`);
+  }
 
-    getQuestionByCompanyId(selectedId: any) {
-      // const base = "http://localhost:8080";
-      const url = this.baseUrl + "/questionBy?companyId="+selectedId;
-      return this.https.get(url);
-    }
+  /** All companies (lightweight list for dropdowns). */
+  getAllCompanies() {
+    return this.http.get(`${this.baseUrl}/companies`);
+  }
 
-    getAllCompany() {
-      const url = this.baseUrl + "/company";
-      return this.https.get(url)
-    }
-
-    // getQuestionsBySection(section: string) {
-    //   const normalizedSection = section.toLowerCase();
-    //   const questions = (sectionQuestionConfig as any)[normalizedSection] || [];
-    //   return of(questions);
-    // }
-
-    // loadConfiguration() : Observable<any> {
-    //     return of(interviewConfig)
-        // const path = "assets/Angular/angularQuestion.json"
-        // return this.https.get(path)
-    // }
-
-     // Get all company names
-  // getCompanies(): string[] {
-  //   return Object.keys(interviewConfig);
-  // }
-
-  // Get questions for a specific company
-  // getQuestionsByCompany(companyName: string): any[] {
-  //   const companyData = interviewConfig[companyName as keyof typeof interviewConfig];
-  //   return companyData ? companyData.questions : [];
-  // }
-
-  // Get all companies as array with their data
-  // getAllCompaniesWithQuestions(): { name: string; questions: any[] }[] {
-  //   return this.getCompanies().map(company => ({
-  //     name: company,
-  //     questions: this.getQuestionsByCompany(company)
-  //   }));
-  // }
+  /** @deprecated use {@link getAllCompanies} — kept for backward compat. */
+  getAllCompany() {
+    return this.getAllCompanies();
+  }
 }

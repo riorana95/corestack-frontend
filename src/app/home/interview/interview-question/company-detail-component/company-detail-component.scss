@@ -1,28 +1,28 @@
 /* =========================================================
-   CORESTACK — COMPANY DETAIL
+   XORA — COMPANY DETAIL
    Company grid + per-company question rounds.
    ========================================================= */
 
-.cs-companies {
+.xo-companies {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
 /* ---------- COMPANY GRID ---------- */
-.cs-companies__grid {
+.xo-companies__grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 16px;
 }
 
 /* ---------- COMPANY CARD ---------- */
-.cs-company {
+.xo-company {
   position: relative;
   padding: 24px;
-  border-radius: var(--cs-radius-lg);
-  background: var(--cs-surface);
-  border: 1px solid var(--cs-border);
+  border-radius: var(--xo-radius-lg);
+  background: var(--xo-surface);
+  border: 1px solid var(--xo-border);
   overflow: hidden;
 
   display: flex;
@@ -32,44 +32,44 @@
 
   cursor: pointer;
   transition:
-    transform var(--cs-dur) var(--cs-ease),
-    border-color var(--cs-dur) var(--cs-ease),
-    background var(--cs-dur) var(--cs-ease),
-    box-shadow var(--cs-dur) var(--cs-ease);
+    transform var(--xo-dur) var(--xo-ease),
+    border-color var(--xo-dur) var(--xo-ease),
+    background var(--xo-dur) var(--xo-ease),
+    box-shadow var(--xo-dur) var(--xo-ease);
 }
 
-.cs-company:focus-visible {
-  outline: 2px solid var(--cs-accent);
+.xo-company:focus-visible {
+  outline: 2px solid var(--xo-accent);
   outline-offset: 2px;
 }
 
-.cs-company:hover {
+.xo-company:hover {
   transform: translateY(-3px);
-  background: var(--cs-surface-hover);
-  border-color: var(--cs-border-accent);
-  box-shadow: var(--cs-shadow-md);
+  background: var(--xo-surface-hover);
+  border-color: var(--xo-border-accent);
+  box-shadow: var(--xo-shadow-md);
 }
 
 /* Hover corner glow */
-.cs-company::before {
+.xo-company::before {
   content: '';
   position: absolute;
   top: -40%;
   right: -30%;
   width: 70%;
   height: 90%;
-  background: radial-gradient(circle, var(--cs-accent-soft), transparent 70%);
+  background: radial-gradient(circle, var(--xo-accent-soft), transparent 70%);
   opacity: 0;
-  transition: opacity var(--cs-dur) var(--cs-ease);
+  transition: opacity var(--xo-dur) var(--xo-ease);
   pointer-events: none;
 }
 
-.cs-company:hover::before {
+.xo-company:hover::before {
   opacity: 1;
 }
 
 /* ---------- CARD HEAD ---------- */
-.cs-company__head {
+.xo-company__head {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -79,24 +79,24 @@
   min-height: 24px;
 }
 
-.cs-company__index {
+.xo-company__index {
   font-size: 11px;
   letter-spacing: 0.08em;
-  color: var(--cs-ink-faint);
+  color: var(--xo-ink-faint);
   line-height: 1;
 }
 
-.cs-company__count {
+.xo-company__count {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-width: 24px;
   height: 24px;
   padding: 0 8px;
-  border-radius: var(--cs-radius-pill);
-  background: var(--cs-accent-soft);
-  color: var(--cs-accent-bright);
-  border: 1px solid var(--cs-border-accent);
+  border-radius: var(--xo-radius-pill);
+  background: var(--xo-accent-soft);
+  color: var(--xo-accent-bright);
+  border: 1px solid var(--xo-border-accent);
 
   font-size: 11px;
   font-weight: 600;
@@ -104,60 +104,60 @@
 }
 
 /* ---------- NAME ---------- */
-.cs-company__name {
+.xo-company__name {
   margin: 0;
-  font-family: var(--cs-font-display);
+  font-family: var(--xo-font-display);
   font-size: 20px;
   font-weight: 600;
   letter-spacing: -0.01em;
-  color: var(--cs-ink);
+  color: var(--xo-ink);
   line-height: 1.2;
-  transition: color var(--cs-dur) var(--cs-ease);
+  transition: color var(--xo-dur) var(--xo-ease);
 }
 
-.cs-company:hover .cs-company__name {
-  color: var(--cs-accent-bright);
+.xo-company:hover .xo-company__name {
+  color: var(--xo-accent-bright);
 }
 
 /* ---------- META FOOTER ---------- */
-.cs-company__meta {
+.xo-company__meta {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-top: auto;
   padding-top: 14px;
-  border-top: 1px solid var(--cs-border);
+  border-top: 1px solid var(--xo-border);
 }
 
-.cs-company__label {
+.xo-company__label {
   font-size: 11px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  /* Bumped from --cs-ink-muted to --cs-ink-soft for readability
+  /* Bumped from --xo-ink-muted to --xo-ink-soft for readability
      against the dark card surface. */
-  color: var(--cs-ink-soft);
+  color: var(--xo-ink-soft);
 }
 
-.cs-company__arrow {
+.xo-company__arrow {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: var(--cs-surface-hover);
-  color: var(--cs-ink-muted);
-  transition: all var(--cs-dur) var(--cs-ease);
+  background: var(--xo-surface-hover);
+  color: var(--xo-ink-muted);
+  transition: all var(--xo-dur) var(--xo-ease);
 }
 
-.cs-company__arrow svg {
+.xo-company__arrow svg {
   width: 13px;
   height: 13px;
 }
 
-.cs-company:hover .cs-company__arrow {
-  background: var(--cs-accent);
-  color: var(--cs-bg);
+.xo-company:hover .xo-company__arrow {
+  background: var(--xo-accent);
+  color: var(--xo-bg);
   transform: translateX(3px);
 }
 
@@ -165,92 +165,92 @@
    QUESTIONS SECTION (per-company)
    ========================================================= */
 
-.cs-questions {
+.xo-questions {
   display: flex;
   flex-direction: column;
   gap: 28px;
 }
 
-.cs-questions__header {
+.xo-questions__header {
   display: flex;
   align-items: center;
   gap: 14px;
 }
 
-.cs-back {
+.xo-back {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 36px;
   height: 36px;
-  border-radius: var(--cs-radius-md);
-  border: 1px solid var(--cs-border);
-  background: var(--cs-surface);
-  color: var(--cs-ink-soft);
+  border-radius: var(--xo-radius-md);
+  border: 1px solid var(--xo-border);
+  background: var(--xo-surface);
+  color: var(--xo-ink-soft);
   cursor: pointer;
-  transition: all var(--cs-dur) var(--cs-ease);
+  transition: all var(--xo-dur) var(--xo-ease);
 }
 
-.cs-back svg {
+.xo-back svg {
   width: 16px;
   height: 16px;
 }
 
-.cs-back:hover {
-  background: var(--cs-surface-hover);
-  border-color: var(--cs-border-strong);
-  color: var(--cs-ink);
+.xo-back:hover {
+  background: var(--xo-surface-hover);
+  border-color: var(--xo-border-strong);
+  color: var(--xo-ink);
 }
 
-.cs-questions__title {
+.xo-questions__title {
   margin: 0;
-  font-family: var(--cs-font-display);
+  font-family: var(--xo-font-display);
   font-size: 24px;
   font-weight: 600;
   letter-spacing: -0.01em;
-  color: var(--cs-ink);
+  color: var(--xo-ink);
 }
 
 /* ---------- ROUND ---------- */
-.cs-round {
+.xo-round {
   display: flex;
   flex-direction: column;
   gap: 14px;
 }
 
-.cs-round__head {
+.xo-round__head {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding-bottom: 12px;
-  border-bottom: 1px solid var(--cs-border);
+  border-bottom: 1px solid var(--xo-border);
 }
 
-.cs-round__info {
+.xo-round__info {
   display: flex;
   flex-direction: column;
   gap: 3px;
 }
 
-.cs-round__role {
+.xo-round__role {
   font-size: 14px;
   font-weight: 600;
-  color: var(--cs-ink);
+  color: var(--xo-ink);
 }
 
-.cs-round__name {
+.xo-round__name {
   font-size: 12px;
-  color: var(--cs-accent);
+  color: var(--xo-accent);
   letter-spacing: 0.02em;
 }
 
-.cs-round__date {
+.xo-round__date {
   font-size: 12px;
-  color: var(--cs-ink-muted);
+  color: var(--xo-ink-muted);
   letter-spacing: 0.04em;
 }
 
-.cs-round__questions {
+.xo-round__questions {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -258,23 +258,23 @@
 
 /* ---------- MOBILE ---------- */
 @media (max-width: 680px) {
-  .cs-companies__grid {
+  .xo-companies__grid {
     grid-template-columns: 1fr 1fr;
     gap: 12px;
   }
 
-  .cs-company {
+  .xo-company {
     padding: 18px;
     min-height: 140px;
   }
 
-  .cs-company__name {
+  .xo-company__name {
     font-size: 17px;
   }
 }
 
 @media (max-width: 480px) {
-  .cs-companies__grid {
+  .xo-companies__grid {
     grid-template-columns: 1fr;
   }
 }

@@ -1,36 +1,36 @@
-<div class="cs-home">
+<div class="xo-home">
 
   <!-- Page header -->
-  <header class="cs-home__header cs-rise" style="--cs-i: 0">
-    <span class="cs-label">CoreStack / Products</span>
-    <h1 class="cs-home__title">Pick a workspace</h1>
-    <p class="cs-home__subtitle">
+  <header class="xo-home__header xo-rise" style="--xo-i: 0">
+    <span class="xo-label">Xora / Products</span>
+    <h1 class="xo-home__title">Pick a workspace</h1>
+    <p class="xo-home__subtitle">
       Each product is a standalone application — shared auth, shared design system,
       independent roadmaps. Choose one to dive in.
     </p>
   </header>
 
   <!-- Product grid -->
-  <div class="cs-home__grid">
+  <div class="xo-home__grid">
 
     <!-- INTERVIEW QA -->
     <article
-      class="cs-card cs-card--live cs-rise"
-      style="--cs-i: 1"
+      class="xo-card xo-card--live xo-rise"
+      style="--xo-i: 1"
       (click)="routeTo('interview-dashboard')"
       tabindex="0"
       role="button"
       aria-label="Open Interview QA"
     >
-      <div class="cs-card__top">
-        <span class="cs-status cs-status--live">
-          <span class="cs-status__dot"></span>
+      <div class="xo-card__top">
+        <span class="xo-status xo-status--live">
+          <span class="xo-status__dot"></span>
           Live
         </span>
-        <span class="cs-card__index cs-mono">01</span>
+        <span class="xo-card__index xo-mono">01</span>
       </div>
 
-      <div class="cs-card__icon">
+      <div class="xo-card__icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <circle cx="12" cy="12" r="10" />
           <circle cx="12" cy="12" r="6" />
@@ -38,86 +38,90 @@
         </svg>
       </div>
 
-      <h2 class="cs-card__title">Interview QA</h2>
-      <p class="cs-card__desc">Past interview questions, explored company-by-company with tag filters and rich answers.</p>
+      <h2 class="xo-card__title">Interview QA</h2>
+      <p class="xo-card__desc">Past interview questions, explored company-by-company with tag filters and rich answers.</p>
 
-      <div class="cs-card__footer">
-        <span class="cs-card__cta">
+      <div class="xo-card__footer">
+        <span class="xo-card__cta">
           Open
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M5 12h14M13 5l7 7-7 7" />
           </svg>
         </span>
-        <span class="cs-card__meta cs-mono">Angular · Spring Boot</span>
+        <span class="xo-card__meta xo-mono">Angular · Spring Boot</span>
       </div>
     </article>
 
     <!-- SPLITWISE -->
     <article
-      class="cs-card cs-card--beta cs-rise"
-      style="--cs-i: 2"
+      class="xo-card xo-card--beta xo-rise"
+      style="--xo-i: 2"
       (click)="routeTo('splitwise')"
       tabindex="0"
       role="button"
       aria-label="Open Splitwise"
     >
-      <div class="cs-card__top">
-        <span class="cs-status cs-status--beta">
-          <span class="cs-status__dot"></span>
+      <div class="xo-card__top">
+        <span class="xo-status xo-status--beta">
+          <span class="xo-status__dot"></span>
           Beta
         </span>
-        <span class="cs-card__index cs-mono">02</span>
+        <span class="xo-card__index xo-mono">02</span>
       </div>
 
-      <div class="cs-card__icon">
+      <div class="xo-card__icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
         </svg>
       </div>
 
-      <h2 class="cs-card__title">Splitwise</h2>
-      <p class="cs-card__desc">Smart expense sharing with equal, exact, and percentage splits. Settle up with simplified debts.</p>
+      <h2 class="xo-card__title">Splitwise</h2>
+      <p class="xo-card__desc">Smart expense sharing with equal, exact, and percentage splits. Settle up with simplified debts.</p>
 
-      <div class="cs-card__footer">
-        <span class="cs-card__cta">
+      <div class="xo-card__footer">
+        <span class="xo-card__cta">
           Open
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M5 12h14M13 5l7 7-7 7" />
           </svg>
         </span>
-        <span class="cs-card__meta cs-mono">Angular · Spring Boot</span>
+        <span class="xo-card__meta xo-mono">Angular · Spring Boot</span>
       </div>
     </article>
 
-    <!-- E-COMMERCE -->
+    <!-- E-COMMERCE — disabled in Phase 1. Re-enable in Phase 2 when the
+         Ecommerce product is built. Code for the card is preserved below
+         in a comment for easy restoration. -->
+    
     <article
-      class="cs-card cs-card--soon cs-rise"
-      style="--cs-i: 3"
+      class="xo-card xo-card--soon xo-rise"
+      style="--xo-i: 3"
       aria-disabled="true"
     >
-      <div class="cs-card__top">
-        <span class="cs-status cs-status--soon">
-          <span class="cs-status__dot"></span>
+      <div class="xo-card__top">
+        <span class="xo-status xo-status--soon">
+          <span class="xo-status__dot"></span>
           Coming Soon
         </span>
-        <span class="cs-card__index cs-mono">03</span>
+        <span class="xo-card__index xo-mono">03</span>
       </div>
 
-      <div class="cs-card__icon">
+      <div class="xo-card__icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
           <path d="M3 6h18M16 10a4 4 0 0 1-8 0" />
         </svg>
       </div>
 
-      <h2 class="cs-card__title">E-Commerce</h2>
-      <p class="cs-card__desc">AI-driven product discovery, personalized recommendations, smart search, and order management.</p>
+      <h2 class="xo-card__title">E-Commerce</h2>
+      <p class="xo-card__desc">AI-driven product discovery, personalized recommendations, smart search, and order management.</p>
 
-      <div class="cs-card__footer">
-        <span class="cs-card__cta cs-card__cta--disabled">In Progress</span>
-        <span class="cs-card__meta cs-mono">AI Search · 2026</span>
+      <div class="xo-card__footer">
+        <span class="xo-card__cta xo-card__cta--disabled">In Progress</span>
+        <span class="xo-card__meta xo-mono">AI Search · 2026</span>
       </div>
     </article>
+   
 
   </div>
 

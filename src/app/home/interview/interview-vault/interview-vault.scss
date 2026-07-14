@@ -1,5 +1,5 @@
 /* =========================================================
-   CORESTACK — INTERVIEW VAULT
+   XORA — INTERVIEW VAULT
    Categorized prep content with sidebar nav.
    Premium polish, cyan accent, Geist Sans.
    ========================================================= */
@@ -13,7 +13,7 @@
 .layout {
   display: flex;
   gap: 24px;
-  height: calc(100vh - var(--cs-navbar-height) - 80px);
+  height: calc(100vh - var(--xo-navbar-height) - 80px);
   min-height: 500px;
 }
 
@@ -24,9 +24,9 @@
   width: 240px;
   flex-shrink: 0;
 
-  background: var(--cs-surface);
-  border: 1px solid var(--cs-border);
-  border-radius: var(--cs-radius-lg);
+  background: var(--xo-surface);
+  border: 1px solid var(--xo-border);
+  border-radius: var(--xo-radius-lg);
   padding: 14px;
 
   max-height: 100%;
@@ -45,37 +45,37 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 6px;
   padding-bottom: 14px;
-  border-bottom: 1px solid var(--cs-border);
+  border-bottom: 1px solid var(--xo-border);
 }
 
 .toggle-btn {
   padding: 8px 6px;
-  border: 1px solid var(--cs-border);
+  border: 1px solid var(--xo-border);
   background: transparent;
-  color: var(--cs-ink-muted);
-  border-radius: var(--cs-radius-sm);
+  color: var(--xo-ink-muted);
+  border-radius: var(--xo-radius-sm);
   cursor: pointer;
 
-  font-family: var(--cs-font-sans);
+  font-family: var(--xo-font-sans);
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.02em;
   text-align: center;
   white-space: nowrap;
 
-  transition: all var(--cs-dur-fast) var(--cs-ease);
+  transition: all var(--xo-dur-fast) var(--xo-ease);
 }
 
 .toggle-btn:hover {
-  background: var(--cs-surface-hover);
-  color: var(--cs-ink-soft);
-  border-color: var(--cs-border-strong);
+  background: var(--xo-surface-hover);
+  color: var(--xo-ink-soft);
+  border-color: var(--xo-border-strong);
 }
 
 .toggle-btn.active {
-  background: var(--cs-accent-soft);
-  color: var(--cs-accent-bright);
-  border-color: var(--cs-border-accent);
+  background: var(--xo-accent-soft);
+  color: var(--xo-accent-bright);
+  border-color: var(--xo-border-accent);
   font-weight: 600;
 }
 
@@ -89,24 +89,24 @@
 .nav-item {
   padding: 10px 12px;
   cursor: pointer;
-  border-radius: var(--cs-radius-sm);
+  border-radius: var(--xo-radius-sm);
   font-size: 13px;
-  color: var(--cs-ink-muted);
-  transition: all var(--cs-dur-fast) var(--cs-ease);
+  color: var(--xo-ink-muted);
+  transition: all var(--xo-dur-fast) var(--xo-ease);
   border-left: 2px solid transparent;
   line-height: 1.4;
 }
 
 .nav-item:hover {
-  background: var(--cs-surface-hover);
-  color: var(--cs-ink-soft);
+  background: var(--xo-surface-hover);
+  color: var(--xo-ink-soft);
 }
 
 .nav-item.active {
-  background: var(--cs-accent-soft);
-  color: var(--cs-accent-bright);
+  background: var(--xo-accent-soft);
+  color: var(--xo-accent-bright);
   font-weight: 500;
-  border-left-color: var(--cs-accent);
+  border-left-color: var(--xo-accent);
 }
 
 /* ---------- CONTENT ---------- */
@@ -127,24 +127,24 @@
   align-items: center;
   margin-bottom: 12px;
   padding-bottom: 10px;
-  border-bottom: 1px solid var(--cs-border);
+  border-bottom: 1px solid var(--xo-border);
 }
 
 .category-title h2 {
   margin: 0;
-  font-family: var(--cs-font-display);
+  font-family: var(--xo-font-display);
   font-size: 18px;
   font-weight: 600;
-  color: var(--cs-accent-bright);
+  color: var(--xo-accent-bright);
   letter-spacing: -0.01em;
   text-transform: none;
 }
 
 .category-title span {
-  font-family: var(--cs-font-mono);
+  font-family: var(--xo-font-mono);
   font-size: 11px;
   letter-spacing: 0.06em;
-  color: var(--cs-ink-faint);
+  color: var(--xo-ink-faint);
 }
 
 /* ---------- QUESTION LIST ---------- */
@@ -155,22 +155,22 @@
 
 .question-list li {
   line-height: 1.6;
-  color: var(--cs-ink-soft);
+  color: var(--xo-ink-soft);
   font-size: 14px;
   /* Padding between items so they don't run together. */
   padding: 6px 0;
   border-bottom: 1px solid transparent;
-  transition: color var(--cs-dur-fast) var(--cs-ease);
+  transition: color var(--xo-dur-fast) var(--xo-ease);
 }
 
 /* Subtle separator between items — barely visible until hover
    to avoid visual noise. */
 .question-list li + li {
-  border-top: 1px solid var(--cs-border);
+  border-top: 1px solid var(--xo-border);
 }
 
 .question-list li:hover {
-  color: var(--cs-ink);
+  color: var(--xo-ink);
 }
 
 /* ---------- MOBILE ---------- */

@@ -1,0 +1,37 @@
+.xora-shell {
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  background: var(--xo-bg);
+  color: var(--xo-ink);
+  font-family: var(--xo-font-sans);
+}
+
+/* Subtle ambient gradient — cyan-tinted, far less saturated than
+   the old blue/purple. Sits behind everything. */
+.xora-shell::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(34, 211, 238, 0.06), transparent 70%),
+    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(34, 211, 238, 0.04), transparent 60%);
+}
+
+.xora-content {
+  position: relative;
+  z-index: 2;
+  max-width: var(--xo-container);
+  margin: 0 auto;
+  padding: calc(var(--xo-navbar-height) + 32px) 24px 48px;
+  min-height: 100vh;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 768px) {
+  .xora-content {
+    padding: calc(var(--xo-navbar-height) + 20px) 16px 32px;
+  }
+}

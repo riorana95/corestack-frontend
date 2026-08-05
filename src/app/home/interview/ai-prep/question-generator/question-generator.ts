@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AiPrepService } from '../ai-prep.service';
@@ -16,6 +16,7 @@ import { GeneratedQuestion, Difficulty, AI_PREP_TOPICS } from '../ai-prep.models
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './question-generator.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './question-generator.scss',
 })
 export class QuestionGenerator {

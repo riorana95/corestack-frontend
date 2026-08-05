@@ -6,6 +6,7 @@ import {
   ElementRef,
   viewChild,
   signal,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { gsap } from 'gsap';
@@ -92,6 +93,7 @@ gsap.registerPlugin(ScrollTrigger);
       </div>
     </section>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './about.component.scss',
 })
 export class AboutComponent {

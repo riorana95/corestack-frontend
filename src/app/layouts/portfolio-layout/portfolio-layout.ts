@@ -4,6 +4,7 @@ import {
   afterNextRender,
   inject,
   DestroyRef,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
@@ -42,6 +43,7 @@ gsap.registerPlugin(ScrollTrigger);
     FloatingXoraCta,
   ],
   templateUrl: './portfolio-layout.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './portfolio-layout.scss',
 })
 export class PortfolioLayout {

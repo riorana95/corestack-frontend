@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SmoothScrollService } from '../../services/smooth-scroll.service';
 import { NAV_LINKS, PERSON } from '../../data/portfolio.data';
@@ -41,6 +41,7 @@ import { NAV_LINKS, PERSON } from '../../data/portfolio.data';
 
     <div class="nav-progress" [style.width.%]="progress() * 100"></div>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: [
     `
       .nav {

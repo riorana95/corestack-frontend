@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ACHIEVEMENTS } from '../../data/portfolio.data';
 import { RevealDirective } from '../../directives/reveal.directive';
@@ -52,6 +52,7 @@ import { MagneticDirective } from '../../directives/magnetic.directive';
       </div>
     </section>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './achievements.component.scss',
 })
 export class AchievementsComponent {

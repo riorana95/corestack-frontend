@@ -6,6 +6,7 @@ import {
   HostListener,
   computed,
   signal,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 import {
@@ -32,6 +33,7 @@ import {
 
   templateUrl: './docs-search.html',
 
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './docs-search.scss',
 })
 export class DocsSearch {

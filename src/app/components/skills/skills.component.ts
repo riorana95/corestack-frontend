@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SKILLS } from '../../data/portfolio.data';
 import { RevealDirective } from '../../directives/reveal.directive';
@@ -48,6 +48,7 @@ import { TiltDirective } from '../../directives/tilt.directive';
       </div>
     </section>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './skills.component.scss',
 })
 export class SkillsComponent {

@@ -1,9 +1,10 @@
-import { Component, input, output } from '@angular/core';
+import { Component, input, output, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-unit-test-practice',
   imports: [],
   templateUrl: './unit-test-practice.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './unit-test-practice.scss',
 })
 export class UnitTestPractice {

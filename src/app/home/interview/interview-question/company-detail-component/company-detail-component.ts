@@ -1,4 +1,4 @@
-import { Component, inject, signal, ViewChild } from '@angular/core';
+import { Component, inject, signal, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { InterviewService } from '../interview.service';
 import { QuestionCardComponent } from '../question-card-component/question-card-component';
 import { AddQuestion } from '../../add-question/add-question';
@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
   imports: [QuestionCardComponent],
   templateUrl: './company-detail-component.html',
   styleUrl: './company-detail-component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone : true
 })
 export class CompanyDetailComponent {

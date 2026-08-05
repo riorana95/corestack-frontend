@@ -14,14 +14,8 @@
   <div class="xo-home__grid">
 
     <!-- INTERVIEW QA -->
-    <article
-      class="xo-card xo-card--live xo-rise"
-      style="--xo-i: 1"
-      (click)="routeTo('interview-dashboard')"
-      tabindex="0"
-      role="button"
-      aria-label="Open Interview QA"
-    >
+    <article class="xo-card xo-card--live xo-rise" style="--xo-i: 1" (click)="routeTo('interview-dashboard')"
+      tabindex="0" role="button" aria-label="Open Interview QA">
       <div class="xo-card__top">
         <span class="xo-status xo-status--live">
           <span class="xo-status__dot"></span>
@@ -31,7 +25,8 @@
       </div>
 
       <div class="xo-card__icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+          stroke-linejoin="round" aria-hidden="true">
           <circle cx="12" cy="12" r="10" />
           <circle cx="12" cy="12" r="6" />
           <circle cx="12" cy="12" r="2" fill="currentColor" />
@@ -39,12 +34,14 @@
       </div>
 
       <h2 class="xo-card__title">Interview QA</h2>
-      <p class="xo-card__desc">Past interview questions, explored company-by-company with tag filters and rich answers.</p>
+      <p class="xo-card__desc">Past interview questions, explored company-by-company with tag filters and rich answers.
+      </p>
 
       <div class="xo-card__footer">
         <span class="xo-card__cta">
           Open
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"
+            stroke-linejoin="round" aria-hidden="true">
             <path d="M5 12h14M13 5l7 7-7 7" />
           </svg>
         </span>
@@ -53,14 +50,8 @@
     </article>
 
     <!-- SPLITWISE -->
-    <article
-      class="xo-card xo-card--beta xo-rise"
-      style="--xo-i: 2"
-      (click)="routeTo('splitwise')"
-      tabindex="0"
-      role="button"
-      aria-label="Open Splitwise"
-    >
+    <article class="xo-card xo-card--beta xo-rise" style="--xo-i: 2" (click)="routeTo('splitwise')" tabindex="0"
+      role="button" aria-label="Open Splitwise">
       <div class="xo-card__top">
         <span class="xo-status xo-status--beta">
           <span class="xo-status__dot"></span>
@@ -70,18 +61,21 @@
       </div>
 
       <div class="xo-card__icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+        <svg viewBox="0 0 24 24" aria-hidden="true" role="img">
+          <text x="50%" y="58%" text-anchor="middle" dominant-baseline="middle" font-size="18"
+            font-family="Inter, sans-serif" font-weight="700" fill="currentColor">₹</text>
         </svg>
       </div>
 
       <h2 class="xo-card__title">Splitwise</h2>
-      <p class="xo-card__desc">Smart expense sharing with equal, exact, and percentage splits. Settle up with simplified debts.</p>
+      <p class="xo-card__desc">Smart expense sharing with equal, exact, and percentage splits. Settle up with simplified
+        debts.</p>
 
       <div class="xo-card__footer">
         <span class="xo-card__cta">
           Open
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"
+            stroke-linejoin="round" aria-hidden="true">
             <path d="M5 12h14M13 5l7 7-7 7" />
           </svg>
         </span>
@@ -89,15 +83,153 @@
       </div>
     </article>
 
+    <!-- XORA ASSIST -->
+    <article class="xo-card xo-card--beta xo-card--assist xo-rise" style="--xo-i: 3"
+      (click)="routeTo('https://xora-assist.vercel.app/', true)" tabindex="0" role="button"
+      aria-label="Open Xora Assist — AI form assistant">
+      <div class="xo-card__top">
+        <span class="xo-status xo-status--beta">
+          <span class="xo-status__dot"></span>
+          Beta
+        </span>
+        <span class="xo-card__index xo-mono">03</span>
+      </div>
+
+      <div class="xo-card__icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+          stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 10.5a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v1a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3v-1z" />
+          <circle cx="9" cy="12" r="1" />
+          <circle cx="15" cy="12" r="1" />
+          <path d="M12 8v2" />
+          <path d="M12 14v2" />
+        </svg>
+      </div>
+
+      <h2 class="xo-card__title">Xora Assist</h2>
+      <p class="xo-card__desc">Guided, step-by-step help for government forms and paperwork.</p>
+
+      <div class="xo-card__footer">
+        <span class="xo-card__cta">
+          Open
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"
+            stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M13 5l7 7-7 7" />
+          </svg>
+        </span>
+      </div>
+    </article>
+
+    <!-- MINI GAME -->
+    <article class="xo-card xo-card--beta xo-card--game xo-rise" style="--xo-i: 4"
+      (click)="routeTo('https://mini-game-topaz.vercel.app/', true)" tabindex="0" role="button"
+      aria-label="Open Mini Game — Play and unwind">
+      <div class="xo-card__top">
+        <span class="xo-status xo-status--beta">
+          <span class="xo-status__dot"></span>
+          Beta
+        </span>
+        <span class="xo-card__index xo-mono">04</span>
+      </div>
+
+      <div class="xo-card__icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+          stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 2l7 4v6c0 5-3.5 9-7 10-3.5-1-7-5-7-10V6l7-4z" />
+          <circle cx="12" cy="9" r="1.4" />
+          <path d="M10.5 12.5c.7.7 2.2.7 2.9 0" />
+        </svg>
+      </div>
+
+      <h2 class="xo-card__title">Mini Game</h2>
+      <p class="xo-card__desc">Short, AI-powered puzzles and microgames to test ideas and unwind.</p>
+
+      <div class="xo-card__footer">
+        <span class="xo-card__cta">
+          Open
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"
+            stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M13 5l7 7-7 7" />
+          </svg>
+        </span>
+      </div>
+    </article>
+
+    <!-- VARUNARAKSHAK -->
+    <article class="xo-card xo-card--beta xo-card--safety xo-rise" style="--xo-i: 5"
+      (click)="routeTo('https://varunarakshak.vercel.app/', true)" tabindex="0" role="button"
+      aria-label="Open Varunarakshak — Personal safety assistant">
+      <div class="xo-card__top">
+        <span class="xo-status xo-status--beta">
+          <span class="xo-status__dot"></span>
+          Beta
+        </span>
+        <span class="xo-card__index xo-mono">05</span>
+      </div>
+
+      <div class="xo-card__icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+          stroke-linejoin="round" aria-hidden="true">
+          <path d="M6 14v1a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3v-1" />
+          <path d="M7 10a5 5 0 0 1 10 0H7z" />
+          <path d="M10 14v2" />
+        </svg>
+      </div>
+
+      <h2 class="xo-card__title">Varunarakshak</h2>
+      <p class="xo-card__desc">AI tools for alerts, safety checks, and quick guidance.</p>
+
+      <div class="xo-card__footer">
+        <span class="xo-card__cta">
+          Open
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"
+            stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M13 5l7 7-7 7" />
+          </svg>
+        </span>
+      </div>
+    </article>
+
+    <!-- COOKING ASSIST -->
+    <article class="xo-card xo-card--beta xo-card--cooking xo-rise" style="--xo-i: 6"
+      (click)="routeTo('https://h2-s-cooking.vercel.app/', true)" tabindex="0" role="button"
+      aria-label="Open Cooking Assist — Recipe and meal planner">
+      <div class="xo-card__top">
+        <span class="xo-status xo-status--beta">
+          <span class="xo-status__dot"></span>
+          Beta
+        </span>
+        <span class="xo-card__index xo-mono">06</span>
+      </div>
+
+      <div class="xo-card__icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+          stroke-linejoin="round" aria-hidden="true">
+          <path
+            d="M20 11c0-2.5-2.5-4.5-5-4.5-1 0-1.8.3-2.5.8C11.3 7 10.5 7 9.5 7 7 7 5 9 5 11.5 5 13 6 14 7.5 14h9c1.5 0 2.5-1 2-2.5z" />
+          <path d="M7 14v2a3 3 0 0 0 3 3h4a3 3 0 0 0 3-3v-2" />
+        </svg>
+      </div>
+
+      <h2 class="xo-card__title">Cooking Assist</h2>
+      <p class="xo-card__desc">Suggests recipes, converts portions, and builds shopping lists.</p>
+
+      <div class="xo-card__footer">
+        <span class="xo-card__cta">
+          Open
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"
+            stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M13 5l7 7-7 7" />
+          </svg>
+        </span>
+      </div>
+    </article>
+
     <!-- E-COMMERCE — disabled in Phase 1. Re-enable in Phase 2 when the
          Ecommerce product is built. Code for the card is preserved below
          in a comment for easy restoration. -->
-    
-    <article
-      class="xo-card xo-card--soon xo-rise"
-      style="--xo-i: 3"
-      aria-disabled="true"
-    >
+
+    <article class="xo-card xo-card--soon xo-rise" style="--xo-i: 7" aria-disabled="true">
       <div class="xo-card__top">
         <span class="xo-status xo-status--soon">
           <span class="xo-status__dot"></span>
@@ -107,21 +239,23 @@
       </div>
 
       <div class="xo-card__icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+          stroke-linejoin="round" aria-hidden="true">
           <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
           <path d="M3 6h18M16 10a4 4 0 0 1-8 0" />
         </svg>
       </div>
 
       <h2 class="xo-card__title">E-Commerce</h2>
-      <p class="xo-card__desc">AI-driven product discovery, personalized recommendations, smart search, and order management.</p>
+      <p class="xo-card__desc">AI-driven product discovery, personalized recommendations, smart search, and order
+        management.</p>
 
       <div class="xo-card__footer">
         <span class="xo-card__cta xo-card__cta--disabled">In Progress</span>
         <span class="xo-card__meta xo-mono">AI Search · 2026</span>
       </div>
     </article>
-   
+
 
   </div>
 

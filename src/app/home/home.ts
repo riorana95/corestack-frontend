@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class Home {
 
-  constructor(private routes : Router){}
+  constructor(private routes: Router) { }
 
   /**
    * Navigate to a Xora product sub-route.
@@ -18,7 +18,12 @@ export class Home {
    * or `'docs/backend/java/java-basics'`) and prefixes them with the
    * `/xora` namespace so the HTML template can stay path-agnostic.
    */
-  routeTo(path: string){
-    this.routes.navigate(['/xora', ...path.split('/')]);
+  routeTo(path: string, isExternalApp?: boolean) {
+    if (isExternalApp) {
+      window.open(path, '_blank');
+    } else {
+      this.routes.navigate(['/xora', ...path.split('/')]);
+    }
+
   }
 }

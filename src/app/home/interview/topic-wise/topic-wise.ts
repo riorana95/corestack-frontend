@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TOPIC_WISE_AREAS } from './topic-wise.config';
 import { TopicArea, TopicDifficulty, TopicNode, TopicQuestion } from './topic-wise.model';
@@ -12,6 +12,7 @@ type DifficultyFilter = 'all' | TopicDifficulty;
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './topic-wise.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './topic-wise.scss',
 })
 export class TopicWise {

@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { LoaderService } from '../../../service/loader.service';
 
@@ -12,6 +12,7 @@ import { LoaderService } from '../../../service/loader.service';
 
   templateUrl: './global-loader.html',
 
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './global-loader.scss',
 })
 export class GlobalLoader {

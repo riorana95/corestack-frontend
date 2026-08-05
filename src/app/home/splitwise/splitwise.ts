@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import {
@@ -37,6 +37,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   selector: 'app-splitwise',
   imports: [FormsModule, CommonModule],
   templateUrl: './splitwise.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './splitwise.scss',
 })
 export class Splitwise implements OnInit {

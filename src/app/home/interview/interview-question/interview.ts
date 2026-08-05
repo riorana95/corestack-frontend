@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SectionFilter } from '../section-detail-component/section-filter/section-filter';
 import { SectionTable } from '../section-detail-component/section-table/section-table';
@@ -10,6 +10,7 @@ import { AiPrep } from '../ai-prep/ai-prep';
   selector: 'app-interview',
   imports: [CommonModule, CompanyDetailComponent, SectionFilter, SectionTable, AiPrep],
   templateUrl: './interview.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './interview.scss',
 })
 export class Interview implements OnInit {

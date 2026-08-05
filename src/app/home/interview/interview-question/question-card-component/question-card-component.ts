@@ -1,4 +1,4 @@
-import { Component, ElementRef , AfterViewInit, AfterViewChecked, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, AfterViewInit, AfterViewChecked, EventEmitter, inject, Input, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import { AddQuestion } from '../../add-question/add-question';
 import { MatDialog } from '@angular/material/dialog';
 import DOMPurify from 'dompurify';
@@ -8,6 +8,7 @@ import hljs from 'highlight.js';
   selector: 'app-question-card-component',
   imports: [],
   templateUrl: './question-card-component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './question-card-component.scss',
 })
 export class QuestionCardComponent implements OnInit  {

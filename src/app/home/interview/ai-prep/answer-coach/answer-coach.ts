@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AiPrepService } from '../ai-prep.service';
@@ -19,6 +19,7 @@ import { AnswerCoachResponse, Difficulty } from '../ai-prep.models';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './answer-coach.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './answer-coach.scss',
 })
 export class AnswerCoach {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { GlobalLoader } from './shared/components/global-loader/global-loader';
 import { ToastHost } from './core/xora-common/components/toast-host/toast-host';
@@ -15,6 +15,7 @@ import { ToastHost } from './core/xora-common/components/toast-host/toast-host';
   selector: 'app-root',
   imports: [RouterOutlet, GlobalLoader, ToastHost],
   templateUrl: './app.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './app.scss',
 })
 export class App {}

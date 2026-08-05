@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AfterViewInit } from '@angular/core';
@@ -9,6 +9,7 @@ import { interviewPrepration, convertKeyToDisplayName } from './interview-vault.
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './interview-vault.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./interview-vault.scss'],
 })
 export class InterviewVault implements OnInit, AfterViewInit {

@@ -2,7 +2,8 @@ import {
   Component,
   Input,
   AfterViewChecked,
-  ElementRef
+  ElementRef,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
@@ -28,6 +29,7 @@ interface Question {
   standalone: true,
   imports: [CommonModule],
   templateUrl: './section-table.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './section-table.scss',
 })
 export class SectionTable implements AfterViewChecked {

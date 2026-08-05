@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { BackgroundEffects } from '../../shared/components/background-effects/background-effects';
 import { Navbar } from '../../shared/components/navbar/navbar';
@@ -21,6 +21,7 @@ import { Navbar } from '../../shared/components/navbar/navbar';
   standalone: true,
   imports: [RouterOutlet, BackgroundEffects, Navbar],
   templateUrl: './corestack-layout.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './corestack-layout.scss',
 })
 export class CoreStackLayout {}

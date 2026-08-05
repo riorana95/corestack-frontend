@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { LoaderComponent } from '../../components/loader/loader.component';
@@ -47,6 +47,7 @@ import { ContactComponent } from '../../components/contact/contact.component';
     <app-achievements />
     <app-contact />
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: [
     `
       :host {

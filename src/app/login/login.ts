@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, Component, OnInit, PLATFORM_ID, inject } from '@angular/core';
+import { AfterViewInit, Component, OnInit, PLATFORM_ID, inject, ChangeDetectionStrategy } from '@angular/core';
 import {
   Validators,
   FormBuilder,
@@ -35,6 +35,7 @@ declare const google:
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './login.html',
   styleUrl: './login.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
 })
 export class Login implements OnInit, AfterViewInit {

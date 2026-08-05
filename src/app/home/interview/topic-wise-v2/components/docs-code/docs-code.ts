@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import {
   Component,
   Input,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import {
   AfterViewInit,
@@ -25,6 +26,7 @@ import 'prismjs/components/prism-typescript';
 
   templateUrl: './docs-code.html',
 
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './docs-code.scss',
 })
 export class DocsCode implements AfterViewInit {

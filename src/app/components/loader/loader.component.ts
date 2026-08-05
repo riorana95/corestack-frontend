@@ -6,6 +6,7 @@ import {
   inject,
   signal,
   DestroyRef,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { gsap } from 'gsap';
 
@@ -27,6 +28,7 @@ import { gsap } from 'gsap';
       </div>
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: [
     `
       .loader {

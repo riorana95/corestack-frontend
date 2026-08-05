@@ -4,6 +4,7 @@ import {
   Component,
   OnInit,
   signal,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 import { BACKEND_SECTIONS }
@@ -59,6 +60,7 @@ import {
 
   templateUrl: './backend-docs.html',
 
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './backend-docs.scss',
 })
 export class BackendDocs

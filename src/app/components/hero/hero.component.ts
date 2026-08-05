@@ -5,6 +5,7 @@ import {
   DestroyRef,
   ElementRef,
   viewChild,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -110,6 +111,7 @@ gsap.registerPlugin(ScrollTrigger);
       </div>
     </section>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './hero.component.scss',
 })
 export class HeroComponent {

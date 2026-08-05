@@ -1,4 +1,4 @@
-import { Component, inject, EventEmitter, Output } from '@angular/core';
+import { Component, inject, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AddQuestionService } from './add-question-service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -10,6 +10,7 @@ import { DatePipe, formatDate } from '@angular/common';
   standalone: true,
   imports: [FormsModule, QuillModule, DatePipe],
   templateUrl: './add-question.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './add-question.scss',
 })
 export class AddQuestion {

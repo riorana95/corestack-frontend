@@ -1,4 +1,4 @@
-import { Component, inject, signal, afterNextRender } from '@angular/core';
+import { Component, inject, signal, afterNextRender, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -22,6 +22,7 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './floating-corestack-cta.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './floating-corestack-cta.scss',
 })
 export class FloatingCorestackCta {

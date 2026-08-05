@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 
@@ -18,6 +18,7 @@ import { RouterOutlet } from '@angular/router';
   standalone: true,
   imports: [CommonModule, RouterOutlet],
   templateUrl: './auth-layout.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './auth-layout.scss',
 })
 export class AuthLayout {}

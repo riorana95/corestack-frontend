@@ -6,6 +6,7 @@ import {
   signal,
   ElementRef,
   viewChild,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { gsap } from 'gsap';
 
@@ -18,6 +19,7 @@ import { gsap } from 'gsap';
       <span class="cursor__label">{{ label() }}</span>
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: [
     `
       :host {

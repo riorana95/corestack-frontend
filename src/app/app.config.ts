@@ -2,7 +2,7 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChang
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import { provideClientHydration, withEventReplay, withNoIncrementalHydration } from '@angular/platform-browser';
 import { importProvidersFrom } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { provideHttpClient, withInterceptors, withFetch } from '@angular/common/http';
@@ -27,7 +27,7 @@ export const appConfig: ApplicationConfig = {
     ])),
     provideRouter(routes),
     provideAnimations(),
-    provideClientHydration(withEventReplay()),
+    provideClientHydration(withEventReplay(), withNoIncrementalHydration()),
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
   ]
 };

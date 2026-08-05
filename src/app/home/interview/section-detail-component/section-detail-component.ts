@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, ViewChild } from '@angular/core';
+import { Component, OnInit, signal, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { InterviewService } from '../interview-question/interview.service';
 import { SectionFilter } from "./section-filter/section-filter";
 import { SectionTable } from "./section-table/section-table";
@@ -8,6 +8,7 @@ import { Section } from './section';
   selector: 'app-section-detail-component',
   imports: [SectionFilter, SectionTable],
   templateUrl: './section-detail-component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './section-detail-component.scss',
 })
 export class SectionDetailComponent implements OnInit {

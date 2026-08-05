@@ -4,6 +4,7 @@ import {
   afterNextRender,
   inject,
   DestroyRef,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { gsap } from 'gsap';
@@ -61,6 +62,7 @@ gsap.registerPlugin(ScrollTrigger);
       <app-contact />
     </main>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: [
     `
       :host {

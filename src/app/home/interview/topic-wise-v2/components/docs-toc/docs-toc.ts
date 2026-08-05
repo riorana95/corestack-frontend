@@ -4,6 +4,7 @@ from '@angular/common';
 import {
   Component,
   Input,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 import {
@@ -19,6 +20,7 @@ import {
 
   templateUrl: './docs-toc.html',
 
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './docs-toc.scss',
 })
 export class DocsToc {

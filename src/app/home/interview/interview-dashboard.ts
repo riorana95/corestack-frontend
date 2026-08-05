@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-interview-dashboard',
   imports: [],
   templateUrl: './interview-dashboard.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './interview-dashboard.scss',
 })
 export class InterviewDashboard {

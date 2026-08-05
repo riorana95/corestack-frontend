@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MockInterview } from './mock-interview/mock-interview';
 import { AnswerCoach } from './answer-coach/answer-coach';
@@ -24,6 +24,7 @@ import { AiPrepMode } from './ai-prep.models';
   standalone: true,
   imports: [CommonModule, MockInterview, AnswerCoach, QuestionGenerator],
   templateUrl: './ai-prep.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './ai-prep.scss',
 })
 export class AiPrep {

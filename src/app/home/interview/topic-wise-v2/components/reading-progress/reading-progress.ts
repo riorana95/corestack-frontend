@@ -5,6 +5,7 @@ import {
   Component,
   HostListener,
   signal,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 @Component({
@@ -17,6 +18,7 @@ import {
   templateUrl:
     './reading-progress.html',
 
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl:
     './reading-progress.scss',
 })

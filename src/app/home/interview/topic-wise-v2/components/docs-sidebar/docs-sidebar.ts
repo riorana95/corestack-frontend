@@ -6,6 +6,7 @@ import {
   EventEmitter,
   Input,
   Output,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 import {
@@ -21,6 +22,7 @@ import {
 
   templateUrl: './docs-sidebar.html',
 
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './docs-sidebar.scss',
 })
 export class DocsSidebar {

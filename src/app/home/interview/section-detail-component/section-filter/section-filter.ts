@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Section } from '../section';
 import { FormsModule } from '@angular/forms';
 import { LoaderService } from '../../../../service/loader.service';
@@ -7,6 +7,7 @@ import { LoaderService } from '../../../../service/loader.service';
   selector: 'app-section-filter',
   imports: [FormsModule],
   templateUrl: './section-filter.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './section-filter.scss',
 })
 export class SectionFilter implements OnInit {

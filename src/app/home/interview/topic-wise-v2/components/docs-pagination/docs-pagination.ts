@@ -5,6 +5,7 @@ import {
   Component,
   Input,
   computed,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 import {
@@ -25,6 +26,7 @@ import {
   templateUrl:
     './docs-pagination.html',
 
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl:
     './docs-pagination.scss',
 })

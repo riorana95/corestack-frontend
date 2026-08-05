@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import {
   Component,
   Input,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { MarkdownModule } from 'ngx-markdown';
 
@@ -24,6 +25,7 @@ import { DocsCode } from '../docs-code/docs-code';
 
   templateUrl: './docs-article.html',
 
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './docs-article.scss',
 })
 export class DocsArticle {

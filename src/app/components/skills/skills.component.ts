@@ -2,27 +2,24 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SKILLS } from '../../data/portfolio.data';
 import { RevealDirective } from '../../directives/reveal.directive';
-import { TiltDirective } from '../../directives/tilt.directive';
 
 @Component({
   selector: 'app-skills',
   standalone: true,
-  imports: [CommonModule, RevealDirective, TiltDirective],
+  imports: [CommonModule, RevealDirective],
   template: `
     <section id="skills" class="skills">
       <div class="container">
         <header class="section-head" appReveal="rise">
           <span class="label">05 — Stack</span>
-          <h2 class="section-head__title display">
-            The full <em class="serif-italic text-accent">arsenal</em>.
-          </h2>
+          <h2 class="section-head__title display">The full <em>arsenal</em>.</h2>
         </header>
 
         <div class="skills__grid">
-          @for (group of skills; track group.category) {
-            <article class="skills__group glass" [appTilt]="4" appReveal="scale" [delay]="$index * 0.08">
+          @for (group of skills; track group.category; let i = $index) {
+            <article class="skills__group surface" appReveal="rise" [delay]="i * 0.07">
               <header class="skills__group-head">
-                <span class="skills__icon">{{ group.icon }}</span>
+                <span class="skills__icon" aria-hidden="true">{{ group.icon }}</span>
                 <h3 class="skills__category">{{ group.category }}</h3>
               </header>
 
@@ -34,10 +31,7 @@ import { TiltDirective } from '../../directives/tilt.directive';
                       <span class="skill__level mono">{{ skill.level }}</span>
                     </div>
                     <div class="skill__bar">
-                      <span
-                        class="skill__bar-fill"
-                        [style.width.%]="skill.level"
-                      ></span>
+                      <span class="skill__bar-fill" [style.width.%]="skill.level"></span>
                     </div>
                   </li>
                 }
@@ -48,7 +42,7 @@ import { TiltDirective } from '../../directives/tilt.directive';
       </div>
     </section>
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './skills.component.scss',
 })
 export class SkillsComponent {

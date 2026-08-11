@@ -1,141 +1,79 @@
-/* =========================================================
-   Floating "Enter Xora" CTA
-   Lives on the portfolio surface only (rendered by
-   PortfolioLayout). Bottom-right, cinematic bronze-gold accent.
-   ========================================================= */
-
+/* Floating Enter Xora CTA — portfolio only */
 .xo-cta {
-  /* Position */
   position: fixed;
   bottom: 28px;
   right: 28px;
-  z-index: 950; /* below the nav (1000) and grain (999) */
-
-  /* Layout */
+  z-index: 950;
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  padding: 14px 22px 14px 18px;
-  border-radius: 100px;
-
-  /* Surface — cinematic glass matching the portfolio */
-  background: var(--bg-glass-strong);
-  backdrop-filter: blur(28px) saturate(160%);
-  -webkit-backdrop-filter: blur(28px) saturate(160%);
+  gap: 0.7rem;
+  padding: 0.85rem 1.2rem 0.85rem 1rem;
+  border-radius: 999px;
+  background: var(--bg-surface);
   border: 1px solid var(--line-strong);
-
-  /* Typography */
-  font-family: var(--font-sans);
-  font-size: 13px;
+  font-size: 0.82rem;
   font-weight: 500;
-  letter-spacing: 0.01em;
   color: var(--ink-soft);
-
-  /* Motion */
-  cursor: none;
+  cursor: pointer;
   opacity: 0;
-  transform: translateY(24px) scale(0.92);
+  transform: translateY(16px);
   transition:
-    opacity 0.8s var(--ease-cinematic),
-    transform 0.8s var(--ease-cinematic),
-    background 0.4s var(--ease-cinematic),
-    color 0.4s var(--ease-cinematic),
-    border-color 0.4s var(--ease-cinematic),
-    box-shadow 0.4s var(--ease-cinematic);
+    opacity var(--dur) var(--ease),
+    transform var(--dur) var(--ease),
+    background var(--dur) var(--ease),
+    color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease);
   pointer-events: none;
 }
 
 .xo-cta--visible {
   opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: none;
   pointer-events: auto;
 }
 
-/* Subtle dim while the user is in the hero — the hero CTA is the
-   primary entry point there. Brightens as they scroll into the
-   rest of the portfolio. */
 .xo-cta--dimmed {
-  opacity: 0.55;
+  opacity: 0.5;
 }
 
-/* Pulsing status dot — bronze gold to match the portfolio accent */
 .xo-cta__dot {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: var(--accent);
-  box-shadow: 0 0 12px var(--accent-glow);
   flex-shrink: 0;
-  animation: xo-cta-pulse 2.4s ease-in-out infinite;
-}
-
-@keyframes xo-cta-pulse {
-  0%, 100% {
-    box-shadow: 0 0 8px var(--accent-glow);
-    transform: scale(1);
-  }
-  50% {
-    box-shadow: 0 0 18px var(--accent-glow);
-    transform: scale(1.15);
-  }
-}
-
-.xo-cta__label {
-  white-space: nowrap;
 }
 
 .xo-cta__arrow {
-  width: 16px;
-  height: 16px;
-  transition: transform 0.4s var(--ease-cinematic);
+  width: 15px;
+  height: 15px;
+  transition: transform var(--dur-fast) var(--ease);
 }
 
-/* Hover: lift, glow, swap to accent-filled */
 .xo-cta:hover {
   background: var(--accent);
-  color: var(--bg);
+  color: #042f2e;
   border-color: var(--accent);
-  box-shadow: var(--shadow-accent);
   opacity: 1 !important;
 }
 
 .xo-cta:hover .xo-cta__dot {
-  background: var(--bg);
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+  background: #042f2e;
 }
 
 .xo-cta:hover .xo-cta__arrow {
-  transform: translateX(4px);
+  transform: translateX(3px);
 }
 
-/* Touch / no-hover devices: restore the default cursor */
-@media (hover: none), (pointer: coarse) {
-  .xo-cta { cursor: pointer; }
-}
-
-/* Mobile: shrink the pill, keep it reachable */
 @media (max-width: 768px) {
   .xo-cta {
     bottom: 18px;
     right: 18px;
-    padding: 12px 18px 12px 14px;
-    gap: 10px;
-    font-size: 12px;
-  }
-
-  .xo-cta__label {
-    /* Keep the label on mobile — the pill is small enough to
-       coexist with the contact section. */
-    white-space: nowrap;
   }
 }
 
-/* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .xo-cta {
     transition: opacity 0.2s linear;
-  }
-  .xo-cta__dot {
-    animation: none;
   }
 }

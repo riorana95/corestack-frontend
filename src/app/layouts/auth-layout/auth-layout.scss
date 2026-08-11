@@ -2,8 +2,10 @@
   display: block;
   position: relative;
   min-height: 100vh;
-  background: #06070a;
+  background: var(--bg, #05070f);
   overflow: hidden;
+  font-family: var(--font-sans, 'Outfit', sans-serif);
+  color: var(--ink, #f2f4f8);
 }
 
 .auth-surface {
@@ -12,17 +14,17 @@
   pointer-events: none;
   z-index: 0;
   background:
-    radial-gradient(circle at 70% 20%, rgba(99, 102, 241, 0.18), transparent 55%),
-    radial-gradient(circle at 20% 80%, rgba(212, 165, 116, 0.12), transparent 60%),
-    #06070a;
+    radial-gradient(ellipse 70% 50% at 85% 10%, rgba(45, 212, 191, 0.1), transparent 55%),
+    radial-gradient(ellipse 50% 40% at 5% 90%, rgba(15, 118, 110, 0.12), transparent 50%),
+    var(--bg, #05070f);
 }
 
 .auth-shell {
   position: relative;
   z-index: 1;
-  display: flex;
+  // display: flex;
   min-height: 100vh;
   align-items: center;
   justify-content: center;
-  padding: 24px;
+  // padding: clamp(1rem, 3vw, 2rem);
 }

@@ -6,29 +6,25 @@ import {
   inject,
   signal,
   DestroyRef,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
 } from '@angular/core';
-import { gsap } from 'gsap';
 
 @Component({
   selector: 'app-loader',
   standalone: true,
   template: `
-    <div class="loader" #loader>
+    <div class="loader" [class.is-exit]="exiting()">
       <div class="loader__inner">
-        <div class="loader__brand">
-          <span class="loader__num">{{ count() }}</span>
-          <span class="loader__pct">%</span>
-        </div>
-        <div class="loader__bar"><div class="loader__bar-fill" #fill></div></div>
+        <div class="loader__mark">RRK</div>
+        <div class="loader__bar"><div class="loader__bar-fill" [style.width.%]="count()"></div></div>
         <div class="loader__meta">
           <span>Rana Rahul Kumar</span>
-          <span>Senior Full Stack Engineer</span>
+          <span>{{ count() }}%</span>
         </div>
       </div>
     </div>
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [
     `
       .loader {
@@ -36,49 +32,46 @@ import { gsap } from 'gsap';
         inset: 0;
         z-index: 10000;
         background: var(--bg);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
+        display: grid;
+        place-items: center;
+        transition: transform 0.7s var(--ease), opacity 0.5s var(--ease);
+      }
+      .loader.is-exit {
+        transform: translateY(-100%);
+        opacity: 0;
       }
       .loader__inner {
-        width: min(80vw, 460px);
+        width: min(78vw, 380px);
         display: flex;
         flex-direction: column;
-        gap: 28px;
+        gap: 1.25rem;
       }
-      .loader__brand {
+      .loader__mark {
         font-family: var(--font-display);
-        font-size: clamp(72px, 16vw, 160px);
-        line-height: 0.9;
+        font-weight: 800;
+        font-size: clamp(3.5rem, 12vw, 5.5rem);
+        letter-spacing: -0.04em;
         color: var(--ink);
-        display: flex;
-        align-items: baseline;
-      }
-      .loader__pct {
-        font-size: 0.3em;
-        color: var(--accent);
-        margin-left: 0.15em;
+        line-height: 1;
       }
       .loader__bar {
-        height: 1px;
-        width: 100%;
+        height: 2px;
         background: var(--line);
-        position: relative;
         overflow: hidden;
+        border-radius: 999px;
       }
       .loader__bar-fill {
-        position: absolute;
-        inset: 0;
-        width: 0%;
+        height: 100%;
+        width: 0;
         background: linear-gradient(90deg, var(--accent-deep), var(--accent-bright));
+        transition: width 0.05s linear;
       }
       .loader__meta {
         display: flex;
         justify-content: space-between;
         font-family: var(--font-mono);
-        font-size: 11px;
-        letter-spacing: 0.18em;
+        font-size: 0.68rem;
+        letter-spacing: 0.14em;
         text-transform: uppercase;
         color: var(--ink-muted);
       }
@@ -88,7 +81,7 @@ import { gsap } from 'gsap';
 export class LoaderComponent {
   @Output() done = new EventEmitter<void>();
   readonly count = signal(0);
-
+  readonly exiting = signal(false);
   private readonly destroyRef = inject(DestroyRef);
 
   constructor() {
@@ -96,35 +89,22 @@ export class LoaderComponent {
   }
 
   private run(): void {
-    const obj = { v: 0 };
-    const tl = gsap.timeline();
+    let v = 0;
+    const id = window.setInterval(() => {
+      v += Math.random() * 18 + 8;
+      if (v >= 100) {
+        v = 100;
+        this.count.set(100);
+        window.clearInterval(id);
+        window.setTimeout(() => {
+          this.exiting.set(true);
+          window.setTimeout(() => this.done.emit(), 650);
+        }, 180);
+      } else {
+        this.count.set(Math.round(v));
+      }
+    }, 70);
 
-    tl.to(obj, {
-      v: 100,
-      duration: 2.4,
-      ease: 'power2.inOut',
-      onUpdate: () => this.count.set(Math.round(obj.v)),
-    })
-      .to('.loader__bar-fill', {
-        width: '100%',
-        duration: 2.4,
-        ease: 'power2.inOut',
-      }, '<')
-      .to('.loader__inner', {
-        y: -40,
-        opacity: 0,
-        duration: 0.7,
-        ease: 'power3.in',
-      }, '+=0.3')
-      .to('.loader', {
-        yPercent: -100,
-        duration: 1.1,
-        ease: 'expo.inOut',
-        onComplete: () => {
-          this.done.emit();
-        },
-      }, '-=0.4');
-
-    this.destroyRef.onDestroy(() => tl.kill());
+    this.destroyRef.onDestroy(() => window.clearInterval(id));
   }
 }

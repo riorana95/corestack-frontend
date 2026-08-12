@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { Home } from './home/home';
-import { Login } from './login/login';
+import { LoginV2 } from './login-v2/login-v2';
 import { Interview } from './home/interview/interview-question/interview';
 import { SectionDetailComponent } from './home/interview/section-detail-component/section-detail-component';
 import { InterviewDashboard } from './home/interview/interview-dashboard';
@@ -8,6 +8,7 @@ import { TopicWise } from './home/interview/topic-wise/topic-wise';
 import { Splitwise } from './home/splitwise/splitwise';
 import { authGuard } from './core/auth/guards/auth.guard';
 import { InterviewVault } from './home/interview/interview-vault/interview-vault';
+import { Login } from './login/login';
 
 /**
  * Route architecture
@@ -64,7 +65,7 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./layouts/auth-layout/auth-layout').then((m) => m.AuthLayout),
         children: [
-          { path: '', component: Login },
+          { path: '', component: LoginV2 },
         ],
       },
 

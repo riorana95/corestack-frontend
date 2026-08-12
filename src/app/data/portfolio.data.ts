@@ -18,9 +18,9 @@ export const PERSON = {
   email: 'riorana95@gmail.com',
   phone: '+91 82109 71525',
   experienceYears: 4,
-  tagline: 'Building cinematic interfaces and resilient systems.',
+  tagline: 'Interfaces with depth. Systems that hold.',
   heroParagraph:
-    'Senior Full Stack Engineer crafting enterprise platforms in Angular (v11–21) and Java Spring Boot (Java 21). I obsess over the seam where pixel-precise UI meets resilient backend architecture.',
+    'I build enterprise platforms where precise Angular UI meets resilient Java Spring Boot architecture — from Digit Insurance production systems to the Xora product suite.',
   links: {
     linkedin: 'https://linkedin.com/in/riorana95',
     github: 'https://github.com/riorana95',

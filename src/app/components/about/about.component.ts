@@ -5,16 +5,11 @@ import {
   DestroyRef,
   ElementRef,
   viewChild,
-  signal,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { PERSON, STATS, EDUCATION } from '../../data/portfolio.data';
 import { RevealDirective } from '../../directives/reveal.directive';
-
-gsap.registerPlugin(ScrollTrigger);
 
 @Component({
   selector: 'app-about',
@@ -26,46 +21,46 @@ gsap.registerPlugin(ScrollTrigger);
         <header class="section-head" appReveal="rise">
           <span class="label">02 — Profile</span>
           <h2 class="section-head__title display">
-            A frontend that <em class="serif-italic text-accent">moves</em>,
-            a backend that <em class="serif-italic text-accent">holds</em>.
+            Frontend that <em>moves</em>, backend that <em>holds</em>.
           </h2>
         </header>
 
         <div class="about__grid">
           <div class="about__copy">
-            <p class="about__lead" appReveal="clip">
-              I'm {{ person.name }} — a {{ person.title | lowercase }} based in {{ person.location }}.
-              For 4+ years I've been shipping enterprise insurance platforms at Digit Insurance,
-              owning the full stack from Angular standalone components down to Spring Boot
-              microservices and PostgreSQL schemas.
+            <p class="about__lead" appReveal="rise">
+              I'm {{ person.name }} — a {{ person.title | lowercase }} based in
+              {{ person.location }}. For 4+ years I've been shipping enterprise insurance
+              platforms at Digit Insurance, owning the stack from Angular standalone
+              components down to Spring Boot services and PostgreSQL schemas.
             </p>
 
-            <p class="about__body" appReveal="rise" [delay]="0.1">
-              My favourite work sits where motion design meets system design: kinetic Angular UIs
-              driven by Signals and OnPush change detection, talking to Java 21 services with
-              virtual threads, JWT-secured through Spring Security, persisted via JPA/Hibernate,
-              and shipped through Kafka and AWS. I've led 5 UI engineers and coordinated
-              cross-functional teams of ~17 — owning the requirements-to-delivery pipeline.
+            <p class="about__body" appReveal="rise" [delay]="0.08">
+              My favourite work sits where motion design meets system design: kinetic Angular
+              UIs driven by Signals and OnPush, talking to Java 21 services with virtual
+              threads, secured through Spring Security, and shipped through Kafka and AWS.
             </p>
 
-            <p class="about__body" appReveal="rise" [delay]="0.15">
+            <p class="about__body" appReveal="rise" [delay]="0.12">
               Beyond the day job, I'm building <span class="text-accent">Xora</span> — a
-              modular full-stack platform hosting multiple products (Interview Prep,
-              Splitwise-style expense sharing, AI-driven commerce) with shared auth, reusable
-              frontend architecture, and Flyway-managed PostgreSQL persistence.
+              modular full-stack platform hosting Interview Prep, expense sharing, and more
+              with shared auth and Flyway-managed persistence.
             </p>
 
-            <div class="about__education" appReveal="rise" [delay]="0.2">
+            <div class="about__education" appReveal="rise" [delay]="0.16">
               <span class="label">Education</span>
               <p class="about__education-title">{{ education.degree }}</p>
-              <p class="about__education-meta">{{ education.institution }} · {{ education.period }}</p>
+              <p class="about__education-meta">
+                {{ education.institution }} · {{ education.period }}
+              </p>
             </div>
           </div>
 
-          <aside class="about__aside">
-            <div class="about__portrait glass" appReveal="scale" [delay]="0.1">
-              <div class="about__portrait-mark">
+          <aside class="about__aside" appReveal="scale" [delay]="0.1">
+            <!-- Photo slot: replace .about__photo-placeholder with <img src="..." alt="..."> -->
+            <div class="about__portrait surface">
+              <div class="about__photo-placeholder" aria-label="Portrait placeholder">
                 <span>{{ person.initials }}</span>
+                <small>Add photo here</small>
               </div>
               <div class="about__portrait-meta">
                 <span class="label">Stack focus</span>
@@ -80,11 +75,15 @@ gsap.registerPlugin(ScrollTrigger);
           </aside>
         </div>
 
-        <!-- stats counter row -->
         <div class="stats" #statsRow>
           @for (stat of stats; track stat.label) {
-            <div class="stat" data-stat>
-              <span class="stat__value" [attr.data-target]="stat.value" [attr.data-suffix]="stat.suffix ?? ''" [attr.data-prefix]="stat.prefix ?? ''">0</span>
+            <div class="stat" data-stat appReveal="rise" [delay]="$index * 0.06">
+              <span
+                class="stat__value"
+                [attr.data-target]="stat.value"
+                [attr.data-suffix]="stat.suffix ?? ''"
+                >0</span
+              >
               <span class="stat__label label">{{ stat.label }}</span>
               <span class="stat__detail">{{ stat.detail }}</span>
             </div>
@@ -93,7 +92,7 @@ gsap.registerPlugin(ScrollTrigger);
       </div>
     </section>
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './about.component.scss',
 })
 export class AboutComponent {
@@ -104,40 +103,42 @@ export class AboutComponent {
 
   private readonly destroyRef = inject(DestroyRef);
   private readonly statsRef = viewChild<ElementRef<HTMLElement>>('statsRow');
-  private readonly counted = signal(false);
 
   constructor() {
     afterNextRender(() => this.bindCounters());
   }
 
   private bindCounters(): void {
-    const st = ScrollTrigger.create({
-      trigger: this.statsRef()!.nativeElement,
-      start: 'top 80%',
-      once: true,
-      onEnter: () => this.runCounters(),
-    });
+    const row = this.statsRef()?.nativeElement;
+    if (!row) return;
 
-    this.destroyRef.onDestroy(() => st.kill());
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((e) => e.isIntersecting)) return;
+        this.runCounters(row);
+        io.disconnect();
+      },
+      { threshold: 0.4 },
+    );
+
+    io.observe(row);
+    this.destroyRef.onDestroy(() => io.disconnect());
   }
 
-  private runCounters(): void {
-    const els = this.statsRef()!.nativeElement.querySelectorAll<HTMLElement>('[data-stat]');
-    els.forEach((el, i) => {
-      const valEl = el.querySelector('.stat__value')!;
-      const target = parseFloat(valEl.getAttribute('data-target') || '0');
-      const suffix = valEl.getAttribute('data-suffix') || '';
-      const prefix = valEl.getAttribute('data-prefix') || '';
-      const obj = { v: 0 };
-      gsap.to(obj, {
-        v: target,
-        duration: 2.2,
-        delay: i * 0.12,
-        ease: 'power3.out',
-        onUpdate: () => {
-          valEl.textContent = `${prefix}${Math.round(obj.v)}${suffix}`;
-        },
-      });
+  private runCounters(row: HTMLElement): void {
+    row.querySelectorAll<HTMLElement>('.stat__value').forEach((el, i) => {
+      const target = parseFloat(el.getAttribute('data-target') || '0');
+      const suffix = el.getAttribute('data-suffix') || '';
+      const start = performance.now();
+      const duration = 1200 + i * 80;
+
+      const tick = (now: number) => {
+        const t = Math.min(1, (now - start) / duration);
+        const eased = 1 - Math.pow(1 - t, 3);
+        el.textContent = `${Math.round(target * eased)}${suffix}`;
+        if (t < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
     });
   }
 }

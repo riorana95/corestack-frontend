@@ -48,8 +48,8 @@
   letter-spacing: 0.04em;
   color: var(--xo-bg);
 
-  background: linear-gradient(135deg, var(--xo-accent, #22d3ee), var(--xo-accent-deep, #0e7490));
-  box-shadow: 0 0 24px rgba(34, 211, 238, 0.35);
+  background: linear-gradient(135deg, var(--xo-accent, #2dd4bf), var(--xo-accent-deep, #0f766e));
+  box-shadow: 0 8px 20px rgba(45, 212, 191, 0.2);
   transition: transform var(--xo-dur, 0.32s) var(--xo-ease, ease);
 
   &:hover {

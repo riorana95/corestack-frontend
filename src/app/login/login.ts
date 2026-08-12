@@ -1,12 +1,12 @@
 import { isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, Component, OnInit, PLATFORM_ID, inject, ChangeDetectionStrategy } from '@angular/core';
+import { AfterViewInit, Component, OnInit, OnDestroy, PLATFORM_ID, inject, ChangeDetectionStrategy, signal, ViewChild, ElementRef } from '@angular/core';
 import {
   Validators,
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../core/auth/services/auth.service';
 import { ApiErrorResponse } from '../core/auth/models/auth.model';
@@ -32,13 +32,13 @@ declare const google:
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink],
   templateUrl: './login.html',
   styleUrl: './login.scss',
   changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
 })
-export class Login implements OnInit, AfterViewInit {
+export class Login implements OnInit, AfterViewInit, OnDestroy {
   private readonly fb = inject(FormBuilder);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
@@ -49,6 +49,13 @@ export class Login implements OnInit, AfterViewInit {
   isRegistered = true;
   errorMsg = '';
   isSubmitting = false;
+  readonly mx = signal('50%');
+  readonly my = signal('50%');
+  readonly panelTransform = signal('');
+  readonly showPassword = signal(false);
+  private animationFrameId: number | null = null;
+  private resizeHandler: (() => void) | null = null;
+  @ViewChild('particleCanvas', { static: false }) particleCanvas!: ElementRef<HTMLCanvasElement>;
 
   ngOnInit(): void {
     if (this.authService.isAuthenticated()) {
@@ -60,6 +67,29 @@ export class Login implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.initGoogleButton();
+    this.initParticles();
+  }
+
+  onPointerMove(event: MouseEvent): void {
+    const target = event.currentTarget as HTMLElement;
+    const rect = target.getBoundingClientRect();
+    const x = ((event.clientX - rect.left) / rect.width) * 100;
+    const y = ((event.clientY - rect.top) / rect.height) * 100;
+    this.mx.set(`${x}%`);
+    this.my.set(`${y}%`);
+    const rotateY = ((x - 50) / 50) * 1.1;
+    const rotateX = ((50 - y) / 50) * 1.1;
+    this.panelTransform.set(`perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`);
+  }
+
+  onPointerLeave(): void {
+    this.mx.set('50%');
+    this.my.set('50%');
+    this.panelTransform.set('');
+  }
+
+  togglePasswordVisibility(): void {
+    this.showPassword.update(v => !v);
   }
 
   /**
@@ -104,7 +134,7 @@ export class Login implements OnInit, AfterViewInit {
     google.accounts.id.renderButton(googleButton, {
       theme: 'outline',
       size: 'large',
-      width: 250,
+      width: 400,
     });
   }
 
@@ -208,5 +238,76 @@ export class Login implements OnInit, AfterViewInit {
     this.isSubmitting = false;
     const apiError = err.error as ApiErrorResponse | undefined;
     this.errorMsg = apiError?.message ?? 'Authentication failed. Please try again.';
+  }
+
+  private initParticles(): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+    const canvas = this.particleCanvas?.nativeElement;
+    if (!canvas) {
+      return;
+    }
+    const ctx = canvas.getContext('2d');
+    if (!ctx) {
+      return;
+    }
+
+    const particles: Array<{
+      x: number; y: number; size: number;
+      speedX: number; speedY: number; opacity: number;
+      pulse: number; pulseSpeed: number;
+    }> = [];
+    const count = 90;
+
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    resize();
+    this.resizeHandler = resize;
+    window.addEventListener('resize', resize);
+
+    for (let i = 0; i < count; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 1.6 + 0.2,
+        speedX: (Math.random() - 0.5) * 0.25,
+        speedY: (Math.random() - 0.5) * 0.25,
+        opacity: Math.random() * 0.5 + 0.08,
+        pulse: Math.random() * Math.PI * 2,
+        pulseSpeed: Math.random() * 0.015 + 0.005,
+      });
+    }
+
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (const p of particles) {
+        p.x += p.speedX;
+        p.y += p.speedY;
+        p.pulse += p.pulseSpeed;
+        if (p.x < -5) { p.x = canvas.width + 5; }
+        if (p.x > canvas.width + 5) { p.x = -5; }
+        if (p.y < -5) { p.y = canvas.height + 5; }
+        if (p.y > canvas.height + 5) { p.y = -5; }
+        const o = p.opacity * (0.6 + 0.4 * Math.sin(p.pulse));
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(45, 212, 191, ${o})`;
+        ctx.fill();
+      }
+      this.animationFrameId = requestAnimationFrame(animate);
+    };
+    animate();
+  }
+
+  ngOnDestroy(): void {
+    if (this.animationFrameId !== null) {
+      cancelAnimationFrame(this.animationFrameId);
+    }
+    if (this.resizeHandler) {
+      window.removeEventListener('resize', this.resizeHandler);
+    }
   }
 }

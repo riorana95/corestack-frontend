@@ -60,7 +60,7 @@ import { RevealDirective } from '../../directives/reveal.directive';
             <div class="about__portrait surface">
               <div class="about__photo-placeholder" aria-label="Portrait placeholder">
                 <span>{{ person.initials }}</span>
-                <small>Add photo here</small>
+                <img src="/assests/profile.png" alt="Profile photo" />
               </div>
               <div class="about__portrait-meta">
                 <span class="label">Stack focus</span>

@@ -43,12 +43,12 @@ import { SmoothScrollService } from '../../services/smooth-scroll.service';
             <div class="stage__ring stage__ring--outer"></div>
             <div class="stage__ring stage__ring--mid"></div>
             <div class="cube">
-              <span class="cube__face cube__face--front"></span>
-              <span class="cube__face cube__face--back"></span>
-              <span class="cube__face cube__face--right"></span>
-              <span class="cube__face cube__face--left"></span>
-              <span class="cube__face cube__face--top"></span>
-              <span class="cube__face cube__face--bottom"></span>
+              <span class="cube__face cube__face--front">R</span>
+              <span class="cube__face cube__face--back">R</span>
+              <span class="cube__face cube__face--right">R</span>
+              <span class="cube__face cube__face--left">R</span>
+              <span class="cube__face cube__face--top">R</span>
+              <span class="cube__face cube__face--bottom">R</span>
             </div>
             <div class="stage__orb"></div>
             <div class="stage__slab stage__slab--a"></div>

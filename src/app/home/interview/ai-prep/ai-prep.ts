@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MockInterview } from './mock-interview/mock-interview';
 import { AnswerCoach } from './answer-coach/answer-coach';
 import { QuestionGenerator } from './question-generator/question-generator';
+import { VoiceInterview } from './voice-interview/voice-interview';
 import { AiPrepMode } from './ai-prep.models';
 
 /**
@@ -22,7 +23,7 @@ import { AiPrepMode } from './ai-prep.models';
 @Component({
   selector: 'app-ai-prep',
   standalone: true,
-  imports: [CommonModule, MockInterview, AnswerCoach, QuestionGenerator],
+  imports: [CommonModule, MockInterview, VoiceInterview, AnswerCoach, QuestionGenerator],
   templateUrl: './ai-prep.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './ai-prep.scss',
@@ -35,6 +36,11 @@ export class AiPrep {
       id: 'mock-interview',
       label: 'Mock Interview',
       description: 'AI interviewer asks questions, evaluates answers, scores your session',
+    },
+    {
+      id: 'voice-interview',
+      label: 'Voice Interview',
+      description: 'Speak with Gemini Live in a natural, real-time mock interview',
     },
     {
       id: 'answer-coach',

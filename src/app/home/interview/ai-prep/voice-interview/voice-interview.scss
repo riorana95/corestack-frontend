@@ -1,0 +1,815 @@
+.xo-voice {
+  color: var(--xo-ink, #10231d);
+  width: 100%;
+}
+
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+
+.xo-voice__header {
+  max-width: 820px;
+  margin-bottom: 2rem;
+}
+
+
+.xo-voice h2 {
+  margin: 0.35rem 0 0.6rem;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+}
+
+
+.xo-voice h3 {
+  margin: 0.25rem 0 0;
+}
+
+
+.xo-voice p {
+  color: var(--xo-ink-muted, #52655c);
+}
+
+
+/* ============================================================
+   SETUP
+   ============================================================ */
+
+.xo-voice__setup {
+  display: grid;
+  gap: 1rem;
+
+  max-width: 820px;
+
+  padding: 1.25rem;
+
+  border: 1px solid
+    var(--xo-line, #d4ded7);
+
+  border-radius: 1rem;
+
+  background:
+    var(--xo-paper, #fff);
+}
+
+
+.xo-voice label,
+.xo-voice__skills > span {
+  display: grid;
+
+  gap: 0.4rem;
+
+  font-size: 0.85rem;
+
+  font-weight: 700;
+}
+
+
+.xo-voice select {
+  padding: 0.7rem 0.8rem;
+
+  border:
+    1px solid
+    var(--xo-line, #cbd8d0);
+
+  border-radius: 0.55rem;
+
+  background:
+    transparent;
+
+  color: inherit;
+}
+
+
+.xo-voice__skills > div {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 0.45rem;
+
+  margin-top: 0.35rem;
+}
+
+
+.xo-voice__skills button {
+  border:
+    1px solid
+    var(--xo-line, #cbd8d0);
+
+  border-radius: 999px;
+
+  padding:
+    0.42rem 0.7rem;
+
+  background:
+    transparent;
+
+  color: inherit;
+
+  font-size: 0.78rem;
+
+  cursor: pointer;
+
+  transition:
+    0.18s ease;
+}
+
+
+.xo-voice__skills button:hover {
+  transform:
+    translateY(-1px);
+}
+
+
+.xo-voice__skills button.is-selected {
+  background: #193e31;
+
+  border-color: #193e31;
+
+  color: #fff;
+}
+
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+
+.xo-voice__start,
+.xo-voice__end,
+.xo-voice__submit,
+.xo-voice__mic {
+  border: 0;
+
+  border-radius: 0.65rem;
+
+  padding:
+    0.8rem 1.05rem;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.18s ease,
+    opacity 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+
+.xo-voice__start {
+  width: fit-content;
+
+  background: #193e31;
+
+  color: #fff;
+}
+
+
+.xo-voice__start:hover,
+.xo-voice__submit:hover,
+.xo-voice__mic:hover {
+  transform:
+    translateY(-1px);
+}
+
+
+.xo-voice__start:disabled,
+.xo-voice__end:disabled,
+.xo-voice__submit:disabled,
+.xo-voice__mic:disabled {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+
+  transform: none;
+}
+
+
+.xo-voice__end {
+  margin-left: auto;
+
+  background: #943d33;
+
+  color: #fff;
+}
+
+
+/* ============================================================
+   CALL HEADER
+   ============================================================ */
+
+.xo-voice__call {
+  display: flex;
+
+  align-items: center;
+
+  gap: 1rem;
+
+  padding: 1rem 1.1rem;
+
+  border:
+    1px solid
+    var(--xo-line, #d4ded7);
+
+  border-radius: 1rem;
+
+  background:
+    var(--xo-paper, #fff);
+
+  box-shadow:
+    0 10px 30px
+    rgba(20, 40, 30, 0.06);
+}
+
+
+.xo-voice__status {
+  min-width: 0;
+}
+
+
+.xo-voice__call h2 {
+  font-size: 1.15rem;
+
+  margin: 0.2rem 0 0;
+}
+
+
+/* ============================================================
+   ORB
+   ============================================================ */
+
+.xo-voice__orb {
+  width: 3rem;
+
+  height: 3rem;
+
+  flex:
+    0 0 3rem;
+
+  border-radius: 50%;
+
+  background: #859f91;
+
+  box-shadow:
+    0 0 0 0.45rem
+    #e0eae3;
+}
+
+
+.xo-voice__orb.is-listening {
+  background: #2c8461;
+
+  animation:
+    xoVoicePulse 1.6s infinite;
+}
+
+
+.xo-voice__orb.is-speaking {
+  background: #3563a4;
+
+  animation:
+    xoVoicePulse 0.8s infinite;
+}
+
+
+@keyframes xoVoicePulse {
+  50% {
+    box-shadow:
+      0 0 0 0.8rem
+      #d9e9df;
+  }
+}
+
+
+/* ============================================================
+   LIVE QUESTION
+   ============================================================ */
+
+.xo-voice__question {
+  margin-top: 1rem;
+
+  padding: 1.15rem 1.25rem;
+
+  border-radius: 1rem;
+
+  border:
+    1px solid
+    rgba(38, 112, 88, 0.22);
+
+  background:
+    linear-gradient(
+      135deg,
+      #f3fbf6,
+      #eaf5ef
+    );
+}
+
+
+.xo-voice__question-head {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 0.7rem;
+
+  font-size: 0.68rem;
+
+  font-weight: 800;
+
+  letter-spacing: 0.12em;
+
+  color: #356d58;
+}
+
+
+.xo-voice__question p {
+  margin: 0;
+
+  color: #18372b;
+
+  font-size: 1.08rem;
+
+  line-height: 1.65;
+}
+
+
+.xo-voice__live-dot {
+  padding:
+    0.2rem 0.45rem;
+
+  border-radius: 999px;
+
+  background: #d9f3e4;
+
+  color: #24744d;
+
+  font-size: 0.62rem;
+
+  letter-spacing: 0.08em;
+}
+
+
+/* ============================================================
+   LIVE STATUS
+   ============================================================ */
+
+.xo-voice__live {
+  min-height: 3.6rem;
+
+  margin-top: 0.75rem;
+
+  padding: 1rem;
+
+  border-radius: 0.75rem;
+
+  background: #edf4ef;
+
+  font-style: italic;
+
+  color: #52655c;
+
+  transition:
+    0.2s ease;
+}
+
+
+.xo-voice__live.is-speaking {
+  background: #edf3fb;
+
+  color: #315477;
+}
+
+
+.xo-voice__live.is-listening {
+  background: #e9f7ef;
+
+  color: #276b4c;
+}
+
+
+/* ============================================================
+   TRANSCRIPT
+   ============================================================ */
+
+.xo-voice__transcript {
+  max-height: 420px;
+
+  overflow-y: auto;
+
+  display: grid;
+
+  gap: 0.65rem;
+
+  margin-top: 1rem;
+
+  padding-right: 0.25rem;
+}
+
+
+.xo-voice__message {
+  padding:
+    0.85rem 1rem;
+
+  border-radius: 0.85rem;
+
+  background: #f5f7f5;
+}
+
+
+.xo-voice__message.is-candidate {
+  background: #e5f1ea;
+}
+
+
+.xo-voice__message.is-live {
+  border:
+    1px dashed
+    #91b8a4;
+}
+
+
+.xo-voice__message strong {
+  display: block;
+
+  margin-bottom: 0.3rem;
+
+  color: #193e31;
+
+  font-size: 0.72rem;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.08em;
+}
+
+
+.xo-voice__message p {
+  margin: 0;
+
+  white-space: pre-wrap;
+
+  line-height: 1.55;
+}
+
+
+/* ============================================================
+   CANDIDATE AREA
+   ============================================================ */
+
+.xo-voice__candidate {
+  margin-top: 1rem;
+
+  padding: 1.15rem;
+
+  border:
+    1px solid
+    var(--xo-line, #d4ded7);
+
+  border-radius: 1rem;
+
+  background:
+    var(--xo-paper, #fff);
+
+  box-shadow:
+    0 10px 30px
+    rgba(20, 40, 30, 0.05);
+}
+
+
+.xo-voice__candidate-head {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 1rem;
+
+  margin-bottom: 1rem;
+}
+
+
+.xo-voice__mic {
+  background: #193e31;
+
+  color: #fff;
+}
+
+
+.xo-voice__mic.is-active {
+  background: #2c8461;
+
+  box-shadow:
+    0 0 0 4px
+    #dcefe4;
+}
+
+
+/* ============================================================
+   COMPOSER TABS
+   ============================================================ */
+
+.xo-voice__composer-tabs {
+  display: flex;
+
+  gap: 0.4rem;
+
+  margin-bottom: 0.7rem;
+}
+
+
+.xo-voice__composer-tabs button {
+  border:
+    1px solid
+    #d3ddd6;
+
+  border-radius: 0.5rem;
+
+  padding:
+    0.55rem 0.8rem;
+
+  background:
+    transparent;
+
+  color: #52655c;
+
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+
+.xo-voice__composer-tabs button.is-active {
+  background: #193e31;
+
+  border-color: #193e31;
+
+  color: #fff;
+}
+
+
+/* ============================================================
+   TEXT / CODE
+   ============================================================ */
+
+.xo-voice__answer,
+.xo-voice__code {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  resize: vertical;
+
+  border:
+    1px solid
+    #ccd8d1;
+
+  border-radius: 0.7rem;
+
+  padding: 0.9rem;
+
+  outline: none;
+
+  background: #fbfdfb;
+
+  color: #17362b;
+
+  font-family:
+    inherit;
+
+  line-height: 1.55;
+}
+
+
+.xo-voice__answer:focus,
+.xo-voice__code:focus {
+  border-color: #6c9c84;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(53, 120, 87, 0.1);
+}
+
+
+.xo-voice__code {
+  font-family:
+    'JetBrains Mono',
+    'Cascadia Code',
+    Consolas,
+    monospace;
+
+  font-size: 0.86rem;
+
+  tab-size: 2;
+}
+
+
+/* ============================================================
+   COMPOSER FOOTER
+   ============================================================ */
+
+.xo-voice__composer-footer {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 1rem;
+
+  margin-top: 0.8rem;
+}
+
+
+.xo-voice__composer-footer > span {
+  color: #66766f;
+
+  font-size: 0.78rem;
+}
+
+
+.xo-voice__submit {
+  background: #193e31;
+
+  color: #fff;
+
+  white-space: nowrap;
+}
+
+
+/* ============================================================
+   SCORES
+   ============================================================ */
+
+.xo-voice__scores {
+  display: flex;
+
+  gap: 1rem;
+
+  margin: 1.2rem 0;
+}
+
+
+.xo-voice__scores div {
+  min-width: 150px;
+
+  padding: 1rem;
+
+  border-radius: 0.75rem;
+
+  background: #edf4ef;
+}
+
+
+.xo-voice__scores strong,
+.xo-voice__scores span {
+  display: block;
+}
+
+
+.xo-voice__scores strong {
+  font-size: 2rem;
+}
+
+
+.xo-voice__scores span {
+  font-size: 0.8rem;
+
+  color: #52655c;
+}
+
+
+/* ============================================================
+   REPORT
+   ============================================================ */
+
+.xo-voice__report {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      3,
+      minmax(0, 1fr)
+    );
+
+  gap: 1rem;
+
+  margin-bottom: 1.2rem;
+}
+
+
+.xo-voice__report > div {
+  padding: 1rem;
+
+  border:
+    1px solid
+    var(--xo-line, #d4ded7);
+
+  border-radius: 0.75rem;
+}
+
+
+.xo-voice__report h3 {
+  margin-top: 0;
+
+  font-size: 1rem;
+}
+
+
+.xo-voice__report ul {
+  margin: 0;
+
+  padding-left: 1.1rem;
+
+  color: #52655c;
+}
+
+
+.xo-voice__report li + li {
+  margin-top: 0.55rem;
+}
+
+
+/* ============================================================
+   ERROR
+   ============================================================ */
+
+.xo-voice__error {
+  margin-top: 1rem;
+
+  padding: 0.85rem 1rem;
+
+  border-radius: 0.7rem;
+
+  background: #fff0ee;
+
+  color: #a32c23 !important;
+
+  border:
+    1px solid
+    #f0c7c2;
+}
+
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 760px) {
+
+  .xo-voice__call {
+    align-items: flex-start;
+
+    flex-wrap: wrap;
+  }
+
+
+  .xo-voice__end {
+    margin-left: 0;
+
+    width: 100%;
+  }
+
+
+  .xo-voice__candidate-head {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+
+  .xo-voice__mic {
+    width: 100%;
+  }
+
+
+  .xo-voice__composer-footer {
+    align-items: stretch;
+
+    flex-direction: column;
+  }
+
+
+  .xo-voice__submit {
+    width: 100%;
+  }
+
+
+  .xo-voice__scores {
+    flex-direction: column;
+  }
+
+
+  .xo-voice__scores div {
+    width: 100%;
+
+    box-sizing: border-box;
+  }
+
+
+  .xo-voice__report {
+    grid-template-columns: 1fr;
+  }
+}

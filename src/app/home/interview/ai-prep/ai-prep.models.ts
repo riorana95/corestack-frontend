@@ -110,9 +110,46 @@ export interface QuestionGeneratorResponse {
   questions: GeneratedQuestion[];
 }
 
+// ---------- Voice Interview ----------
+export interface VoiceInterviewSetup {
+  role: string;
+  skills: string[];
+  difficulty: Difficulty;
+}
+
+/** The permanent Gemini key is never included in this response. */
+export interface VoiceSessionResponse {
+  token: string;
+  model: string;
+  config: Record<string, unknown>;
+  expiresAt?: string;
+  newSessionExpiresAt?: string;
+}
+
+export interface VoiceTranscriptEntry {
+  speaker: 'candidate' | 'interviewer';
+  text: string;
+}
+
+export interface VoiceSpeechStats {
+  candidateWords: number;
+  wordsPerMinute: number | null;
+  fillerWords: Record<string, number>;
+}
+
+export interface VoiceInterviewResults {
+  overallScore: number;
+  technicalKnowledge: number;
+  communication: number;
+  summary: string;
+  strengths: string[];
+  weakAreas: string[];
+  recommendations: string[];
+}
+
 // ---------- UI State ----------
 export type MockInterviewScreen = 'setup' | 'interview' | 'results';
-export type AiPrepMode = 'mock-interview' | 'answer-coach' | 'question-generator';
+export type AiPrepMode = 'mock-interview' | 'voice-interview' | 'answer-coach' | 'question-generator';
 
 /** Roles and skills offered in the setup screen. */
 export const AI_PREP_ROLES = [

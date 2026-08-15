@@ -12,13 +12,18 @@ import {
   QuestionGeneratorRequest,
   QuestionGeneratorResponse,
   TranscriptEntry,
+  VoiceInterviewResults,
+  VoiceInterviewSetup,
+  VoiceSessionResponse,
+  VoiceSpeechStats,
+  VoiceTranscriptEntry,
 } from './ai-prep.models';
 
 /**
  * AI Prep service — HTTP client for the Xora proxy.
  *
  * All calls go to the Node.js proxy (environment.aiProxyUrl), which
- * holds the Z.ai API key and applies structured prompts. The Angular
+ * holds provider API keys and applies structured prompts. The Angular
  * frontend never sees the API key.
  *
  * The proxy is stateless — session context (transcript, question bank
@@ -82,5 +87,20 @@ export class AiPrepService {
       `${this.baseUrl}/api/ai/question-generator`,
       req,
     );
+  }
+
+  /** POST /api/ai/voice/session — returns a short-lived Gemini Live token. */
+  createVoiceSession(setup: VoiceInterviewSetup): Observable<VoiceSessionResponse> {
+    return this.http.post<VoiceSessionResponse>(`${this.baseUrl}/api/ai/voice/session`, setup);
+  }
+
+  /** POST /api/ai/voice/results — evaluates the transcript after the call ends. */
+  getVoiceResults(payload: {
+    role: string;
+    skills: string[];
+    transcript: VoiceTranscriptEntry[];
+    speechStats: VoiceSpeechStats;
+  }): Observable<VoiceInterviewResults> {
+    return this.http.post<VoiceInterviewResults>(`${this.baseUrl}/api/ai/voice/results`, payload);
   }
 }

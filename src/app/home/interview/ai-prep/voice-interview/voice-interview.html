@@ -1,53 +1,590 @@
 <section class="xo-voice">
+
+  <!-- ========================================================
+       SETUP
+       ======================================================== -->
+
   @if (screen() === 'setup') {
+
     <header class="xo-voice__header">
-      <span class="xo-label">Gemini Live / Voice Interview</span>
-      <h2>Practice the conversation, not just the answer.</h2>
-      <p>Use headphones where possible. Xora listens to your microphone and speaks back in real time.</p>
+
+      <span class="xo-label">
+        Gemini Live / Voice Interview
+      </span>
+
+      <h2>
+        Practice the conversation, not just the answer.
+      </h2>
+
+      <p>
+        Xora will ask technical questions by voice.
+        Questions appear as live text while Xora speaks.
+      </p>
+
     </header>
 
+
     <div class="xo-voice__setup">
-      <label>Target role
-        <select [ngModel]="selectedRole()" (ngModelChange)="selectedRole.set($event)">
-          @for (role of roles; track role) { <option [value]="role">{{ role }}</option> }
+
+      <label>
+        Target role
+
+        <select
+          [ngModel]="selectedRole()"
+          (ngModelChange)="selectedRole.set($event)"
+        >
+          @for (role of roles; track role) {
+            <option [value]="role">
+              {{ role }}
+            </option>
+          }
         </select>
       </label>
-      <label>Difficulty
-        <select [ngModel]="selectedDifficulty()" (ngModelChange)="selectedDifficulty.set($event)">
-          <option value="beginner">Beginner</option><option value="intermediate">Intermediate</option><option value="advanced">Advanced</option>
+
+
+      <label>
+        Difficulty
+
+        <select
+          [ngModel]="selectedDifficulty()"
+          (ngModelChange)="selectedDifficulty.set($event)"
+        >
+          <option value="beginner">
+            Beginner
+          </option>
+
+          <option value="intermediate">
+            Intermediate
+          </option>
+
+          <option value="advanced">
+            Advanced
+          </option>
         </select>
       </label>
+
+
       <div class="xo-voice__skills">
-        <span>Focus skills</span>
+
+        <span>
+          Focus skills
+        </span>
+
         <div>
-          @for (skill of skills; track skill) {
-            <button type="button" [class.is-selected]="isSkillSelected(skill)" (click)="toggleSkill(skill)">{{ skill }}</button>
+          @for (
+            skill of skills;
+            track skill
+          ) {
+
+            <button
+              type="button"
+              [class.is-selected]="
+                isSkillSelected(skill)
+              "
+              (click)="toggleSkill(skill)"
+            >
+              {{ skill }}
+            </button>
+
           }
         </div>
+
       </div>
-      <button type="button" class="xo-voice__start" (click)="start()" [disabled]="loading()">
-        {{ loading() ? 'Connecting…' : 'Start voice interview' }}
+
+
+      <button
+        type="button"
+        class="xo-voice__start"
+        (click)="start()"
+        [disabled]="loading()"
+      >
+        {{
+          loading()
+            ? 'Connecting…'
+            : 'Start voice interview'
+        }}
       </button>
+
     </div>
-  } @else if (screen() === 'interview') {
-    <header class="xo-voice__call">
-      <div class="xo-voice__orb" [class.is-speaking]="status() === 'speaking'" [class.is-listening]="status() === 'listening'"></div>
-      <div><span class="xo-label">Xora AI interviewer</span><h2>{{ status() === 'speaking' ? 'Speaking' : status() === 'listening' ? 'Listening' : 'Connecting' }}</h2></div>
-      <button type="button" class="xo-voice__end" (click)="finish()" [disabled]="loading()">End &amp; get report</button>
-    </header>
-    <p class="xo-voice__live">{{ liveText() || 'Preparing your interview…' }}</p>
-    <div class="xo-voice__transcript" aria-live="polite">
-      @for (entry of transcript(); track $index) {
-        <p [class.is-candidate]="entry.speaker === 'candidate'"><strong>{{ entry.speaker === 'candidate' ? 'You' : 'Xora' }}</strong>{{ entry.text }}</p>
-      }
-    </div>
-  } @else {
-    @if (results(); as report) {
-      <header class="xo-voice__header"><span class="xo-label">Voice Interview / Report</span><h2>{{ report.overallScore }}/100 overall</h2><p>{{ report.summary }}</p></header>
-      <div class="xo-voice__scores"><div><strong>{{ report.technicalKnowledge }}</strong><span>Technical knowledge</span></div><div><strong>{{ report.communication }}</strong><span>Communication</span></div></div>
-      <div class="xo-voice__report"><div><h3>Strengths</h3><ul>@for (item of report.strengths; track item) { <li>{{ item }}</li> }</ul></div><div><h3>Improve next</h3><ul>@for (item of report.weakAreas; track item) { <li>{{ item }}</li> }</ul></div><div><h3>Practice plan</h3><ul>@for (item of report.recommendations; track item) { <li>{{ item }}</li> }</ul></div></div>
-    }
-    <button type="button" class="xo-voice__start" (click)="restart()">Start another voice interview</button>
+
   }
-  @if (error()) { <p class="xo-voice__error">{{ error() }}</p> }
+
+
+  <!-- ========================================================
+       INTERVIEW
+       ======================================================== -->
+
+  @else if (screen() === 'interview') {
+
+    <header class="xo-voice__call">
+
+      <div
+        class="xo-voice__orb"
+        [class.is-speaking]="
+          status() === 'speaking'
+        "
+        [class.is-listening]="
+          status() === 'listening'
+        "
+      ></div>
+
+
+      <div class="xo-voice__status">
+
+        <span class="xo-label">
+          Xora AI interviewer
+        </span>
+
+        <h2>
+
+          @if (status() === 'speaking') {
+            Xora is speaking
+          }
+
+          @else if (
+            status() === 'listening'
+          ) {
+            Your turn
+          }
+
+          @else if (
+            status() === 'processing'
+          ) {
+            Thinking…
+          }
+
+          @else {
+            Connecting…
+          }
+
+        </h2>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="xo-voice__end"
+        (click)="finish()"
+        [disabled]="loading()"
+      >
+        End &amp; get report
+      </button>
+
+    </header>
+
+
+    <!-- ======================================================
+         LIVE QUESTION
+         ====================================================== -->
+
+    @if (
+      liveInterviewerText()
+    ) {
+
+      <section class="xo-voice__question">
+
+        <div class="xo-voice__question-head">
+
+          <span>
+            CURRENT QUESTION
+          </span>
+
+          <span
+            class="xo-voice__live-dot"
+          >
+            LIVE
+          </span>
+
+        </div>
+
+
+        <p>
+          {{ liveInterviewerText() }}
+        </p>
+
+      </section>
+
+    }
+
+
+    <!-- ======================================================
+         LIVE STATUS
+         ====================================================== -->
+
+    <div
+      class="xo-voice__live"
+      [class.is-speaking]="
+        status() === 'speaking'
+      "
+      [class.is-listening]="
+        status() === 'listening'
+      "
+    >
+      {{ liveText() || 'Preparing your interview…' }}
+    </div>
+
+
+    <!-- ======================================================
+         TRANSCRIPT
+         ====================================================== -->
+
+    <section class="xo-voice__transcript">
+
+      @for (
+        entry of transcript();
+        track $index
+      ) {
+
+        <article
+          class="xo-voice__message"
+          [class.is-candidate]="
+            entry.speaker === 'candidate'
+          "
+        >
+
+          <strong>
+            {{
+              entry.speaker === 'candidate'
+                ? 'You'
+                : 'Xora'
+            }}
+          </strong>
+
+          <p>
+            {{ entry.text }}
+          </p>
+
+        </article>
+
+      }
+
+
+      @if (
+        liveCandidateText()
+      ) {
+
+        <article
+          class="xo-voice__message is-candidate is-live"
+        >
+
+          <strong>
+            You
+          </strong>
+
+          <p>
+            {{ liveCandidateText() }}
+          </p>
+
+        </article>
+
+      }
+
+    </section>
+
+
+    <!-- ======================================================
+         CANDIDATE CONTROLS
+         ====================================================== -->
+
+    <section class="xo-voice__candidate">
+
+      <div class="xo-voice__candidate-head">
+
+        <div>
+
+          <span class="xo-label">
+            YOUR TURN
+          </span>
+
+          <h3>
+            Answer the interviewer
+          </h3>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="xo-voice__mic"
+          [class.is-active]="
+            micEnabled()
+          "
+          [disabled]="
+            status() === 'speaking' ||
+            status() === 'processing'
+          "
+          (click)="toggleMicrophone()"
+        >
+
+          @if (micEnabled()) {
+            🎙 Mute microphone
+          } @else {
+            🎙 Start speaking
+          }
+
+        </button>
+
+      </div>
+
+
+      <div class="xo-voice__composer-tabs">
+
+        <button
+          type="button"
+          [class.is-active]="
+            composerMode() === 'answer'
+          "
+          (click)="composerMode.set('answer')"
+        >
+          Text answer
+        </button>
+
+        <button
+          type="button"
+          [class.is-active]="
+            composerMode() === 'code'
+          "
+          (click)="composerMode.set('code')"
+        >
+          Code answer
+        </button>
+
+      </div>
+
+
+      @if (
+        composerMode() === 'answer'
+      ) {
+
+        <textarea
+          class="xo-voice__answer"
+          rows="5"
+          [ngModel]="answerText()"
+          (ngModelChange)="answerText.set($event)"
+          placeholder="Type your answer here..."
+          [disabled]="
+            status() === 'speaking' ||
+            status() === 'processing'
+          "
+        ></textarea>
+
+      }
+
+
+      @if (
+        composerMode() === 'code'
+      ) {
+
+        <textarea
+          class="xo-voice__code"
+          rows="12"
+          spellcheck="false"
+          [ngModel]="codeText()"
+          (ngModelChange)="codeText.set($event)"
+          placeholder="// Write or paste your solution here..."
+          [disabled]="
+            status() === 'speaking' ||
+            status() === 'processing'
+          "
+        ></textarea>
+
+      }
+
+
+      <div class="xo-voice__composer-footer">
+
+        <span>
+
+          @if (
+            status() === 'speaking'
+          ) {
+            🔒 Wait for Xora to finish speaking
+          }
+
+          @else if (
+            micEnabled()
+          ) {
+            🎙 Microphone active
+          }
+
+          @else {
+            You can type or enable your microphone
+          }
+
+        </span>
+
+
+        <button
+          type="button"
+          class="xo-voice__submit"
+          (click)="submitTypedAnswer()"
+          [disabled]="
+            status() === 'speaking' ||
+            status() === 'processing' ||
+            (!answerText().trim() &&
+             !codeText().trim())
+          "
+        >
+          Submit answer →
+        </button>
+
+      </div>
+
+    </section>
+
+  }
+
+
+  <!-- ========================================================
+       RESULTS
+       ======================================================== -->
+
+  @else {
+
+    @if (
+      results();
+      as report
+    ) {
+
+      <header class="xo-voice__header">
+
+        <span class="xo-label">
+          Voice Interview / Report
+        </span>
+
+        <h2>
+          {{ report.overallScore }}/100 overall
+        </h2>
+
+        <p>
+          {{ report.summary }}
+        </p>
+
+      </header>
+
+
+      <div class="xo-voice__scores">
+
+        <div>
+          <strong>
+            {{ report.technicalKnowledge }}
+          </strong>
+
+          <span>
+            Technical knowledge
+          </span>
+        </div>
+
+
+        <div>
+          <strong>
+            {{ report.communication }}
+          </strong>
+
+          <span>
+            Communication
+          </span>
+        </div>
+
+      </div>
+
+
+      <div class="xo-voice__report">
+
+        <div>
+
+          <h3>
+            Strengths
+          </h3>
+
+          <ul>
+
+            @for (
+              item of report.strengths;
+              track item
+            ) {
+
+              <li>
+                {{ item }}
+              </li>
+
+            }
+
+          </ul>
+
+        </div>
+
+
+        <div>
+
+          <h3>
+            Improve next
+          </h3>
+
+          <ul>
+
+            @for (
+              item of report.weakAreas;
+              track item
+            ) {
+
+              <li>
+                {{ item }}
+              </li>
+
+            }
+
+          </ul>
+
+        </div>
+
+
+        <div>
+
+          <h3>
+            Practice plan
+          </h3>
+
+          <ul>
+
+            @for (
+              item of report.recommendations;
+              track item
+            ) {
+
+              <li>
+                {{ item }}
+              </li>
+
+            }
+
+          </ul>
+
+        </div>
+
+      </div>
+
+    }
+
+
+    <button
+      type="button"
+      class="xo-voice__start"
+      (click)="restart()"
+    >
+      Start another voice interview
+    </button>
+
+  }
+
+
+  @if (error()) {
+
+    <p class="xo-voice__error">
+      {{ error() }}
+    </p>
+
+  }
+
 </section>

@@ -1,7 +1,20 @@
-import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
+import {
+  Injectable,
+  inject,
+} from '@angular/core';
+
+import {
+  HttpClient,
+} from '@angular/common/http';
+
+import {
+  Observable,
+} from 'rxjs';
+
+import {
+  environment,
+} from '../../../environments/environment';
+
 import {
   MockInterviewSetup,
   MockStartResponse,
@@ -19,88 +32,151 @@ import {
   VoiceTranscriptEntry,
 } from './ai-prep.models';
 
-/**
- * AI Prep service — HTTP client for the Xora proxy.
- *
- * All calls go to the Node.js proxy (environment.aiProxyUrl), which
- * holds provider API keys and applies structured prompts. The Angular
- * frontend never sees the API key.
- *
- * The proxy is stateless — session context (transcript, question bank
- * subset) is passed from the frontend on each call. This keeps the
- * proxy horizontally scalable.
- */
-@Injectable({ providedIn: 'root' })
-export class AiPrepService {
-  private readonly http = inject(HttpClient);
-  private readonly baseUrl = environment.aiProxyUrl;
 
-  /** POST /api/ai/mock-interview/start */
-  startMockInterview(setup: MockInterviewSetup): Observable<MockStartResponse> {
+@Injectable({
+  providedIn: 'root',
+})
+export class AiPrepService {
+
+  private readonly http =
+    inject(HttpClient);
+
+
+  private readonly baseUrl =
+    environment.aiProxyUrl;
+
+
+  /* ============================================================
+     MOCK INTERVIEW
+     ============================================================ */
+
+  startMockInterview(
+    setup: MockInterviewSetup
+  ): Observable<MockStartResponse> {
+
     return this.http.post<MockStartResponse>(
       `${this.baseUrl}/api/ai/mock-interview/start`,
       setup,
     );
   }
 
-  /** POST /api/ai/mock-interview/answer */
-  submitMockAnswer(payload: {
-    sessionId: string;
-    currentQuestion: MockStartResponse['question'];
-    userAnswer: string;
-    questionNumber: number;
-    totalQuestions: number;
-    transcript: TranscriptEntry[];
-    source: MockInterviewSetup['source'];
-    questionBank?: string[];
-  }): Observable<MockAnswerResponse> {
+
+  submitMockAnswer(
+    payload: {
+      sessionId: string;
+
+      currentQuestion:
+        MockStartResponse['question'];
+
+      userAnswer: string;
+
+      questionNumber: number;
+
+      totalQuestions: number;
+
+      transcript:
+        TranscriptEntry[];
+
+      source:
+        MockInterviewSetup['source'];
+
+      questionBank?: string[];
+    }
+  ): Observable<MockAnswerResponse> {
+
     return this.http.post<MockAnswerResponse>(
       `${this.baseUrl}/api/ai/mock-interview/answer`,
       payload,
     );
   }
 
-  /** POST /api/ai/mock-interview/results */
-  getMockResults(payload: {
-    sessionId: string;
-    transcript: TranscriptEntry[];
-    role: string;
-    skills: string[];
-  }): Observable<MockResultsResponse> {
+
+  getMockResults(
+    payload: {
+      sessionId: string;
+
+      transcript:
+        TranscriptEntry[];
+
+      role: string;
+
+      skills: string[];
+    }
+  ): Observable<MockResultsResponse> {
+
     return this.http.post<MockResultsResponse>(
       `${this.baseUrl}/api/ai/mock-interview/results`,
       payload,
     );
   }
 
-  /** POST /api/ai/answer-coach/evaluate */
-  evaluateAnswer(req: AnswerCoachRequest): Observable<AnswerCoachResponse> {
+
+  /* ============================================================
+     ANSWER COACH
+     ============================================================ */
+
+  evaluateAnswer(
+    req: AnswerCoachRequest
+  ): Observable<AnswerCoachResponse> {
+
     return this.http.post<AnswerCoachResponse>(
       `${this.baseUrl}/api/ai/answer-coach/evaluate`,
       req,
     );
   }
 
-  /** POST /api/ai/question-generator */
-  generateQuestions(req: QuestionGeneratorRequest): Observable<QuestionGeneratorResponse> {
+
+  /* ============================================================
+     QUESTION GENERATOR
+     ============================================================ */
+
+  generateQuestions(
+    req: QuestionGeneratorRequest
+  ): Observable<QuestionGeneratorResponse> {
+
     return this.http.post<QuestionGeneratorResponse>(
       `${this.baseUrl}/api/ai/question-generator`,
       req,
     );
   }
 
-  /** POST /api/ai/voice/session — returns a short-lived Gemini Live token. */
-  createVoiceSession(setup: VoiceInterviewSetup): Observable<VoiceSessionResponse> {
-    return this.http.post<VoiceSessionResponse>(`${this.baseUrl}/api/ai/voice/session`, setup);
+
+  /* ============================================================
+     VOICE SESSION
+     ============================================================ */
+
+  createVoiceSession(
+    setup: VoiceInterviewSetup
+  ): Observable<VoiceSessionResponse> {
+
+    return this.http.post<VoiceSessionResponse>(
+      `${this.baseUrl}/api/ai/voice/session`,
+      setup,
+    );
   }
 
-  /** POST /api/ai/voice/results — evaluates the transcript after the call ends. */
-  getVoiceResults(payload: {
-    role: string;
-    skills: string[];
-    transcript: VoiceTranscriptEntry[];
-    speechStats: VoiceSpeechStats;
-  }): Observable<VoiceInterviewResults> {
-    return this.http.post<VoiceInterviewResults>(`${this.baseUrl}/api/ai/voice/results`, payload);
+
+  /* ============================================================
+     VOICE RESULTS
+     ============================================================ */
+
+  getVoiceResults(
+    payload: {
+      role: string;
+
+      skills: string[];
+
+      transcript:
+        VoiceTranscriptEntry[];
+
+      speechStats:
+        VoiceSpeechStats;
+    }
+  ): Observable<VoiceInterviewResults> {
+
+    return this.http.post<VoiceInterviewResults>(
+      `${this.baseUrl}/api/ai/voice/results`,
+      payload,
+    );
   }
 }
